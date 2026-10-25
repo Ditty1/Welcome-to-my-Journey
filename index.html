@@ -3,18 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Ditty Denny, Software & Data Engineer</title>
-<meta name="description" content="Walk through Ditty Denny’s journey: from Thrissur to Qatar to Scotland and back, building with software and data.">
+<title>Ditty Denny | Welcome to my Journey</title>
+<meta name="description" content="A cinematic walk through Ditty Denny’s journey: Kerala, Qatar, Scotland and Dubai, in code, data and FinTech.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Cinzel:wght@500;700;900&display=swap" rel="stylesheet">
 <style>
-@property --sky1{syntax:'<color>';inherits:true;initial-value:#7EC8F0}
+@property --sky1{syntax:'<color>';inherits:true;initial-value:#6FC0EE}
 @property --sky2{syntax:'<color>';inherits:true;initial-value:#FFE3B8}
 @property --ground{syntax:'<color>';inherits:true;initial-value:#5FA35A}
 :root{
-  --card:#FFFFFFF2; --ink:#1D2333; --muted:#596179; --line:#E2E5EE; --accent:#6A45D1; --accent-ink:#FFFFFF; --gold:#B7791F; --dim:transparent;
-  --ch:clamp(170px,30vh,270px); --feet:13vh;
+  --card:#FFFFFFF0; --ink:#1D2333; --muted:#596179; --line:#E2E5EE; --accent:#6A45D1; --accent-ink:#FFFFFF; --gold:#B7791F; --dim:transparent;
+  --ch:clamp(170px,30vh,270px); --feet:13vh; --gl:14vw;
+  --cine:"Cinzel",Georgia,"Times New Roman",serif;
   color-scheme:light;
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px);
@@ -22,58 +23,53 @@
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --card:#1B2131F2; --ink:#EEF1F8; --muted:#A7B0C6; --line:#30384C; --accent:#A68CFF; --accent-ink:#17121F; --gold:#E7B460; --dim:rgba(8,12,28,.28);
+    --card:#1B2131F0; --ink:#EEF1F8; --muted:#A7B0C6; --line:#30384C; --accent:#A68CFF; --accent-ink:#17121F; --gold:#E7B460; --dim:rgba(8,12,28,.26);
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --card:#1B2131F2; --ink:#EEF1F8; --muted:#A7B0C6; --line:#30384C; --accent:#A68CFF; --accent-ink:#17121F; --gold:#E7B460; --dim:rgba(8,12,28,.28);
+  --card:#1B2131F0; --ink:#EEF1F8; --muted:#A7B0C6; --line:#30384C; --accent:#A68CFF; --accent-ink:#17121F; --gold:#E7B460; --dim:rgba(8,12,28,.26);
   color-scheme:dark;
 }
 *,*::before,*::after{box-sizing:inherit}
 html,body{height:100%;margin:0}
-body{overflow:hidden;background:#7EC8F0;color:var(--ink);
-  font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
+body{overflow:hidden;background:#0B0E17;color:var(--ink);font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
 button{font:inherit;cursor:pointer}
 a{color:var(--accent);font-weight:600}
 :focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
 
-#stage{position:fixed;inset:0;overflow:hidden;
-  background:linear-gradient(to bottom,var(--sky1),var(--sky2));
+/* ---------- Stage ---------- */
+#stage{position:fixed;inset:0;overflow:hidden;background:linear-gradient(to bottom,var(--sky1),var(--sky2));
   transition:--sky1 1.6s ease,--sky2 1.6s ease,--ground 1.6s ease}
 #stage::after{content:"";position:absolute;inset:0;background:var(--dim);pointer-events:none;z-index:4}
 #sun{position:absolute;width:11vmin;height:11vmin;border-radius:50%;right:12vw;top:16vh;
-  background:radial-gradient(circle,#FFF6D8 0 45%,#FFD27A 46% 100%);box-shadow:0 0 60px 20px rgba(255,214,130,.45)}
-#clouds{position:absolute;inset:0 auto auto 0;width:400vw;height:45vh;transition:transform 1.6s cubic-bezier(.45,.05,.4,1)}
-.cloud{position:absolute;height:5vmin;background:#FFFFFFD9;border-radius:99px}
+  background:radial-gradient(circle,#FFF6D8 0 45%,#FFD27A 46% 100%);box-shadow:0 0 60px 20px rgba(255,214,130,.45);transition:opacity 1.2s}
+#clouds{position:absolute;inset:0 auto auto 0;height:45vh}
+.cloud{position:absolute;height:5vmin;background:#FFFFFFD0;border-radius:99px}
 .cloud::before,.cloud::after{content:"";position:absolute;background:inherit;border-radius:50%}
 .cloud::before{width:45%;aspect-ratio:1;left:14%;bottom:30%}
 .cloud::after{width:32%;aspect-ratio:1;left:50%;bottom:35%}
-
-#world{position:absolute;inset:0;display:flex;transition:transform 1.6s cubic-bezier(.45,.05,.4,1)}
-.panel{position:relative;height:100%;flex:none}
-.landmark{position:absolute;left:30%;bottom:calc(20vh - 2px);width:min(36vw,560px);z-index:1}
+#world{position:absolute;inset:0;display:flex}
+.panel{position:relative;height:100%;flex:none;width:100vw}
+.landmark{position:absolute;left:28%;bottom:calc(20vh - 2px);width:min(40vw,600px);z-index:1}
 .landmark svg{display:block;width:100%;height:auto;overflow:visible}
-
+.placetag{position:absolute;left:28%;bottom:calc(20vh + min(40vw,600px) * .67);z-index:1;
+  font-family:var(--cine);font-weight:700;letter-spacing:.18em;font-size:clamp(.7rem,1.1vw,.9rem);color:#FFFFFFE6;text-shadow:0 1px 8px rgba(0,0,0,.35)}
 #ground{position:absolute;left:0;right:0;bottom:0;height:20vh;background:var(--ground);z-index:2}
 #ground::before{content:"";position:absolute;left:0;right:0;top:0;height:10px;background:rgba(0,0,0,.08)}
-#path{position:absolute;left:0;right:0;bottom:calc(var(--feet) - 2.2vh);height:5vh;
-  background-color:rgba(255,240,215,.55);
+#path{position:absolute;left:0;right:0;bottom:calc(var(--feet) - 2.2vh);height:5vh;background-color:rgba(255,240,215,.5);
   background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.75) 0 40px,transparent 40px 90px);
-  background-size:90px 4px;background-repeat:repeat-x;background-position:0 50%;
-  transition:background-position 1.6s cubic-bezier(.45,.05,.4,1)}
+  background-size:90px 4px;background-repeat:repeat-x;background-position:0 50%}
+#fx{position:absolute;inset:0;z-index:3;pointer-events:none;width:100%;height:100%}
 
-/* Character */
-#girl{position:absolute;left:14vw;bottom:var(--feet);height:var(--ch);z-index:5;
-  transition:transform 1.8s cubic-bezier(.3,.1,.3,1)}
+/* ---------- Character ---------- */
+#girl{position:absolute;left:var(--gl);bottom:var(--feet);height:var(--ch);z-index:5}
 #girl .face{height:100%;transition:transform .25s}
 #girl.back .face{transform:scaleX(-1)}
 #girl svg{height:100%;width:auto;display:block;overflow:visible}
 .limb{transform-box:fill-box;transform-origin:50% 4%}
-.walking .legF{animation:legA .55s ease-in-out infinite alternate}
-.walking .legB{animation:legB .55s ease-in-out infinite alternate}
-.walking .armF{animation:legB .55s ease-in-out infinite alternate}
-.walking .armB{animation:legA .55s ease-in-out infinite alternate}
+.walking .legF,.walking .armB{animation:legA .55s ease-in-out infinite alternate}
+.walking .legB,.walking .armF{animation:legB .55s ease-in-out infinite alternate}
 .walking .bob{animation:bob .275s ease-in-out infinite alternate}
 @keyframes legA{from{transform:rotate(24deg)}to{transform:rotate(-24deg)}}
 @keyframes legB{from{transform:rotate(-24deg)}to{transform:rotate(24deg)}}
@@ -82,191 +78,330 @@ a{color:var(--accent);font-weight:600}
 @keyframes wave{0%{transform:rotate(-135deg)}100%{transform:rotate(-170deg)}}
 .eye{transform-box:fill-box;transform-origin:center;animation:blink 4.5s infinite}
 @keyframes blink{0%,94%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
-
-#bubble{position:absolute;left:calc(14vw + var(--ch) * .28);bottom:calc(var(--feet) + var(--ch) + 14px);
-  z-index:6;max-width:min(19rem,70vw);background:var(--card);color:var(--ink);
-  padding:.75rem 1rem;border-radius:18px 18px 18px 4px;font-weight:600;font-size:1.05rem;line-height:1.35;
-  box-shadow:0 10px 30px rgba(20,25,50,.18);opacity:0;transform:translateY(8px) scale(.96);transform-origin:0 100%;
-  transition:opacity .3s,transform .3s}
+#bubble{position:absolute;left:calc(var(--gl) + var(--ch) * .28);bottom:calc(var(--feet) + var(--ch) + 14px);z-index:6;
+  max-width:min(19rem,70vw);background:var(--card);color:var(--ink);padding:.75rem 1rem;border-radius:18px 18px 18px 4px;
+  font-weight:600;font-size:1.05rem;line-height:1.35;box-shadow:0 10px 30px rgba(20,25,50,.2);
+  opacity:0;transform:translateY(8px) scale(.96);transform-origin:0 100%;transition:opacity .3s,transform .3s}
 #bubble.show{opacity:1;transform:none}
 
-/* Info card */
-#card{position:absolute;z-index:7;right:5vw;top:calc(12vh + env(safe-area-inset-top,0px));width:min(30rem,40vw);max-height:56vh;overflow:auto;
-  background:var(--card);color:var(--ink);border-radius:22px;padding:1.6rem 1.7rem;
-  box-shadow:0 20px 60px rgba(20,25,50,.22);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-  opacity:0;transform:translateY(14px);transition:opacity .45s,transform .45s;pointer-events:none}
+/* ---------- Card ---------- */
+#card{position:absolute;z-index:7;right:5vw;top:calc(11vh + env(safe-area-inset-top,0px));width:min(31rem,40vw);max-height:66vh;overflow:auto;
+  background:var(--card);color:var(--ink);border-radius:22px;padding:1.6rem 1.7rem;box-shadow:0 24px 70px rgba(10,15,40,.3);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  opacity:0;transform:translateY(18px) scale(.98);transition:opacity .5s,transform .5s;pointer-events:none}
 #card.show{opacity:1;transform:none;pointer-events:auto}
-#card .when{color:var(--gold);font-weight:700;margin:0 0 .3rem}
-#card h2{font-size:clamp(1.5rem,2.6vw,2.15rem);line-height:1.08;letter-spacing:-.02em;margin:0 0 .3rem;font-weight:800}
+.chap{font-family:var(--cine);font-weight:700;letter-spacing:.2em;font-size:.78rem;color:var(--gold);margin:0 0 .5rem}
+#card .when{color:var(--muted);font-weight:600;margin:0 0 .2rem;font-size:.95rem}
+#card h2{font-size:clamp(1.5rem,2.5vw,2.1rem);line-height:1.08;letter-spacing:-.02em;margin:0 0 .3rem;font-weight:800}
 #card .where{color:var(--muted);margin:0 0 1rem;font-weight:600}
 #card p{margin:0 0 .8rem;line-height:1.55}
-#card ul.items{list-style:none;padding:0;margin:.2rem 0 .6rem}
-#card ul.items li{padding:.55rem 0;border-top:1px solid var(--line)}
-#card ul.items li:first-child{border-top:0}
-#card ul.items b{display:block}
-#card ul.items span{color:var(--muted);font-size:.95rem}
-.tags{display:flex;flex-wrap:wrap;gap:.4rem;list-style:none;padding:0;margin:.4rem 0 .8rem}
+#card h3{font-size:1rem;margin:1rem 0 .3rem}
+ul.points{margin:0 0 .8rem;padding:0;list-style:none}
+ul.points li{position:relative;padding:0 0 .55rem 1.2rem;line-height:1.5}
+ul.points li::before{content:"";position:absolute;left:0;top:.6em;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+ul.items{list-style:none;padding:0;margin:.2rem 0 .6rem}
+ul.items li{padding:.55rem 0;border-top:1px solid var(--line)}
+ul.items li:first-child{border-top:0}
+ul.items b{display:block}
+ul.items span{color:var(--muted);font-size:.95rem}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem;list-style:none;padding:0;margin:.3rem 0 .8rem}
 .tags li{font-size:.85rem;padding:.2rem .65rem;border-radius:99px;background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--ink)}
-.badges{display:grid;gap:.6rem;margin:.6rem 0}
-.badge{border-left:4px solid var(--gold);padding:.2rem 0 .2rem .8rem;font-weight:600}
-.big-name{font-size:clamp(2.2rem,4.4vw,3.4rem)!important}
-.hint{color:var(--muted);font-size:.95rem;margin-top:.4rem}
-.btnrow{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.6rem}
+.badges{display:grid;gap:.5rem;margin:.6rem 0 .9rem}
+.badge{border-left:4px solid var(--gold);padding:.15rem 0 .15rem .8rem;font-weight:600}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(6.5rem,1fr));gap:.8rem;margin:.4rem 0 1rem}
+.stats div{background:color-mix(in srgb,var(--accent) 9%,transparent);border-radius:14px;padding:.7rem .8rem}
+.stats b{display:block;font-size:1.9rem;line-height:1;font-weight:800;color:var(--accent)}
+.stats span{font-size:.85rem;color:var(--muted)}
+.photo{margin:0 0 1.1rem;background:#fff;padding:.5rem .5rem .4rem;border-radius:4px;box-shadow:0 8px 22px rgba(0,0,0,.18);transform:rotate(-1.2deg)}
+.photo img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:2px}
+.photo figcaption{color:#3A3F4E;font-size:.85rem;padding:.4rem .2rem 0;text-align:center}
+.big-name{font-family:var(--cine);font-weight:900;letter-spacing:.04em;font-size:clamp(2rem,3.8vw,3rem)!important}
+.hint{color:var(--muted);font-size:.92rem;margin-top:.4rem}
+.btnrow{display:flex;flex-wrap:wrap;gap:.6rem;margin:.6rem 0}
 .btnrow a{display:inline-block;text-decoration:none;padding:.6rem 1rem;border-radius:99px;border:2px solid var(--accent)}
 .btnrow a.primary{background:var(--accent);color:var(--accent-ink)}
 
-/* Progress */
+/* ---------- HUD ---------- */
 #progress{position:absolute;z-index:8;top:calc(1.2rem + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);
-  display:flex;gap:.35rem;list-style:none;margin:0;padding:.45rem .6rem;border-radius:99px;background:var(--card);
-  box-shadow:0 6px 20px rgba(20,25,50,.12);max-width:calc(100vw - 2rem)}
+  display:flex;gap:.35rem;list-style:none;margin:0;padding:.45rem .6rem;border-radius:99px;background:var(--card);box-shadow:0 6px 20px rgba(20,25,50,.14)}
 #progress button{width:12px;height:12px;border-radius:50%;border:0;padding:0;background:var(--line);transition:background .3s,width .3s}
 #progress button.on{background:var(--accent);width:28px;border-radius:99px}
 #progress button.done{background:color-mix(in srgb,var(--accent) 45%,var(--line))}
-
-/* Controls */
-#controls{position:absolute;z-index:8;right:5vw;bottom:calc(3.5vh + env(safe-area-inset-bottom,0px));display:flex;gap:.6rem;align-items:center}
-#controls button{border:0;border-radius:99px;font-weight:700;box-shadow:0 8px 24px rgba(20,25,50,.2)}
+#controls{position:absolute;z-index:8;right:5vw;bottom:calc(3.5vh + env(safe-area-inset-bottom,0px));display:flex;gap:.6rem}
+#controls button{border:0;border-radius:99px;font-weight:700;box-shadow:0 8px 24px rgba(20,25,50,.22)}
 #prev{width:3.2rem;height:3.2rem;background:var(--card);color:var(--ink);font-size:1.3rem}
 #next{height:3.2rem;padding:0 1.5rem;background:var(--accent);color:var(--accent-ink);font-size:1.05rem}
 #controls button:disabled{opacity:.4;cursor:default}
+body.intro #progress,body.intro #controls,body.intro #card,body.intro #bubble{visibility:hidden}
 
-.blinky{animation:led 1.2s steps(1) infinite}
-.blinky.d2{animation-delay:.4s}.blinky.d3{animation-delay:.8s}
+/* ---------- Letterbox ---------- */
+.bar{position:fixed;left:0;right:0;height:0;background:#000;z-index:40;transition:height .7s cubic-bezier(.6,0,.3,1)}
+.bar.t{top:0}.bar.b{bottom:0}
+body.cinema .bar{height:9vh}
+
+/* ---------- Intro trailer ---------- */
+#intro{position:fixed;inset:0;z-index:30;background:radial-gradient(ellipse at center,#1A1F33 0%,#07090F 70%);color:#F4EFE4;
+  display:grid;place-items:center;text-align:center;transition:opacity 1s}
+#intro.gone{opacity:0;pointer-events:none}
+#intro .tl{position:absolute;left:8vw;right:8vw;top:50%;transform:translateY(-50%) scale(.98);margin:0;
+  font-family:var(--cine);font-weight:500;font-size:clamp(1.25rem,3.2vw,2.4rem);letter-spacing:.06em;line-height:1.35;
+  opacity:0;filter:blur(6px);transition:opacity .9s,filter .9s,transform 2.6s ease-out}
+#intro .tl.show{opacity:1;filter:blur(0);transform:translateY(-50%) scale(1.03)}
+#title{opacity:0;transition:opacity 1.4s}
+#title.show{opacity:1}
+#title .pre{font-family:var(--cine);letter-spacing:.35em;font-size:clamp(.75rem,1.4vw,1rem);color:#E7B460;margin:0 0 1rem}
+#title h1{font-family:var(--cine);font-weight:900;font-size:clamp(2.8rem,10vw,7.5rem);letter-spacing:.08em;margin:0;line-height:1;
+  background:linear-gradient(180deg,#FFF6DD 0%,#E7B460 60%,#A8762A 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#title .sub{margin:1.1rem 0 2.2rem;font-size:clamp(1rem,1.8vw,1.25rem);color:#C9CBD6}
+#begin{border:2px solid #E7B460;background:transparent;color:#F4EFE4;border-radius:99px;padding:.9rem 1.8rem;font-size:1.05rem;font-weight:700;letter-spacing:.04em}
+#begin:hover{background:#E7B460;color:#0B0E17}
+#skip{position:absolute;right:1.2rem;bottom:calc(10vh + 1rem + env(safe-area-inset-bottom,0px));z-index:2;background:transparent;border:1px solid #ffffff44;color:#C9CBD6;border-radius:99px;padding:.5rem 1rem}
+
+/* ---------- Flight transition ---------- */
+#flight{position:fixed;inset:0;z-index:25;opacity:0;pointer-events:none;transition:opacity .6s;
+  background:radial-gradient(1.5px 1.5px at 12% 20%,#fff9,transparent),radial-gradient(1px 1px at 30% 70%,#fff8,transparent),
+  radial-gradient(1.5px 1.5px at 55% 15%,#fffa,transparent),radial-gradient(1px 1px at 78% 40%,#fff8,transparent),
+  radial-gradient(1.5px 1.5px at 90% 80%,#fff9,transparent),radial-gradient(1px 1px at 45% 55%,#fff7,transparent),
+  radial-gradient(ellipse at 50% 120%,#24305A 0%,#0A0E1C 65%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;color:#F4EFE4;text-align:center}
+#flight.show{opacity:1}
+#flight .fch{font-family:var(--cine);letter-spacing:.3em;color:#E7B460;font-weight:700;margin:0 0 .6rem;font-size:clamp(.8rem,1.4vw,1rem)}
+#flight h2{font-family:var(--cine);font-weight:900;font-size:clamp(2rem,6vw,4.4rem);letter-spacing:.06em;margin:0}
+#flight .fyear{color:#C9CBD6;margin:.5rem 0 0;font-size:clamp(.95rem,1.5vw,1.15rem)}
+#flight svg{width:min(92vw,1000px);height:auto;margin-top:2vh}
+#flight text{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:20px;fill:#DDE2F0;font-weight:600}
+.pulse{animation:pulse 1.2s ease-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes pulse{0%{transform:scale(1);opacity:1}100%{transform:scale(2.4);opacity:0}}
+
+/* ---------- Scenery motion ---------- */
+.blinky{animation:led 1.2s steps(1) infinite}.blinky.d2{animation-delay:.4s}.blinky.d3{animation-delay:.8s}
 @keyframes led{50%{opacity:.25}}
+.drawline{stroke-dasharray:600;stroke-dashoffset:600;animation:draw 3s ease-out .4s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.sway{transform-box:fill-box;transform-origin:50% 100%;animation:sway 3.5s ease-in-out infinite alternate}
+@keyframes sway{from{transform:rotate(-2deg)}to{transform:rotate(2deg)}}
+.bobboat{animation:boat 3s ease-in-out infinite alternate}
+@keyframes boat{from{transform:translateY(0)}to{transform:translateY(3px)}}
 
 @media (max-width:760px){
-  :root{--ch:clamp(130px,22vh,180px);--feet:11vh}
-  #girl{left:6vw}
-  #bubble{left:calc(6vw + var(--ch) * .3);font-size:.95rem}
-  #card{left:.9rem;right:.9rem;width:auto;top:calc(3.6rem + env(safe-area-inset-top,0px));max-height:44vh;padding:1.2rem 1.25rem;border-radius:18px}
-  .landmark{left:38%;width:62vw}
+  :root{--ch:clamp(130px,22vh,180px);--feet:11vh;--gl:6vw}
+  #bubble{font-size:.95rem}
+  #card{left:.9rem;right:.9rem;width:auto;top:calc(3.6rem + env(safe-area-inset-top,0px));max-height:46vh;padding:1.2rem 1.25rem;border-radius:18px}
+  .landmark{left:36%;width:66vw}
+  .placetag{display:none}
   #controls{right:.9rem;bottom:calc(2.5vh + env(safe-area-inset-bottom,0px))}
   #sun{right:8vw;top:auto;bottom:52vh}
+  body.cinema .bar{height:6vh}
 }
 @media (prefers-reduced-motion:reduce){
-  #world,#clouds,#path,#girl,#stage{transition:none!important}
-  .walking *,.waving *,.eye,.blinky{animation:none!important}
+  #stage,#intro .tl{transition:none!important}
+  .walking *,.waving *,.eye,.blinky,.sway,.bobboat,.pulse{animation:none!important}
+  .drawline{animation:none;stroke-dashoffset:0}
 }
 </style>
 </head>
-<body>
-<div id="stage" aria-live="polite">
+<body class="intro cinema">
+<div class="bar t"></div><div class="bar b"></div>
+
+<div id="stage">
   <div id="sun"></div>
   <div id="clouds" aria-hidden="true"></div>
   <div id="world" aria-hidden="true"></div>
   <div id="ground" aria-hidden="true"><div id="path"></div></div>
+  <canvas id="fx" aria-hidden="true"></canvas>
 
-  <div id="girl" aria-hidden="true">
-    <div class="face">
-      <svg viewBox="0 0 120 212" xmlns="http://www.w3.org/2000/svg">
-        <g class="bob">
-          <path d="M45 30 C 24 42, 22 82, 32 116 C 36 98, 40 70, 52 48 Z" fill="#1B1210"/>
-          <g class="limb armB"><rect x="55" y="72" width="10" height="30" rx="5" fill="#5A39B0"/><rect x="56" y="96" width="8" height="28" rx="4" fill="#8E5734"/><circle cx="60" cy="126" r="5" fill="#8E5734"/></g>
-          <g class="limb legB"><rect x="54" y="132" width="12" height="68" rx="5" fill="#1C2338"/><path d="M53 196 h18 a6 6 0 0 1 0 11 h-18 z" fill="#3A2A22"/></g>
-          <g class="limb legF"><rect x="54" y="132" width="12" height="68" rx="5" fill="#26304A"/><path d="M53 196 h18 a6 6 0 0 1 0 11 h-18 z" fill="#4A372C"/></g>
-          <rect x="55" y="56" width="10" height="14" fill="#A0663F"/>
-          <path d="M46 69 Q60 63 74 69 L81 140 Q60 147 39 140 Z" fill="#7B4FD6"/>
-          <path d="M47 70 L54 68 L60 79 L66 68 L73 70" fill="none" stroke="#F3C969" stroke-width="2.5" stroke-linejoin="round"/>
-          <path d="M41 130 Q60 136 79 130" stroke="#F3C969" stroke-width="3" fill="none"/>
-          <circle cx="60" cy="36" r="21" fill="#A0663F"/>
-          <path d="M38 40 C 35 17, 52 11, 62 13 C 77 13, 85 25, 81 37 C 74 27, 64 23, 52 27 C 46 30, 42 35, 38 40 Z" fill="#1B1210"/>
-          <path d="M39 36 C 37 48, 41 55, 47 58 L 50 34 Z" fill="#1B1210"/>
-          <circle cx="45" cy="31" r="3" fill="#F3C969"/>
-          <circle cx="51" cy="40" r="3.4" fill="#8E5734"/>
-          <circle cx="51" cy="45" r="1.6" fill="#F3C969"/>
-          <path d="M66 29 q4 -2 8 0" stroke="#1B1210" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-          <ellipse class="eye" cx="70" cy="35" rx="2.2" ry="2.8" fill="#1B1210"/>
-          <circle cx="74" cy="42" r="3" fill="#E58A7A" opacity=".45"/>
-          <path d="M67 45 q5 4 10 -1" stroke="#5A2E1C" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-          <g class="limb armF"><rect x="55" y="72" width="10" height="30" rx="5" fill="#8B61E3"/><rect x="56" y="96" width="8" height="28" rx="4" fill="#A0663F"/><circle cx="60" cy="126" r="5" fill="#A0663F"/></g>
-        </g>
-      </svg>
-    </div>
-  </div>
-  <div id="bubble"></div>
-
-  <article id="card" tabindex="-1"></article>
-
-  <ol id="progress" aria-label="Journey stops"></ol>
+  <div id="girl" aria-hidden="true"><div class="face">
+    <svg viewBox="0 0 120 212" xmlns="http://www.w3.org/2000/svg"><g class="bob">
+      <path d="M45 30 C 24 42, 22 82, 32 116 C 36 98, 40 70, 52 48 Z" fill="#1B1210"/>
+      <g class="limb armB"><rect x="55" y="72" width="10" height="30" rx="5" fill="#5A39B0"/><rect x="56" y="96" width="8" height="28" rx="4" fill="#8E5734"/><circle cx="60" cy="126" r="5" fill="#8E5734"/></g>
+      <g class="limb legB"><rect x="54" y="132" width="12" height="68" rx="5" fill="#1C2338"/><path d="M53 196 h18 a6 6 0 0 1 0 11 h-18 z" fill="#3A2A22"/></g>
+      <g class="limb legF"><rect x="54" y="132" width="12" height="68" rx="5" fill="#26304A"/><path d="M53 196 h18 a6 6 0 0 1 0 11 h-18 z" fill="#4A372C"/></g>
+      <rect x="55" y="56" width="10" height="14" fill="#A0663F"/>
+      <path d="M46 69 Q60 63 74 69 L81 140 Q60 147 39 140 Z" fill="#7B4FD6"/>
+      <path d="M47 70 L54 68 L60 79 L66 68 L73 70" fill="none" stroke="#F3C969" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M41 130 Q60 136 79 130" stroke="#F3C969" stroke-width="3" fill="none"/>
+      <circle cx="60" cy="36" r="21" fill="#A0663F"/>
+      <path d="M38 40 C 35 17, 52 11, 62 13 C 77 13, 85 25, 81 37 C 74 27, 64 23, 52 27 C 46 30, 42 35, 38 40 Z" fill="#1B1210"/>
+      <path d="M39 36 C 37 48, 41 55, 47 58 L 50 34 Z" fill="#1B1210"/>
+      <circle cx="45" cy="31" r="3" fill="#F3C969"/><circle cx="51" cy="40" r="3.4" fill="#8E5734"/><circle cx="51" cy="45" r="1.6" fill="#F3C969"/>
+      <path d="M66 29 q4 -2 8 0" stroke="#1B1210" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <ellipse class="eye" cx="70" cy="35" rx="2.2" ry="2.8" fill="#1B1210"/>
+      <circle cx="74" cy="42" r="3" fill="#E58A7A" opacity=".45"/>
+      <path d="M67 45 q5 4 10 -1" stroke="#5A2E1C" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <g class="limb armF"><rect x="55" y="72" width="10" height="30" rx="5" fill="#8B61E3"/><rect x="56" y="96" width="8" height="28" rx="4" fill="#A0663F"/><circle cx="60" cy="126" r="5" fill="#A0663F"/></g>
+    </g></svg>
+  </div></div>
+  <div id="bubble" aria-live="polite"></div>
+  <article id="card" tabindex="-1" aria-live="polite"></article>
+  <ol id="progress" aria-label="Chapters"></ol>
   <div id="controls">
-    <button id="prev" aria-label="Previous stop">‹</button>
+    <button id="prev" aria-label="Previous chapter">‹</button>
     <button id="next">Walk with me</button>
   </div>
 </div>
 
+<div id="flight" aria-hidden="true">
+  <p class="fch" id="fch"></p>
+  <h2 id="fplace"></h2>
+  <p class="fyear" id="fyear"></p>
+  <svg viewBox="0 0 1000 400" xmlns="http://www.w3.org/2000/svg">
+    <path id="arcBase" d="M140 330 Q500 10 860 330" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="3" stroke-dasharray="6 12"/>
+    <path id="arcTrail" d="M140 330 Q500 10 860 330" fill="none" stroke="#E7B460" stroke-width="3.5" stroke-linecap="round"/>
+    <circle cx="140" cy="330" r="8" fill="#E7B460"/>
+    <circle cx="860" cy="330" r="8" fill="#E7B460"/><circle class="pulse" cx="860" cy="330" r="8" fill="none" stroke="#E7B460" stroke-width="2"/>
+    <text id="fromT" x="140" y="375" text-anchor="middle"></text>
+    <text id="toT" x="860" y="375" text-anchor="middle"></text>
+    <g id="plane"><g transform="scale(1.5)" fill="#FFFFFF">
+      <path d="M-20 -2.5 L14 -3 Q22 0 14 3 L-20 2.5 Z"/>
+      <path d="M2 -2 L-8 -18 L-3 -18 L10 -2 Z"/><path d="M2 2 L-8 18 L-3 18 L10 2 Z"/>
+      <path d="M-16 -2 L-22 -9 L-19 -9 L-12 -2 Z"/><path d="M-16 2 L-22 9 L-19 9 L-12 2 Z"/>
+    </g></g>
+  </svg>
+</div>
+
+<div id="intro">
+  <p class="tl">Every journey begins with a single step.</p>
+  <p class="tl">From the backwaters of Kerala…</p>
+  <p class="tl">…to the deserts of Qatar…</p>
+  <p class="tl">…to the highlands of Scotland…</p>
+  <p class="tl">…and into the world of FinTech.</p>
+  <div id="title">
+    <p class="pre">A JOURNEY IN CODE AND DATA</p>
+    <h1>DITTY DENNY</h1>
+    <p class="sub">Software engineer. Data scientist. Problem solver.</p>
+    <button id="begin">▶&nbsp; Begin the journey</button>
+  </div>
+  <button id="skip">Skip intro</button>
+</div>
+
 <script>
-/* ---------- Scenery pieces ---------- */
-const palm = (x, s = 1, f = 1) => `<g transform="translate(${x} 260) scale(${s * f} ${s})">
+/* ================= Scenery (hand-drawn landmarks) ================= */
+const svg = inner => `<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">${inner}</svg>`;
+const palm = (x, s = 1, f = 1) => `<g transform="translate(${x} 260) scale(${s * f} ${s})"><g class="sway">
   <path d="M0 0 C 4 -40, -6 -90, 10 -140" stroke="#7A5230" stroke-width="9" fill="none" stroke-linecap="round"/>
   <g transform="translate(10 -140)" fill="#2E8B57">
     <path d="M0 0 C 20 -20, 50 -15, 72 6 C 45 -5, 20 -5, 0 0Z"/><path d="M0 0 C -20 -20, -50 -15, -72 6 C -45 -5, -20 -5, 0 0Z"/>
     <path d="M0 0 C 10 -25, 35 -40, 62 -34 C 35 -30, 15 -15, 0 0Z" fill="#3BA16A"/><path d="M0 0 C -10 -25, -35 -40, -62 -34 C -35 -30, -15 -15, 0 0Z" fill="#3BA16A"/>
     <path d="M0 0 C 6 -20, 5 -42, 0 -56 C -5 -42, -6 -20, 0 0Z"/>
-    <circle cx="-4" cy="6" r="5" fill="#5B3A1E"/><circle cx="5" cy="7" r="5" fill="#5B3A1E"/></g></g>`;
-const svg = inner => `<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">${inner}</svg>`;
+    <circle cx="-4" cy="6" r="5" fill="#5B3A1E"/><circle cx="5" cy="7" r="5" fill="#5B3A1E"/></g></g></g>`;
+const elephant = (x, s, umb) => `<g transform="translate(${x} 260) scale(${s})">
+  <path d="M-50 -62 Q -60 -40 -56 -28" stroke="#4E4A4D" stroke-width="3" fill="none"/>
+  ${[-40,-18,10,30].map(lx => `<rect x="${lx}" y="-50" width="15" height="50" rx="4" fill="#57535A"/>`).join("")}
+  <ellipse cx="-2" cy="-64" rx="52" ry="34" fill="#625E66"/>
+  <path d="M-34 -94 L 28 -96 L 34 -48 L -40 -48 Z" fill="#B8323A"/><path d="M-40 -52 L 34 -52" stroke="#E4B43A" stroke-width="5"/>
+  ${[-30,-15,0,15,28].map(cx => `<circle cx="${cx}" cy="-45" r="3" fill="#E4B43A"/>`).join("")}
+  <circle cx="50" cy="-78" r="25" fill="#625E66"/>
+  <ellipse cx="38" cy="-74" rx="13" ry="19" fill="#524E56"/>
+  <path d="M66 -68 C 80 -52, 78 -28, 72 -8 L 63 -8 C 67 -28, 67 -46, 56 -58 Z" fill="#625E66"/>
+  <path d="M62 -60 q 10 6 17 1" stroke="#F4EEDC" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M46 -104 L70 -98 L66 -66 L58 -52 L50 -66 Z" fill="#E4B43A" stroke="#B8861C" stroke-width="1.5"/>
+  ${[-96,-86,-76,-66].map(cy => `<circle cx="59" cy="${cy}" r="2.4" fill="#B8861C"/>`).join("")}
+  <circle cx="60" cy="-84" r="2" fill="#1B1B1B"/>
+  <path d="M0 -96 V-150" stroke="#6B4423" stroke-width="3"/>
+  <path d="M-30 -146 A30 26 0 0 1 30 -146 Z" fill="${umb}"/>
+  <path d="M-30 -146 H30" stroke="#E4B43A" stroke-width="4"/>
+  ${[-26,-13,0,13,26].map(tx => `<path d="M${tx} -146 v8" stroke="#E4B43A" stroke-width="2"/><circle cx="${tx}" cy="-136" r="2" fill="#E4B43A"/>`).join("")}
+  <circle cx="0" cy="-174" r="3.5" fill="#E4B43A"/></g>`;
 
 const LAND = {
-  kerala: svg(`<rect x="-140" y="228" width="680" height="32" rx="16" fill="#3E8EB5" opacity=".85"/>
+  backwaters: svg(`<rect x="-140" y="228" width="680" height="32" rx="16" fill="#3E8EB5" opacity=".85"/>
     <path d="M-120 236 h640" stroke="#BFE3F2" stroke-width="2" stroke-dasharray="18 26"/>
-    <g transform="translate(150 196)"><path d="M0 30 Q 70 46 150 30 L 140 40 Q 70 52 10 40 Z" fill="#6B3F20"/>
-    <path d="M14 30 Q 18 4 40 2 L 110 2 Q 134 4 138 30 Z" fill="#D9B25F"/><path d="M30 30 V 12 M60 30 V 8 M90 30 V 8 M120 30 V 12" stroke="#8C6A2C" stroke-width="3"/></g>
+    <g class="bobboat"><g transform="translate(150 196)"><path d="M0 30 Q 70 46 150 30 L 140 40 Q 70 52 10 40 Z" fill="#6B3F20"/>
+    <path d="M14 30 Q 18 4 40 2 L 110 2 Q 134 4 138 30 Z" fill="#D9B25F"/><path d="M30 30 V 12 M60 30 V 8 M90 30 V 8 M120 30 V 12" stroke="#8C6A2C" stroke-width="3"/></g></g>
     ${palm(60, 1.05)}${palm(110, .8, -1)}${palm(340, 1.15, -1)}`),
+  thrissur: svg(`<g transform="translate(150 260)">
+      <rect x="-120" y="-62" width="240" height="62" fill="#F1E8D6"/><rect x="-14" y="-40" width="28" height="40" fill="#6B3A22"/>
+      <path d="M-140 -60 L -100 -104 L 100 -104 L 140 -60 Z" fill="#7E3A28"/>
+      ${[-120,-90,-60,-30,0,30,60,90].map(rx => `<path d="M${rx + 8} -64 L ${rx + 20} -100" stroke="#6A2E1F" stroke-width="2"/>`).join("")}
+      <rect x="-74" y="-130" width="148" height="28" fill="#F1E8D6"/>
+      <path d="M-96 -128 L -58 -168 L 58 -168 L 96 -128 Z" fill="#8E4430"/>
+      <path d="M0 -168 v-10" stroke="#E4B43A" stroke-width="4"/><circle cx="0" cy="-182" r="5" fill="#E4B43A"/>
+    </g>
+    <g transform="translate(36 260)"><rect x="-4" y="-120" width="8" height="120" fill="#B38A4A"/>${[0,1,2,3,4,5].map(i => `<rect x="${-14 + i}" y="${-110 + i * 18}" width="${28 - i * 2}" height="4" fill="#C9A35B"/>`).join("")}<circle cx="0" cy="-124" r="5" fill="#F3C969"/></g>
+    ${elephant(280, .62, "#D23C5A")}${elephant(340, .62, "#2E7DD7")}${elephant(220, .62, "#E58A2A")}`),
   college: svg(`<rect x="70" y="120" width="260" height="140" fill="#F3E8D2"/>
     <path d="M55 124 L200 62 L345 124 Z" fill="#B24A33"/><rect x="55" y="122" width="290" height="8" fill="#8F3A27"/>
     <circle cx="200" cy="100" r="13" fill="#FFF8E8" stroke="#8F3A27" stroke-width="3"/><path d="M200 100 V92 M200 100 h6" stroke="#8F3A27" stroke-width="2.5" stroke-linecap="round"/>
     ${[95,140,245,290].map(x => `<path d="M${x} 230 V160 a14 14 0 0 1 28 0 V230 Z" fill="#6E8FB5"/>`).join("")}
-    <path d="M180 260 V190 a20 20 0 0 1 40 0 V260 Z" fill="#7A4A2A"/>
-    <rect x="60" y="250" width="280" height="10" fill="#D8CBB0"/>${palm(30, .8)}${palm(372, .85, -1)}`),
-  firsts: svg(`<rect x="40" y="110" width="110" height="150" fill="#E7ECF5"/><rect x="160" y="70" width="90" height="190" fill="#CFD8EA"/>
-    ${[0,1,2,3].map(r => [0,1,2].map(c => `<rect x="${55 + c * 32}" y="${125 + r * 32}" width="18" height="20" fill="#7AA5D8"/>`).join("")).join("")}
-    ${[0,1,2,3,4].map(r => [0,1].map(c => `<rect x="${175 + c * 36}" y="${85 + r * 34}" width="22" height="22" fill="#7AA5D8"/>`).join("")).join("")}
-    <rect x="270" y="90" width="110" height="78" rx="6" fill="#FFFFFF" stroke="#3B4A6B" stroke-width="4"/>
-    <polyline points="282,152 305,138 325,144 345,118 366,104" fill="none" stroke="#6A45D1" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-    <rect x="320" y="168" width="8" height="92" fill="#3B4A6B"/>${palm(20, .7)}`),
+    <path d="M180 260 V190 a20 20 0 0 1 40 0 V260 Z" fill="#7A4A2A"/><rect x="60" y="250" width="280" height="10" fill="#D8CBB0"/>${palm(30, .8)}${palm(372, .85, -1)}`),
+  fishingnets: svg(`<rect x="-140" y="226" width="680" height="34" rx="16" fill="#3C86AE"/>
+    ${[[30,1],[190,1.15]].map(([x, s]) => `<g transform="translate(${x} 228) scale(${s})">
+      <path d="M0 0 L 60 -130 M24 0 L 60 -130" stroke="#6B4A2B" stroke-width="5" stroke-linecap="round"/>
+      <path d="M60 -130 L 160 -60" stroke="#6B4A2B" stroke-width="4"/>
+      <path d="M60 -130 L 115 -30 M60 -130 L 200 -30 M160 -60 L 115 -30 M160 -60 L 200 -30" stroke="#5A4632" stroke-width="1.4"/>
+      <path d="M112 -30 Q 157 20 203 -30 Z" fill="#E8DCC0" fill-opacity=".35" stroke="#5A4632" stroke-width="1.5"/>
+      ${[0,1,2,3,4,5].map(i => `<path d="M${120 + i * 14} -30 Q ${126 + i * 12} ${-6 + Math.abs(2.5 - i) * 4} ${132 + i * 12} ${-24 + Math.abs(2.5 - i) * 2}" stroke="#5A4632" stroke-width=".8" fill="none"/>`).join("")}
+      <path d="M40 -86 V-50 M30 -64 V-40" stroke="#5A4632" stroke-width="1.2"/><circle cx="40" cy="-46" r="6" fill="#8A8D96"/><circle cx="30" cy="-36" r="5" fill="#8A8D96"/>
+      <rect x="-6" y="-6" width="40" height="8" fill="#6B4A2B"/></g>`).join("")}
+    ${palm(375, 1, -1)}`),
   dataeng: svg(`<rect x="60" y="100" width="90" height="160" rx="6" fill="#2D3550"/>
     ${[0,1,2,3,4,5].map(i => `<rect x="70" y="${112 + i * 24}" width="70" height="16" rx="3" fill="#3E4868"/><circle class="blinky ${i % 3 === 1 ? 'd2' : i % 3 === 2 ? 'd3' : ''}" cx="130" cy="${120 + i * 24}" r="3" fill="#5BE3A1"/>`).join("")}
-    <g fill="#6A45D1">${[0,1,2].map(i => `<ellipse cx="240" cy="${236 - i * 38}" rx="50" ry="14" fill="#8B6CF0"/><rect x="190" y="${200 - i * 38}" width="100" height="36" fill="#6A45D1"/>`).join("")}
-    <ellipse cx="240" cy="124" rx="50" ry="14" fill="#A994FF"/></g>
-    <path d="M150 150 C 170 150, 170 180, 190 180" stroke="#F3C969" stroke-width="4" fill="none" stroke-dasharray="8 6"/>
-    <rect x="310" y="150" width="70" height="110" rx="6" fill="#2D3550"/>${[0,1,2,3].map(i => `<rect x="318" y="${160 + i * 24}" width="54" height="14" rx="3" fill="#3E4868"/>`).join("")}`),
-  qatar: svg(`<path d="M-200 260 C -100 230, 40 210, 110 225 C 140 232, 160 240, 170 245 C 230 220, 320 205, 440 236 C 500 248, 560 252, 620 260 Z" fill="#E9C48C"/>
-    <rect x="140" y="80" width="30" height="170" fill="#5D7FA8"/><path d="M190 250 V60 Q 215 30 240 60 V250 Z" fill="#3E6290"/>
-    <rect x="255" y="120" width="34" height="130" fill="#6D8FB8"/><path d="M300 250 V100 L 320 70 L 340 100 V250 Z" fill="#4C6E9C"/>
-    <rect x="100" y="150" width="30" height="100" fill="#7D9DC4"/><rect x="350" y="160" width="26" height="90" fill="#7D9DC4"/>
-    ${[0,1,2,3,4,5,6].map(i => `<rect x="${198 + (i % 2) * 18}" y="${80 + Math.floor(i / 2) * 36}" width="10" height="18" fill="#BFD7F2"/>`).join("")}
-    <path d="M-200 260 C 60 238, 140 250, 210 258 L 620 258 V 260 Z" fill="#D9AF72"/>${palm(40, .75)}`),
+    ${[0,1,2].map(i => `<ellipse cx="240" cy="${236 - i * 38}" rx="50" ry="14" fill="#8B6CF0"/><rect x="190" y="${200 - i * 38}" width="100" height="36" fill="#6A45D1"/>`).join("")}
+    <ellipse cx="240" cy="124" rx="50" ry="14" fill="#A994FF"/>
+    <path class="drawline" d="M150 150 C 170 150, 170 180, 190 180" stroke="#F3C969" stroke-width="4" fill="none"/>
+    <rect x="310" y="150" width="70" height="110" rx="6" fill="#2D3550"/>${[0,1,2,3].map(i => `<rect x="318" y="${160 + i * 24}" width="54" height="14" rx="3" fill="#3E4868"/>`).join("")}
+    ${palm(20, .7)}`),
+  doha: svg(`<rect x="-140" y="236" width="680" height="24" rx="12" fill="#3F8FB8"/>
+    <g transform="translate(300 236)"><path d="M-24 0 V-170 Q 0 -240 24 -170 V0 Z" fill="#4A6A9A"/>
+      ${[0,1,2,3,4,5,6,7].map(i => `<path d="M-20 ${-20 - i * 20} H20" stroke="#8FB0D8" stroke-width="1.5"/>`).join("")}
+      <path d="M0 -222 V-238" stroke="#4A6A9A" stroke-width="3"/></g>
+    <rect x="340" y="120" width="34" height="116" fill="#6D8FB8"/><rect x="250" y="150" width="26" height="86" fill="#7D9DC4"/>
+    <g transform="translate(130 236)">
+      <rect x="-110" y="-38" width="220" height="38" fill="#E5D7BC"/><rect x="0" y="-38" width="110" height="38" fill="#000" opacity=".07"/>
+      <rect x="-72" y="-96" width="144" height="58" fill="#EDE2CB"/><rect x="0" y="-96" width="72" height="58" fill="#000" opacity=".07"/>
+      <path d="M-42 -96 L -42 -142 L -22 -162 L 22 -162 L 42 -142 L 42 -96 Z" fill="#F5ECD8"/>
+      <path d="M0 -162 L 22 -162 L 42 -142 L 42 -96 L 0 -96 Z" fill="#000" opacity=".07"/>
+      <rect x="-10" y="-176" width="20" height="14" fill="#F5ECD8"/>
+      <path d="M-8 -112 V-130 a8 8 0 0 1 16 0 V-112 Z" fill="#3E5C7A"/></g>
+    <g class="bobboat"><g transform="translate(250 236)"><path d="M-40 -6 Q 0 10 44 -10 L 36 2 Q 0 14 -34 2 Z" fill="#7A4A26"/>
+      <path d="M0 -6 V-60" stroke="#5A3A1E" stroke-width="2.5"/><path d="M2 -58 Q 30 -30 34 -10 L 2 -10 Z" fill="#F4EDE0"/></g></g>`),
   stirling: svg(`<path d="M-220 260 C -100 220, 40 170, 100 165 C 160 165, 200 200, 220 230 C 280 180, 360 170, 440 210 C 520 240, 580 250, 640 260 Z" fill="#3F7D48"/>
     <path d="M-220 260 C 60 220, 160 225, 260 255 C 320 235, 380 230, 440 240 C 520 250, 580 255, 640 260 Z" fill="#4E9258"/>
-    <g transform="translate(85 90)"><rect x="0" y="20" width="26" height="100" fill="#7B7E87"/><path d="M-4 22 L13 -12 L30 22 Z" fill="#646770"/>
-    <path d="M13 -12 V-30" stroke="#646770" stroke-width="3"/><rect x="9" y="40" width="8" height="14" rx="4" fill="#4A4D55"/><rect x="9" y="70" width="8" height="14" rx="4" fill="#4A4D55"/></g>
+    <g transform="translate(88 70)"><rect x="-4" y="88" width="34" height="12" fill="#6F727B"/><rect x="0" y="20" width="26" height="72" fill="#7B7E87"/>
+      <rect x="20" y="20" width="6" height="72" fill="#000" opacity=".1"/>
+      <path d="M-2 22 L 2 4 L 6 14 L 10 -2 L 13 -22 L 16 -2 L 20 14 L 24 4 L 28 22 Z" fill="#646770"/>
+      <rect x="9" y="38" width="8" height="14" rx="4" fill="#4A4D55"/><rect x="9" y="62" width="8" height="14" rx="4" fill="#4A4D55"/></g>
     <g transform="translate(270 150)"><rect x="0" y="20" width="90" height="50" fill="#9A9DA6"/>
-    ${[0,1,2,3,4,5].map(i => `<rect x="${i * 16}" y="10" width="10" height="12" fill="#9A9DA6"/>`).join("")}
-    <rect x="-10" y="0" width="24" height="70" fill="#8A8D96"/><rect x="78" y="0" width="24" height="70" fill="#8A8D96"/>
-    <path d="M36 70 V50 a9 9 0 0 1 18 0 V70 Z" fill="#4A4D55"/></g>`),
+      ${[0,1,2,3,4,5].map(i => `<rect x="${i * 16}" y="10" width="10" height="12" fill="#9A9DA6"/>`).join("")}
+      <rect x="-10" y="0" width="24" height="70" fill="#8A8D96"/><rect x="78" y="0" width="24" height="70" fill="#8A8D96"/>
+      <path d="M36 70 V50 a9 9 0 0 1 18 0 V70 Z" fill="#4A4D55"/><path d="M46 0 V-24" stroke="#5A5D66" stroke-width="2"/><path d="M46 -24 l14 5 l-14 5 Z" fill="#2E5AAC"/></g>`),
   falkirk: svg(`<rect x="-140" y="232" width="680" height="28" rx="14" fill="#4F86B8"/>
-    <g transform="translate(205 140)" fill="none" stroke="#C6CDD8" stroke-width="12" stroke-linecap="round">
-    <path d="M-70 -20 A 75 75 0 0 1 70 -20"/><path d="M-70 20 A 75 75 0 0 0 70 20"/><circle r="16" fill="#C6CDD8"/></g>
-    <rect x="125" y="110" width="40" height="14" rx="3" fill="#7D93AE"/><rect x="245" y="156" width="40" height="14" rx="3" fill="#7D93AE"/>
-    ${[[20,180],[70,195],[330,185]].map(([x, y]) => `<rect x="${x}" y="${y}" width="44" height="${232 - y}" fill="#E3D9CC"/><path d="M${x - 4} ${y} L${x + 22} ${y - 26} L${x + 48} ${y} Z" fill="#5B4A44"/><rect x="${x + 16}" y="${y + 18}" width="12" height="14" fill="#F3C969"/>`).join("")}`),
-  today: svg(`<rect x="130" y="40" width="130" height="220" fill="#BFD7EE"/><rect x="130" y="40" width="130" height="220" fill="url(#g1)"/>
-    <defs><linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".35"/><stop offset="1" stop-color="#6A8FC0" stop-opacity=".25"/></linearGradient></defs>
-    ${[0,1,2,3,4,5,6].map(r => `<path d="M130 ${70 + r * 28} H260" stroke="#E9F2FB" stroke-width="2"/>`).join("")}
-    <path d="M195 40 V260" stroke="#E9F2FB" stroke-width="2"/>
-    <rect x="270" y="120" width="110" height="80" rx="8" fill="#23293D"/><rect x="278" y="128" width="94" height="58" rx="3" fill="#2F3753"/>
-    <text x="325" y="164" text-anchor="middle" font-family="monospace" font-size="22" fill="#9EF0C2">&lt;/&gt;</text>
-    <rect x="318" y="200" width="14" height="60" fill="#23293D"/>${palm(60, 1)}${palm(100, .7, -1)}`),
+    <g transform="translate(300 96)"><rect x="-90" y="-8" width="190" height="16" fill="#C6CDD8"/>${[-60,-10,40,90].map(px => `<rect x="${px}" y="8" width="10" height="128" fill="#AEB6C3"/>`).join("")}</g>
+    <g transform="translate(170 150)">
+      <path d="M-86 -60 Q -100 0 -86 60" stroke="#B9C2CF" stroke-width="10" fill="none"/>
+      <path d="M-80 -58 C -40 -100, 40 -100, 80 -58 C 50 -70, -50 -70, -80 -58 Z" fill="#D7DDE6"/>
+      <path d="M-80 58 C -40 100, 40 100, 80 58 C 50 70, -50 70, -80 58 Z" fill="#D7DDE6"/>
+      <path d="M-80 -58 L 80 58 M80 -58 L -80 58" stroke="#C6CDD8" stroke-width="8"/>
+      <circle r="18" fill="#9AA4B3"/><circle r="7" fill="#6F7987"/>
+      <rect x="-104" y="-8" width="40" height="16" rx="3" fill="#7D93AE"/><rect x="64" y="-8" width="40" height="16" rx="3" fill="#7D93AE"/></g>
+    ${[[18,180],[330,190]].map(([x, y]) => `<rect x="${x}" y="${y}" width="44" height="${232 - y}" fill="#E3D9CC"/><path d="M${x - 4} ${y} L${x + 22} ${y - 26} L${x + 48} ${y} Z" fill="#5B4A44"/><rect x="${x + 16}" y="${y + 18}" width="12" height="14" fill="#F3C969"/>`).join("")}`),
+  dissertation: svg(`<rect x="40" y="30" width="280" height="170" rx="10" fill="#1E2436"/><rect x="50" y="40" width="260" height="150" rx="4" fill="#262E45"/>
+    ${[0,1,2,3].map(i => `<path d="M50 ${70 + i * 30} H310" stroke="#323B57" stroke-width="1"/>`).join("")}
+    ${[150,142,148,136,128,134,120,112,118,104,98,92,100,84,78].map((y, i) => { const up = i % 3 !== 2; return `<path d="M${66 + i * 16} ${y - 14} V${y + 14}" stroke="${up ? '#46D39A' : '#F2716B'}" stroke-width="1.5"/><rect x="${61 + i * 16}" y="${y - 8}" width="10" height="16" fill="${up ? '#46D39A' : '#F2716B'}"/>`; }).join("")}
+    <polyline class="drawline" points="66,156 82,150 98,147 114,142 130,136 146,132 162,126 178,120 194,116 210,110 226,104 242,98 258,96 274,90 290,84" fill="none" stroke="#F3C969" stroke-width="3" stroke-linecap="round"/>
+    <rect x="172" y="200" width="16" height="44" fill="#1E2436"/><rect x="140" y="244" width="80" height="10" rx="4" fill="#1E2436"/>
+    <g transform="translate(355 260)"><rect x="-22" y="-14" width="44" height="14" fill="#8A6A2A"/><rect x="-6" y="-40" width="12" height="26" fill="#D9A93A"/>
+      <path d="M-26 -96 H26 Q 26 -50 0 -42 Q -26 -50 -26 -96 Z" fill="#E7B84A"/>
+      <path d="M-26 -88 Q -44 -86 -38 -66 Q -34 -58 -22 -60" fill="none" stroke="#E7B84A" stroke-width="5"/>
+      <path d="M26 -88 Q 44 -86 38 -66 Q 34 -58 22 -60" fill="none" stroke="#E7B84A" stroke-width="5"/>
+      <path d="M0 -84 l4 8 9 1 -7 6 2 9 -8 -5 -8 5 2 -9 -7 -6 9 -1 Z" fill="#FFF3C4"/></g>`),
+  dubai: svg(`<g transform="translate(200 260)"><path d="M-30 0 L -26 -90 L -18 -90 L -14 -150 L -8 -150 L -5 -200 L -2 -200 L 0 -258 L 2 -200 L 5 -200 L 8 -150 L 14 -150 L 18 -90 L 26 -90 L 30 0 Z" fill="#5D7BA8"/>
+      <path d="M0 -258 L 2 -200 L 5 -200 L 8 -150 L 14 -150 L 18 -90 L 26 -90 L 30 0 L 0 0 Z" fill="#000" opacity=".12"/>
+      ${[0,1,2,3,4,5,6,7,8].map(i => `<path d="M${-24 + i * 1.5} ${-10 - i * 20} H${24 - i * 1.5}" stroke="#A8C2E6" stroke-width="1"/>`).join("")}</g>
+    ${[[90,120,30],[128,150,26],[250,135,34],[292,165,28],[330,110,24],[360,150,30],[60,170,24]].map(([x, h, w]) => `<rect x="${x}" y="${260 - h}" width="${w}" height="${h}" fill="#7894BE"/>${[0,1,2,3].map(k => `<rect x="${x + 5}" y="${270 - h + k * 24}" width="${w - 10}" height="6" fill="#B9CDEA" opacity=".7"/>`).join("")}`).join("")}
+    ${palm(30, .9)}${palm(385, .9, -1)}`),
   toolkit: svg(`<rect x="196" y="70" width="10" height="190" fill="#7A5230"/>
-    ${[["Python",-1,80],["SQL",1,112],["Machine learning",-1,144],["Power BI",1,176],["AWS Redshift",-1,208]].map(([t, d, y]) =>
-      `<g transform="translate(${d > 0 ? 206 : 196} ${y})"><path d="${d > 0 ? 'M0 0 H120 L138 12 L120 24 H0 Z' : 'M0 0 H-120 L-138 12 L-120 24 H0 Z'}" fill="#F3E3C3" stroke="#7A5230" stroke-width="2"/>
-      <text x="${d > 0 ? 62 : -62}" y="17" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="13" fill="#3B2A1A">${t}</text></g>`).join("")}
-    <circle cx="201" cy="66" r="9" fill="#F3C969"/>`),
-  projects: svg(`${[[40,"#FFFFFF","bars"],[155,"#FFFFFF","line"],[270,"#FFFFFF","pie"]].map(([x, c, k]) => `
+    ${[["Python",-1,80],["SQL",1,112],["Machine learning",-1,144],["Power BI",1,176],["Docker and Git",-1,208]].map(([t, d, y]) =>
+      `<g transform="translate(${d > 0 ? 206 : 196} ${y})"><path d="${d > 0 ? 'M0 0 H124 L140 12 L124 24 H0 Z' : 'M0 0 H-124 L-140 12 L-124 24 H0 Z'}" fill="#F3E3C3" stroke="#7A5230" stroke-width="2"/>
+      <text x="${d > 0 ? 64 : -64}" y="17" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="13" fill="#3B2A1A">${t}</text></g>`).join("")}
+    <circle cx="201" cy="66" r="9" fill="#F3C969"/>${palm(40, .8)}`),
+  projects: svg(`${[[40,"bars"],[155,"line"],[270,"pie"]].map(([x, k]) => `
     <path d="M${x + 15} 260 L${x + 45} 110 M${x + 75} 260 L${x + 45} 110" stroke="#7A5230" stroke-width="6"/>
-    <rect x="${x}" y="110" width="90" height="80" rx="4" fill="${c}" stroke="#3B4A6B" stroke-width="3"/>
+    <rect x="${x}" y="110" width="90" height="80" rx="4" fill="#FFFFFF" stroke="#3B4A6B" stroke-width="3"/>
     ${k === "bars" ? `<rect x="${x + 14}" y="160" width="12" height="20" fill="#6A45D1"/><rect x="${x + 34}" y="145" width="12" height="35" fill="#8B6CF0"/><rect x="${x + 54}" y="128" width="12" height="52" fill="#F3A65A"/>` :
-      k === "line" ? `<polyline points="${x + 10},170 ${x + 30},150 ${x + 50},160 ${x + 78},124" fill="none" stroke="#2E8B57" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>` :
+      k === "line" ? `<polyline class="drawline" points="${x + 10},170 ${x + 30},150 ${x + 50},160 ${x + 78},124" fill="none" stroke="#2E8B57" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>` :
       `<circle cx="${x + 45}" cy="150" r="26" fill="#8B6CF0"/><path d="M${x + 45} 150 L${x + 45} 124 A26 26 0 0 1 ${x + 70} 156 Z" fill="#F3A65A"/>`}`).join("")}`),
-  contact: svg(`<path d="M300 260 C 296 210, 304 170, 300 130" stroke="#6B4423" stroke-width="16" fill="none"/>
+  finale: svg(`<path d="M300 260 C 296 210, 304 170, 300 130" stroke="#6B4423" stroke-width="16" fill="none"/>
     <circle cx="300" cy="100" r="62" fill="#3F8F4E"/><circle cx="255" cy="125" r="40" fill="#4FA05C"/><circle cx="345" cy="125" r="40" fill="#4FA05C"/>
     <circle cx="282" cy="92" r="5" fill="#F27E7E"/><circle cx="320" cy="78" r="5" fill="#F27E7E"/><circle cx="335" cy="118" r="5" fill="#F27E7E"/>
     <rect x="120" y="212" width="120" height="10" rx="3" fill="#8A5A34"/><rect x="120" y="192" width="120" height="8" rx="3" fill="#8A5A34"/>
@@ -275,81 +410,148 @@ const LAND = {
     <rect x="52" y="180" width="26" height="16" fill="#FFFFFF"/><path d="M52 180 L65 190 L78 180" fill="none" stroke="#6A45D1" stroke-width="2"/>`)
 };
 
-/* ---------- The journey (edit text here) ---------- */
+/* ================= The story (edit text here) ================= */
 const LINKS = {
   email: "dittydenny2002@gmail.com",
   linkedin: "https://linkedin.com/in/ditty-denny123",
   github: "https://github.com/Ditty1",
   repo: "https://github.com/Ditty1/Data-Science-Portfolio"
 };
-const tags = arr => `<ul class="tags">${arr.map(t => `<li>${t}</li>`).join("")}</ul>`;
+/* Optional real photos: put them in an "images" folder next to index.html
+   with these names. Any photo that is missing is simply not shown. */
+const photo = (src, cap) => `<figure class="photo"><img src="${src}" alt="${cap}" loading="lazy" onerror="this.closest('figure').remove()"><figcaption>${cap}</figcaption></figure>`;
+const tags = a => `<ul class="tags">${a.map(t => `<li>${t}</li>`).join("")}</ul>`;
+const points = a => `<ul class="points">${a.map(t => `<li>${t}</li>`).join("")}</ul>`;
+const stat = (n, label, dec = 0, suffix = "") => `<div><b data-count="${n}" data-dec="${dec}" data-suffix="${suffix}">0</b><span>${label}</span></div>`;
+
+const REGIONS = {
+  kerala:   { name: "Thrissur, India", fx: "fireflies" },
+  qatar:    { name: "Doha, Qatar", fx: "dust" },
+  scotland: { name: "Stirling, Scotland", fx: "rain" },
+  now:      { name: "Dubai, UAE", fx: "sparkle" }
+};
 
 const SCENES = [
-  { land: "kerala", sky: ["#6FC0EE", "#FFE3B8"], ground: "#5FA35A", wave: true,
+  { region: "kerala", land: "backwaters", tag: "THE KERALA BACKWATERS", label: "Hello", sky: ["#6FC0EE", "#FFE3B8"], ground: "#5FA35A", wave: true,
     say: "Hi, I’m Ditty Denny! 👋 Come, walk with me.",
-    html: `<h2 class="big-name">Hi, I’m Ditty Denny</h2>
-      <p class="where">Software & Data Engineer from Thrissur, Kerala</p>
-      <p>I build software, work with data, and love turning messy problems into simple answers.</p>
-      <p>This is the road that got me here, from Kerala to Qatar to Scotland and back. Walk it with me.</p>
+    html: `${photo("images/me.jpg", "That’s me!")}
+      <p class="chap">PROLOGUE</p>
+      <h2 class="big-name">Hi, I’m Ditty</h2>
+      <p class="where">Software Engineer in FinTech, from Thrissur, Kerala</p>
+      <p>I write the SQL and Python that make financial data clean, build the models that test an idea, and create the dashboards that teams actually act on.</p>
+      <p>My road has taken me from Kerala to Qatar to Scotland, and into FinTech. Walk it with me.</p>
       <p class="hint">Press “Walk with me”, scroll, swipe, or use the arrow keys.</p>` },
-  { land: "college", sky: ["#86C9EE", "#EAF6FF"], ground: "#62A85C",
-    say: "This is where it all started.",
-    html: `<p class="when">2020 to 2023</p><h2>BVoc Data Science</h2><p class="where">St. Thomas College, Thrissur</p>
-      <p>This is where I discovered that data tells stories, if you ask it the right questions.</p>
-      <div class="badges"><div class="badge">Graduated with a 97% GPA</div></div>` },
-  { land: "firsts", sky: ["#94CDF4", "#FFF1D6"], ground: "#6BAA5E",
+
+  { region: "kerala", land: "thrissur", tag: "THRISSUR, THE CULTURAL CAPITAL OF KERALA", label: "Thrissur", chapter: "CHAPTER ONE", place: "Thrissur, Kerala", year: "2020", sky: ["#86C9EE", "#FFF0D8"], ground: "#62A85C",
+    say: "This is home. Thrissur, where it all began. 🐘",
+    html: `${photo("images/thrissur.jpg", "Thrissur, Kerala")}
+      <p class="chap">CHAPTER ONE: WHERE IT BEGAN</p>
+      <p class="when">2020 to 2023</p>
+      <h2>BVoc Data Science</h2><p class="where">St. Thomas College, Thrissur (Calicut University)</p>
+      <p>In the city of temples, elephants and the famous Thrissur Pooram, I discovered that data tells stories, if you ask it the right questions.</p>
+      <div class="stats">${stat(96.8, "out of 100", 1)}${stat(3, "years of study")}</div>
+      <div class="badges"><div class="badge">First Class with Distinction</div></div>
+      <h3>What I studied</h3>
+      ${tags(["Data structures", "Python", "Statistical analysis", "Database systems", "Machine learning", "Operations research"])}` },
+
+  { region: "kerala", land: "fishingnets", tag: "THE KERALA COAST", label: "First steps", chapter: "CHAPTER TWO", place: "Kerala, India", year: "2022", sky: ["#94CDF4", "#FFE9CF"], ground: "#6BAA5E",
     say: "My first taste of real-world data!",
-    html: `<p class="when">Dec 2022 to Jun 2023</p><h2>First steps in industry</h2>
-      <p>Real projects, real deadlines, and a lot of learning fast.</p>
-      <ul class="items"><li><b>Data Science Intern</b><span>Elamigo, Dec 2022 to Feb 2023</span></li>
-      <li><b>Quantitative Analyst Intern</b><span>XTG Technologies, Dec 2022 to Jun 2023</span></li></ul>` },
-  { land: "dataeng", sky: ["#6E8FD8", "#D2DEFF"], ground: "#5E9B63",
-    say: "Then I started building the pipes that data flows through.",
-    html: `<p class="when">Jul 2023 to Dec 2024</p><h2>Data Engineer</h2><p class="where">The Maya Solutions</p>
-      <p>I built data pipelines and worked with databases and warehouses, making sure data arrived clean, organised, and ready to use.</p>
-      ${tags(["SQL", "PostgreSQL", "AWS Redshift", "ETL", "Data warehousing"])}` },
-  { land: "qatar", sky: ["#F2A85E", "#FFE9C2"], ground: "#E3C08A",
-    say: "Next stop, Qatar! ☀️",
-    html: `<p class="when">Jan 2024 to Jul 2024</p><h2>Video Analyst</h2><p class="where">Hamad Medical Corporation, Qatar</p>
-      <p>Working abroad inside a large healthcare organisation taught me how much careful, accurate analysis matters when real people depend on it.</p>` },
-  { land: "stirling", sky: ["#97B1C9", "#E5EDF3"], ground: "#4F8F52",
-    say: "Then I crossed continents, all the way to Scotland.",
-    html: `<p class="when">2024 to 2025</p><h2>MSc Data Science for Business</h2><p class="where">University of Stirling, Scotland</p>
+    html: `<p class="chap">CHAPTER TWO: FIRST STEPS</p>
+      <p class="when">Dec 2022 to Jul 2023</p>
+      <h2>Quantitative Analyst Intern</h2><p class="where">XTG Technologies, Kerala</p>
+      ${points(["Performed data analysis, trend identification and performance evaluation using analytical models.",
+        "Built visualisations and insight summaries to support data-driven decision-making."])}
+      <p>Alongside this I also interned as a Data Science Intern at Elamigo (Dec 2022 to Feb 2023). Real projects, real deadlines, and a lot of learning fast.</p>` },
+
+  { region: "kerala", land: "dataeng", tag: "INDIA", label: "Data Engineer", chapter: "CHAPTER THREE", place: "India", year: "2023", sky: ["#6E8FD8", "#D2DEFF"], ground: "#5E9B63",
+    say: "Then I learned to build the pipes that data flows through. 🛠️",
+    html: `<p class="chap">CHAPTER THREE: BUILDING THE PIPES</p>
+      <p class="when">Jul 2023 to Jan 2024</p>
+      <h2>Data Engineer</h2><p class="where">The Maya Solutions, India</p>
+      ${points(["Designed and maintained ETL pipelines feeding KPI dashboards and management reporting.",
+        "Owned data quality, completeness and consistency, finding and fixing gaps across large real-world datasets."])}
+      ${tags(["ETL", "SQL", "Data quality", "KPI dashboards", "Reporting"])}` },
+
+  { region: "qatar", land: "doha", tag: "DOHA, QATAR", label: "Qatar", chapter: "CHAPTER FOUR", place: "Doha, Qatar", year: "2024", sky: ["#F2A85E", "#FFE9C2"], ground: "#E3C08A",
+    say: "Next stop: Qatar! ☀️ My first time working abroad.",
+    html: `${photo("images/doha.jpg", "Doha, Qatar")}
+      <p class="chap">CHAPTER FOUR: ACROSS THE SEA</p>
+      <p class="when">Jan 2024 to Jul 2024</p>
+      <h2>Video Analytical Operator</h2><p class="where">Hamad Medical Corporation, Qatar</p>
+      ${points(["Conducted operational and service-impact analysis within one of the Middle East’s largest hospital networks.",
+        "Prepared insight summaries and performance observations used by management for decision-making."])}
+      <p>Working where real people depend on the results taught me that accurate analysis isn’t optional.</p>` },
+
+  { region: "scotland", land: "stirling", tag: "STIRLING, SCOTLAND", label: "Scotland", chapter: "CHAPTER FIVE", place: "Stirling, Scotland", year: "2024", sky: ["#97B1C9", "#E5EDF3"], ground: "#4F8F52",
+    say: "Then I crossed continents, all the way to Scotland! 🏰",
+    html: `${photo("images/stirling.jpg", "Stirling, Scotland")}
+      <p class="chap">CHAPTER FIVE: THE HIGHLANDS</p>
+      <p class="when">2024 to 2025</p>
+      <h2>MSc Data Science for Business</h2><p class="where">University of Stirling, Scotland</p>
+      <div class="badges"><div class="badge">Distinction, the highest classification</div>
+        <div class="badge">Commonwealth Shared Scholar, one of the UK’s most competitive international scholarships</div></div>
       <p>Here I learned the question that comes before any code: what decision is this data supposed to help someone make?</p>
-      <div class="badges"><div class="badge">Commonwealth Shared Scholar</div><div class="badge">Dean’s Award winner</div></div>` },
-  { land: "falkirk", sky: ["#8DB0D3", "#EDF3F8"], ground: "#4C8A50",
-    say: "And then I put it all into practice.",
-    html: `<p class="when">Jul 2025 to Sep 2025</p><h2>Data Science Intern</h2><p class="where">AiM (Action Insight Management) Ltd, Falkirk, UK</p>
-      <p>Applying data science to real business problems alongside a UK team.</p>` },
-  { land: "today", sky: ["#5FB6E8", "#FFE0B5"], ground: "#5FA35A",
-    say: "Now I’m back home, building. 💻",
-    html: `<p class="when">Today</p><h2>Software & Data Engineer</h2>
-      <p>I develop applications and handle the data side too: writing SQL, automating work with Python, and creating reports that help people make decisions.</p>
-      <p>Code and data, together. That’s where I do my best work.</p>` },
-  { land: "toolkit", sky: ["#7DC4EB", "#F1FAFF"], ground: "#62A85C",
-    say: "Here’s what I carry in my toolkit.",
-    html: `<h2>My toolkit</h2>
-      <p class="where">Languages</p>${tags(["Python", "R", "Java", "C", "SAS"])}
-      <p class="where">Data and machine learning</p>${tags(["Machine learning", "AI", "Statistical analysis", "Data mining"])}
-      <p class="where">Databases and pipelines</p>${tags(["SQL", "PostgreSQL", "AWS Redshift", "Data warehousing"])}
-      <p class="where">Reporting</p>${tags(["Power BI", "Apache Superset", "Excel", "SPSS"])}
-      <p class="where">Certifications</p><p>Mastering Data Analysis in Excel, and Data Analysis with Python</p>` },
-  { land: "projects", sky: ["#A99BEA", "#FFE1EC"], ground: "#66A564",
+      ${tags(["Machine learning", "Statistical modelling", "Database management", "Business analytics", "Data visualisation"])}` },
+
+  { region: "scotland", land: "falkirk", tag: "FALKIRK, SCOTLAND", label: "Falkirk", chapter: "CHAPTER SIX", place: "Falkirk, Scotland", year: "2025", sky: ["#8DB0D3", "#EDF3F8"], ground: "#4C8A50",
+    say: "In Falkirk, I started building trading strategies. 📈",
+    html: `${photo("images/falkirk.jpg", "Falkirk, Scotland")}
+      <p class="chap">CHAPTER SIX: INTO THE MARKETS</p>
+      <p class="when">Jul 2025 to Sep 2025</p>
+      <h2>Data Science Intern</h2><p class="where">AiM (Action Insight Management) Ltd, Falkirk, UK</p>
+      ${points(["Designed and backtested rule-based moving-average trading strategies in Python on daily equity data, benchmarking every variant against buy-and-hold.",
+        "Combined and compared strategy variants to find the strongest performers, then optimised their parameters and ranked results by cumulative return.",
+        "This work grew into my MSc dissertation."])}` },
+
+  { region: "scotland", land: "dissertation", tag: "THE DISSERTATION", label: "Award", chapter: "CHAPTER SEVEN", place: "The Award", year: "2025", sky: ["#5E6FA8", "#C9C6E8"], ground: "#4A8450", wave: true,
+    say: "And then… my dissertation won the Dean’s Award! 🏆",
+    html: `${photo("images/graduation.jpg", "Graduation day")}
+      <p class="chap">CHAPTER SEVEN: THE BIG ONE</p>
+      <p class="when">2025</p>
+      <h2>Financial Market Predictive Tool</h2><p class="where">MSc dissertation, Dean’s Award for Excellence</p>
+      <div class="stats">${stat(20, "trading strategies")}${stat(48, "parameter combinations")}${stat(15, "FTSE 100 stocks")}${stat(51, "day live-signal window")}</div>
+      <p>A modular Python framework that backtests every strategy, ranks the results automatically, simulates live signals and sends email alerts. Built to CRISP-DM, with overfitting and data-snooping risks handled explicitly.</p>
+      <div class="btnrow"><a href="${LINKS.repo}" target="_blank" rel="noopener">See my projects on GitHub</a></div>` },
+
+  { region: "now", land: "dubai", tag: "DUBAI, UAE", label: "Today", chapter: "CHAPTER EIGHT", place: "Dubai, UAE", year: "2026, remote", sky: ["#5FA9E0", "#FFD9B0"], ground: "#D9BE8E",
+    say: "And today, I’m in FinTech! 💳",
+    html: `${photo("images/dubai.jpg", "Dubai, UAE")}
+      <p class="chap">CHAPTER EIGHT: TODAY</p>
+      <p class="when">Jan 2026 to present</p>
+      <h2>Software Engineer, FinTech</h2><p class="where">Orion Funded, Dubai, UAE (remote)</p>
+      ${points(["Validate transaction and account data end-to-end across trading and payments applications, including SQL database-integrity testing and reconciliation.",
+        "Support compliance workflows, checking that platform logic and stored data meet internal control and regulatory requirements.",
+        "Run API validation in Postman plus functional and regression testing across releases, managing versions and environments with Git and Docker."])}
+      ${tags(["SQL", "Postman", "Git", "Docker", "Compliance", "Payments"])}` },
+
+  { region: "now", land: "toolkit", tag: "THE TOOLKIT", label: "Toolkit", sky: ["#7DC4EB", "#F1FAFF"], ground: "#62A85C",
+    say: "Here’s everything I carry in my toolkit. 🧰",
+    html: `<p class="chap">MY TOOLKIT</p><h2>What I work with</h2>
+      <h3>Analysis and modelling</h3>${tags(["SQL", "Statistical modelling", "Time-series", "Backtesting", "Machine learning", "Anomaly detection"])}
+      <h3>Programming</h3>${tags(["Python", "Pandas", "NumPy", "scikit-learn", "R", "Java", "C"])}
+      <h3>Data and reporting</h3>${tags(["ETL pipelines", "Data reconciliation", "Power BI", "Apache Superset", "Advanced Excel"])}
+      <h3>FinTech</h3>${tags(["Trading strategies", "Equity market data", "Fraud detection", "Compliance", "API validation"])}
+      <h3>Tools and methods</h3>${tags(["Git", "GitHub", "Docker", "Jira", "CRISP-DM"])}
+      <p class="hint">Languages: English (excellent), Malayalam (native)</p>` },
+
+  { region: "now", land: "projects", tag: "THE WORKSHOP", label: "Projects", sky: ["#A99BEA", "#FFE1EC"], ground: "#66A564",
     say: "A few things I’ve built along the way.",
-    html: `<h2>Things I’ve built</h2>
+    html: `<p class="chap">THE WORKSHOP</p><h2>Things I’ve built</h2>
       <ul class="items">
-        <li><b>Financial market predictive tool</b><span>Forecasting market movement with Python</span></li>
-        <li><b>Disease prediction from cancer diagnostic data</b><span>Machine learning for early diagnosis</span></li>
-        <li><b>Credit card fraud detection</b><span>Spotting rare fraud among normal transactions</span></li>
-        <li><b>Online banking system</b><span>A secure application in Java</span></li>
-        <li><b>Online shopping system</b><span>A purchase interface in C</span></li>
-        <li><b>Population data analysis</b><span>Statistics and visualisation in Excel</span></li>
+        <li><b>Financial Market Predictive Tool</b><span>20 strategies, 48 parameter sets, 15 FTSE 100 stocks, with automated ranking and alerts</span></li>
+        <li><b>Credit Card Fraud Detection</b><span>Machine learning that finds rare fraud in large, highly imbalanced data</span></li>
+        <li><b>Disease Prediction</b><span>Machine learning on cancer diagnostic data</span></li>
+        <li><b>Online Banking System</b><span>A secure application in Java</span></li>
+        <li><b>Online Shopping System</b><span>A purchase interface in C</span></li>
+        <li><b>Population Data Analysis</b><span>Statistics and visualisation in advanced Excel</span></li>
       </ul>
       <div class="btnrow"><a class="primary" href="${LINKS.repo}" target="_blank" rel="noopener">See the code on GitHub</a></div>` },
-  { land: "contact", sky: ["#F08F6C", "#FFD6A0"], ground: "#5C9A57", wave: true,
-    say: "Thanks for walking with me! Shall we talk? 😊",
-    html: `<h2>Let’s work together</h2>
-      <p>Whether it’s a role, a project, or just a good conversation about data, I’d love to hear from you.</p>
+
+  { region: "now", land: "finale", tag: "TO BE CONTINUED", label: "Contact", sky: ["#F08F6C", "#FFD6A0"], ground: "#5C9A57", wave: true,
+    say: "Thanks for walking with me! The next chapter could be with you. 😊",
+    html: `<p class="chap">TO BE CONTINUED…</p>
+      <h2 class="big-name">The next chapter</h2>
+      <p>I’m looking for a role where the analysis itself is the product. If you’re building something in FinTech, data or software, I’d love to be part of it.</p>
       <div class="btnrow">
         <a class="primary" href="mailto:${LINKS.email}">Email me</a>
         <a href="${LINKS.linkedin}" target="_blank" rel="noopener">LinkedIn</a>
@@ -357,145 +559,230 @@ const SCENES = [
       </div>
       <p class="hint">${LINKS.email}<br>Thrissur, Kerala, India</p>` }
 ];
-const LABELS = ["Hello", "College", "First steps", "Data Engineer", "Qatar", "Scotland", "Falkirk", "Today", "Toolkit", "Projects", "Contact"];
 
-/* ---------- Build the world ---------- */
+/* ================= Engine ================= */
 const N = SCENES.length;
 const $ = id => document.getElementById(id);
 const stage = $("stage"), world = $("world"), clouds = $("clouds"), path = $("path");
 const girl = $("girl"), bubble = $("bubble"), card = $("card"), next = $("next"), prev = $("prev"), progress = $("progress");
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const EASE = "cubic-bezier(.45,.05,.4,1)";
 
 world.style.width = `${N * 100}vw`;
-world.innerHTML = SCENES.map(s => `<div class="panel" style="width:100vw"><div class="landmark">${LAND[s.land]}</div></div>`).join("");
-clouds.style.width = `${N * 40 + 120}vw`;
-let cl = "";
-for (let i = 0; i < N * 2 + 3; i++) {
-  const w = 8 + ((i * 37) % 9);
-  cl += `<div class="cloud" style="left:${i * 22 + ((i * 13) % 9)}vw;top:${6 + ((i * 29) % 26)}vh;width:${w}vmin;opacity:${0.6 + ((i * 7) % 4) / 10}"></div>`;
-}
-clouds.innerHTML = cl;
-progress.innerHTML = LABELS.map((l, i) => `<li><button aria-label="Go to ${l}" title="${l}" data-i="${i}"></button></li>`).join("");
+world.innerHTML = SCENES.map(s => `<div class="panel"><div class="placetag">${s.tag}</div><div class="landmark">${LAND[s.land]}</div></div>`).join("");
+clouds.style.width = `${N * 30 + 120}vw`;
+clouds.innerHTML = Array.from({ length: N * 2 + 4 }, (_, i) =>
+  `<div class="cloud" style="left:${i * 17 + ((i * 13) % 9)}vw;top:${6 + ((i * 29) % 26)}vh;width:${8 + ((i * 37) % 9)}vmin;opacity:${0.55 + ((i * 7) % 4) / 10}"></div>`).join("");
+progress.innerHTML = SCENES.map((s, i) => `<li><button aria-label="Go to ${s.label}" title="${s.label}" data-i="${i}"></button></li>`).join("");
 
-function setSky(i) {
+function setWorld(i, d) {
+  const t = d ? `${d}ms ${EASE}` : "none";
+  world.style.transition = d ? `transform ${t}` : "none";
+  clouds.style.transition = d ? `transform ${t}` : "none";
+  path.style.transition = d ? `background-position ${t}` : "none";
+  world.style.transform = `translateX(${-i * 100}vw)`;
+  clouds.style.transform = `translateX(${-i * 18}vw)`;
+  path.style.backgroundPosition = `${-i * 100}vw 50%`;
+}
+function setSky(i, d) {
+  stage.style.transition = `--sky1 ${d}ms ease, --sky2 ${d}ms ease, --ground ${d}ms ease`;
   stage.style.setProperty("--sky1", SCENES[i].sky[0]);
   stage.style.setProperty("--sky2", SCENES[i].sky[1]);
   stage.style.setProperty("--ground", SCENES[i].ground);
-  document.body.style.background = SCENES[i].sky[0];
+  $("sun").style.opacity = SCENES[i].region === "scotland" ? .35 : 1;
 }
 
+/* Ambient particles: fireflies, desert dust, Scottish rain, city sparkle */
+const fx = $("fx"), ctx = fx.getContext("2d");
+let parts = [], fxType = "fireflies", W = 0, H = 0;
+function sizeFx() { const r = devicePixelRatio || 1; W = innerWidth; H = innerHeight; fx.width = W * r; fx.height = H * r; ctx.setTransform(r, 0, 0, r, 0, 0); }
+function particle() {
+  const R = Math.random;
+  if (fxType === "rain") return { x: R() * W * 1.2, y: R() * H, vx: -1.2, vy: 7 + R() * 4, l: 8 + R() * 8 };
+  if (fxType === "dust") return { x: R() * W, y: H * (.4 + R() * .55), vx: .5 + R(), vy: (R() - .5) * .2, r: .8 + R() * 1.6 };
+  if (fxType === "sparkle") return { x: R() * W, y: R() * H * .55, p: R() * 6, r: .8 + R() * 1.4 };
+  return { x: R() * W, y: H * (.3 + R() * .55), vx: (R() - .5) * .4, vy: (R() - .5) * .3, p: R() * 6, r: 1.4 + R() * 1.8 };
+}
+function setFx(type) { fxType = type; parts = Array.from({ length: type === "rain" ? 110 : 45 }, particle); }
+function loop() {
+  ctx.clearRect(0, 0, W, H);
+  for (const q of parts) {
+    if (fxType === "rain") {
+      q.x += q.vx; q.y += q.vy; if (q.y > H) { q.y = -20; q.x = Math.random() * W * 1.2; }
+      ctx.strokeStyle = "rgba(255,255,255,.35)"; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(q.x, q.y); ctx.lineTo(q.x + q.vx * 2, q.y + q.l); ctx.stroke();
+    } else if (fxType === "dust") {
+      q.x += q.vx; q.y += q.vy; if (q.x > W) q.x = -5;
+      ctx.fillStyle = "rgba(255,236,200,.55)"; ctx.beginPath(); ctx.arc(q.x, q.y, q.r, 0, 7); ctx.fill();
+    } else {
+      q.p += .03; if (q.vx) { q.x += q.vx; q.y += q.vy; if (q.x < 0 || q.x > W) q.vx *= -1; if (q.y < H * .25 || q.y > H * .9) q.vy *= -1; }
+      const a = (Math.sin(q.p) + 1) / 2;
+      ctx.fillStyle = fxType === "sparkle" ? `rgba(255,255,255,${a * .8})` : `rgba(255,224,120,${.25 + a * .7})`;
+      ctx.shadowColor = "rgba(255,220,120,.9)"; ctx.shadowBlur = fxType === "sparkle" ? 4 : 10;
+      ctx.beginPath(); ctx.arc(q.x, q.y, q.r, 0, 7); ctx.fill(); ctx.shadowBlur = 0;
+    }
+  }
+  requestAnimationFrame(loop);
+}
+sizeFx(); addEventListener("resize", sizeFx);
+
+/* Speech bubble typing */
 let typer;
 function say(text) {
-  clearInterval(typer);
-  bubble.textContent = "";
-  bubble.classList.add("show");
+  clearInterval(typer); bubble.textContent = ""; bubble.classList.add("show");
   if (reduce) { bubble.textContent = text; return; }
-  const chars = Array.from(text);
-  let k = 0;
-  typer = setInterval(() => {
-    bubble.textContent += chars[k++];
-    if (k >= chars.length) clearInterval(typer);
-  }, 32);
+  const ch = Array.from(text); let k = 0;
+  typer = setInterval(() => { bubble.textContent += ch[k++]; if (k >= ch.length) clearInterval(typer); }, 30);
 }
-
-function arrive(i) {
-  const s = SCENES[i];
-  card.innerHTML = s.html;
-  card.scrollTop = 0;
-  card.classList.add("show");
-  say(s.say);
-  girl.classList.remove("back");
-  if (s.wave && !reduce) {
-    girl.classList.add("waving");
-    setTimeout(() => girl.classList.remove("waving"), 2200);
-  }
-  [...progress.querySelectorAll("button")].forEach((b, j) => {
-    b.classList.toggle("on", j === i);
-    b.classList.toggle("done", j < i);
-    b.setAttribute("aria-current", j === i ? "step" : "false");
+function countUp() {
+  card.querySelectorAll("[data-count]").forEach(el => {
+    const end = +el.dataset.count, dec = +el.dataset.dec, suf = el.dataset.suffix || "";
+    if (reduce) { el.textContent = end.toFixed(dec) + suf; return; }
+    const t0 = performance.now();
+    const tick = now => { const p = Math.min(1, (now - t0) / 1300), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = (end * e).toFixed(dec) + suf; if (p < 1) requestAnimationFrame(tick); };
+    requestAnimationFrame(tick);
   });
-  prev.disabled = i === 0;
-  next.textContent = i === 0 ? "Walk with me" : i === N - 1 ? "Walk again" : "Next stop";
 }
 
 let cur = 0, busy = false;
+function arrive(i) {
+  const s = SCENES[i];
+  document.body.classList.remove("cinema");
+  card.innerHTML = s.html; card.scrollTop = 0; card.classList.add("show");
+  countUp(); say(s.say);
+  girl.classList.remove("back");
+  if (s.wave && !reduce) { girl.classList.add("waving"); setTimeout(() => girl.classList.remove("waving"), 2200); }
+  [...progress.querySelectorAll("button")].forEach((b, j) => {
+    b.classList.toggle("on", j === i); b.classList.toggle("done", j < i);
+    b.setAttribute("aria-current", j === i ? "step" : "false");
+  });
+  prev.disabled = i === 0;
+  next.textContent = i === 0 ? "Walk with me" : i === N - 1 ? "Watch again" : "Next chapter";
+}
+function leave(target) {
+  busy = true;
+  card.classList.remove("show"); bubble.classList.remove("show");
+  girl.classList.remove("waving");
+  girl.classList.toggle("back", target < cur);
+}
+
+function walk(target) {
+  leave(target);
+  const steps = Math.abs(target - cur);
+  const d = reduce ? 0 : Math.min(1500 + (steps - 1) * 450, 3600);
+  if (d) { girl.classList.add("walking"); if (steps > 1) document.body.classList.add("cinema"); }
+  setWorld(target, d); setSky(target, d);
+  setTimeout(() => { girl.classList.remove("walking"); cur = target; arrive(cur); busy = false; }, d + 60);
+}
+
+function fly(target) {
+  leave(target);
+  const from = REGIONS[SCENES[cur].region].name, to = REGIONS[SCENES[target].region].name;
+  const s = SCENES[target];
+  $("fch").textContent = s.chapter || "";
+  $("fplace").textContent = s.place || to;
+  $("fyear").textContent = s.year || "";
+  $("fromT").textContent = from; $("toT").textContent = to;
+  const fl = $("flight"), arc = $("arcTrail"), plane = $("plane"), len = arc.getTotalLength();
+  arc.style.strokeDasharray = len; arc.style.strokeDashoffset = len;
+  document.body.classList.add("cinema");
+  fl.classList.add("show");
+  if (reduce) {
+    setWorld(target, 0); setSky(target, 0); setFx(REGIONS[s.region].fx);
+    setTimeout(() => { fl.classList.remove("show"); cur = target; arrive(cur); busy = false; }, 1400);
+    return;
+  }
+  const T = 2600, t0 = performance.now() + 500;
+  const step = now => {
+    const p = Math.max(0, Math.min(1, (now - t0) / T)), e = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+    const a = arc.getPointAtLength(e * len), b = arc.getPointAtLength(Math.min(len, e * len + 1));
+    const ang = Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI;
+    plane.setAttribute("transform", `translate(${a.x} ${a.y}) rotate(${ang})`);
+    arc.style.strokeDashoffset = len * (1 - e);
+    if (p < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+  setTimeout(() => {
+    setWorld(target, 0); setSky(target, 0); setFx(REGIONS[s.region].fx);
+    girl.style.transition = "none"; girl.style.transform = "translateX(-45vw)";
+  }, 900);
+  setTimeout(() => {
+    fl.classList.remove("show");
+    girl.classList.remove("back"); girl.classList.add("walking");
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      girl.style.transition = "transform 1.7s cubic-bezier(.3,.1,.3,1)"; girl.style.transform = "translateX(0)";
+    }));
+    setTimeout(() => { girl.classList.remove("walking"); cur = target; arrive(cur); busy = false; }, 1800);
+  }, T + 1100);
+}
+
 function go(target) {
   if (busy) return;
   if (target >= N) target = 0;
   if (target < 0 || target === cur) return;
-  busy = true;
-  const steps = Math.abs(target - cur);
-  const d = reduce ? 0 : Math.min(1500 + (steps - 1) * 450, 3600);
-  card.classList.remove("show");
-  bubble.classList.remove("show");
-  girl.classList.toggle("back", target < cur);
-  girl.classList.remove("waving");
-  if (d) girl.classList.add("walking");
-  const t = `${d}ms cubic-bezier(.45,.05,.4,1)`;
-  world.style.transition = `transform ${t}`;
-  clouds.style.transition = `transform ${t}`;
-  path.style.transition = `background-position ${t}`;
-  stage.style.transition = `--sky1 ${d}ms ease, --sky2 ${d}ms ease, --ground ${d}ms ease`;
-  world.style.transform = `translateX(${-target * 100}vw)`;
-  clouds.style.transform = `translateX(${-target * 22}vw)`;
-  path.style.backgroundPosition = `${-target * 100}vw 50%`;
-  setSky(target);
-  setTimeout(() => {
-    girl.classList.remove("walking");
-    cur = target;
-    arrive(cur);
-    busy = false;
-  }, d + 60);
+  SCENES[target].region !== SCENES[cur].region ? fly(target) : walk(target);
 }
 
 next.addEventListener("click", () => go(cur + 1));
 prev.addEventListener("click", () => go(cur - 1));
 progress.addEventListener("click", e => { const b = e.target.closest("button"); if (b) go(+b.dataset.i); });
 addEventListener("keydown", e => {
-  if (e.target.closest && e.target.closest("a")) return;
+  if (document.body.classList.contains("intro")) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); startJourney(); } return; }
   if (["ArrowRight", "ArrowDown", "PageDown"].includes(e.key)) { e.preventDefault(); go(cur + 1); }
   if (["ArrowLeft", "ArrowUp", "PageUp"].includes(e.key)) { e.preventDefault(); go(cur - 1); }
 });
-let acc = 0, wheelTimer;
+let acc = 0, wt;
 addEventListener("wheel", e => {
-  const inCard = e.target.closest && e.target.closest("#card");
-  if (inCard) {
-    const atTop = card.scrollTop <= 0, atBottom = card.scrollTop + card.clientHeight >= card.scrollHeight - 2;
-    if ((e.deltaY > 0 && !atBottom) || (e.deltaY < 0 && !atTop)) return;
+  if (document.body.classList.contains("intro")) return;
+  if (e.target.closest && e.target.closest("#card")) {
+    const top = card.scrollTop <= 0, bottom = card.scrollTop + card.clientHeight >= card.scrollHeight - 2;
+    if ((e.deltaY > 0 && !bottom) || (e.deltaY < 0 && !top)) return;
   }
-  acc += e.deltaY + e.deltaX;
-  clearTimeout(wheelTimer);
-  wheelTimer = setTimeout(() => acc = 0, 220);
+  acc += e.deltaY + e.deltaX; clearTimeout(wt); wt = setTimeout(() => acc = 0, 220);
   if (acc > 70) { acc = 0; if (cur < N - 1) go(cur + 1); }
   if (acc < -70) { acc = 0; go(cur - 1); }
 }, { passive: true });
 let tx = 0, ty = 0;
 addEventListener("touchstart", e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
 addEventListener("touchend", e => {
+  if (document.body.classList.contains("intro")) return;
   if (e.target.closest && e.target.closest("#card, a, button")) return;
   const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
   if (Math.max(Math.abs(dx), Math.abs(dy)) < 45) return;
-  const forward = Math.abs(dx) > Math.abs(dy) ? dx < 0 : dy < 0;
-  forward ? (cur < N - 1 && go(cur + 1)) : go(cur - 1);
+  (Math.abs(dx) > Math.abs(dy) ? dx < 0 : dy < 0) ? (cur < N - 1 && go(cur + 1)) : go(cur - 1);
 }, { passive: true });
 
-/* ---------- Opening: she walks in and says hi ---------- */
-setSky(0);
-prev.disabled = true;
-[...progress.querySelectorAll("button")][0].classList.add("on");
+/* ================= Trailer intro ================= */
+setWorld(0, 0); setSky(0, 0); setFx("fireflies");
+if (!reduce) loop();
+girl.style.transform = "translateX(-45vw)";
+const lines = [...document.querySelectorAll("#intro .tl")];
+const timers = [];
+let started = false;
 if (reduce) {
-  arrive(0);
+  $("title").classList.add("show");
 } else {
-  busy = true;
-  girl.style.transition = "none";
-  girl.style.transform = "translateX(-40vw)";
-  girl.classList.add("walking");
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    girl.style.transition = "";
-    girl.style.transform = "translateX(0)";
-  }));
-  setTimeout(() => { girl.classList.remove("walking"); arrive(0); busy = false; }, 1900);
+  lines.forEach((l, i) => {
+    timers.push(setTimeout(() => l.classList.add("show"), 600 + i * 2300));
+    timers.push(setTimeout(() => l.classList.remove("show"), 600 + i * 2300 + 1800));
+  });
+  timers.push(setTimeout(() => $("title").classList.add("show"), 600 + lines.length * 2300 + 200));
 }
+function startJourney() {
+  if (started) return; started = true;
+  timers.forEach(clearTimeout);
+  $("intro").classList.add("gone");
+  document.body.classList.remove("intro");
+  busy = true;
+  if (reduce) { girl.style.transform = "none"; arrive(0); busy = false; return; }
+  setTimeout(() => {
+    girl.classList.add("walking");
+    girl.style.transition = "transform 1.9s cubic-bezier(.3,.1,.3,1)"; girl.style.transform = "translateX(0)";
+    setTimeout(() => { girl.classList.remove("walking"); arrive(0); busy = false; }, 2000);
+  }, 700);
+}
+$("begin").addEventListener("click", startJourney);
+$("skip").addEventListener("click", startJourney);
 </script>
 </body>
 </html>

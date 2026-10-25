@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ditty Denny, Software & Data Engineer</title>
+<meta name="description" content="Walk through Ditty Denny’s journey: from Thrissur to Qatar to Scotland and back, building with software and data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+@property --sky1{syntax:'<color>';inherits:true;initial-value:#7EC8F0}
+@property --sky2{syntax:'<color>';inherits:true;initial-value:#FFE3B8}
+@property --ground{syntax:'<color>';inherits:true;initial-value:#5FA35A}
+:root{
+  --card:#FFFFFFF2; --ink:#1D2333; --muted:#596179; --line:#E2E5EE; --accent:#6A45D1; --accent-ink:#FFFFFF; --gold:#B7791F; --dim:transparent;
+  --ch:clamp(170px,30vh,270px); --feet:13vh;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --card:#1B2131F2; --ink:#EEF1F8; --muted:#A7B0C6; --line:#30384C; --accent:#A68CFF; --accent-ink:#17121F; --gold:#E7B460; --dim:rgba(8,12,28,.28);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --card:#1B2131F2; --ink:#EEF1F8; --muted:#A7B0C6; --line:#30384C; --accent:#A68CFF; --accent-ink:#17121F; --gold:#E7B460; --dim:rgba(8,12,28,.28);
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html,body{height:100%;margin:0}
+body{overflow:hidden;background:#7EC8F0;color:var(--ink);
+  font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
+button{font:inherit;cursor:pointer}
+a{color:var(--accent);font-weight:600}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+
+#stage{position:fixed;inset:0;overflow:hidden;
+  background:linear-gradient(to bottom,var(--sky1),var(--sky2));
+  transition:--sky1 1.6s ease,--sky2 1.6s ease,--ground 1.6s ease}
+#stage::after{content:"";position:absolute;inset:0;background:var(--dim);pointer-events:none;z-index:4}
+#sun{position:absolute;width:11vmin;height:11vmin;border-radius:50%;right:12vw;top:16vh;
+  background:radial-gradient(circle,#FFF6D8 0 45%,#FFD27A 46% 100%);box-shadow:0 0 60px 20px rgba(255,214,130,.45)}
+#clouds{position:absolute;inset:0 auto auto 0;width:400vw;height:45vh;transition:transform 1.6s cubic-bezier(.45,.05,.4,1)}
+.cloud{position:absolute;height:5vmin;background:#FFFFFFD9;border-radius:99px}
+.cloud::before,.cloud::after{content:"";position:absolute;background:inherit;border-radius:50%}
+.cloud::before{width:45%;aspect-ratio:1;left:14%;bottom:30%}
+.cloud::after{width:32%;aspect-ratio:1;left:50%;bottom:35%}
+
+#world{position:absolute;inset:0;display:flex;transition:transform 1.6s cubic-bezier(.45,.05,.4,1)}
+.panel{position:relative;height:100%;flex:none}
+.landmark{position:absolute;left:30%;bottom:calc(20vh - 2px);width:min(36vw,560px);z-index:1}
+.landmark svg{display:block;width:100%;height:auto;overflow:visible}
+
+#ground{position:absolute;left:0;right:0;bottom:0;height:20vh;background:var(--ground);z-index:2}
+#ground::before{content:"";position:absolute;left:0;right:0;top:0;height:10px;background:rgba(0,0,0,.08)}
+#path{position:absolute;left:0;right:0;bottom:calc(var(--feet) - 2.2vh);height:5vh;
+  background-color:rgba(255,240,215,.55);
+  background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.75) 0 40px,transparent 40px 90px);
+  background-size:90px 4px;background-repeat:repeat-x;background-position:0 50%;
+  transition:background-position 1.6s cubic-bezier(.45,.05,.4,1)}
+
+/* Character */
+#girl{position:absolute;left:14vw;bottom:var(--feet);height:var(--ch);z-index:5;
+  transition:transform 1.8s cubic-bezier(.3,.1,.3,1)}
+#girl .face{height:100%;transition:transform .25s}
+#girl.back .face{transform:scaleX(-1)}
+#girl svg{height:100%;width:auto;display:block;overflow:visible}
+.limb{transform-box:fill-box;transform-origin:50% 4%}
+.walking .legF{animation:legA .55s ease-in-out infinite alternate}
+.walking .legB{animation:legB .55s ease-in-out infinite alternate}
+.walking .armF{animation:legB .55s ease-in-out infinite alternate}
+.walking .armB{animation:legA .55s ease-in-out infinite alternate}
+.walking .bob{animation:bob .275s ease-in-out infinite alternate}
+@keyframes legA{from{transform:rotate(24deg)}to{transform:rotate(-24deg)}}
+@keyframes legB{from{transform:rotate(-24deg)}to{transform:rotate(24deg)}}
+@keyframes bob{from{transform:translateY(0)}to{transform:translateY(-3px)}}
+.waving .armF{animation:wave .7s ease-in-out 3 alternate;transform:rotate(-150deg)}
+@keyframes wave{0%{transform:rotate(-135deg)}100%{transform:rotate(-170deg)}}
+.eye{transform-box:fill-box;transform-origin:center;animation:blink 4.5s infinite}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+
+#bubble{position:absolute;left:calc(14vw + var(--ch) * .28);bottom:calc(var(--feet) + var(--ch) + 14px);
+  z-index:6;max-width:min(19rem,70vw);background:var(--card);color:var(--ink);
+  padding:.75rem 1rem;border-radius:18px 18px 18px 4px;font-weight:600;font-size:1.05rem;line-height:1.35;
+  box-shadow:0 10px 30px rgba(20,25,50,.18);opacity:0;transform:translateY(8px) scale(.96);transform-origin:0 100%;
+  transition:opacity .3s,transform .3s}
+#bubble.show{opacity:1;transform:none}
+
+/* Info card */
+#card{position:absolute;z-index:7;right:5vw;top:calc(12vh + env(safe-area-inset-top,0px));width:min(30rem,40vw);max-height:56vh;overflow:auto;
+  background:var(--card);color:var(--ink);border-radius:22px;padding:1.6rem 1.7rem;
+  box-shadow:0 20px 60px rgba(20,25,50,.22);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  opacity:0;transform:translateY(14px);transition:opacity .45s,transform .45s;pointer-events:none}
+#card.show{opacity:1;transform:none;pointer-events:auto}
+#card .when{color:var(--gold);font-weight:700;margin:0 0 .3rem}
+#card h2{font-size:clamp(1.5rem,2.6vw,2.15rem);line-height:1.08;letter-spacing:-.02em;margin:0 0 .3rem;font-weight:800}
+#card .where{color:var(--muted);margin:0 0 1rem;font-weight:600}
+#card p{margin:0 0 .8rem;line-height:1.55}
+#card ul.items{list-style:none;padding:0;margin:.2rem 0 .6rem}
+#card ul.items li{padding:.55rem 0;border-top:1px solid var(--line)}
+#card ul.items li:first-child{border-top:0}
+#card ul.items b{display:block}
+#card ul.items span{color:var(--muted);font-size:.95rem}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem;list-style:none;padding:0;margin:.4rem 0 .8rem}
+.tags li{font-size:.85rem;padding:.2rem .65rem;border-radius:99px;background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--ink)}
+.badges{display:grid;gap:.6rem;margin:.6rem 0}
+.badge{border-left:4px solid var(--gold);padding:.2rem 0 .2rem .8rem;font-weight:600}
+.big-name{font-size:clamp(2.2rem,4.4vw,3.4rem)!important}
+.hint{color:var(--muted);font-size:.95rem;margin-top:.4rem}
+.btnrow{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.6rem}
+.btnrow a{display:inline-block;text-decoration:none;padding:.6rem 1rem;border-radius:99px;border:2px solid var(--accent)}
+.btnrow a.primary{background:var(--accent);color:var(--accent-ink)}
+
+/* Progress */
+#progress{position:absolute;z-index:8;top:calc(1.2rem + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);
+  display:flex;gap:.35rem;list-style:none;margin:0;padding:.45rem .6rem;border-radius:99px;background:var(--card);
+  box-shadow:0 6px 20px rgba(20,25,50,.12);max-width:calc(100vw - 2rem)}
+#progress button{width:12px;height:12px;border-radius:50%;border:0;padding:0;background:var(--line);transition:background .3s,width .3s}
+#progress button.on{background:var(--accent);width:28px;border-radius:99px}
+#progress button.done{background:color-mix(in srgb,var(--accent) 45%,var(--line))}
+
+/* Controls */
+#controls{position:absolute;z-index:8;right:5vw;bottom:calc(3.5vh + env(safe-area-inset-bottom,0px));display:flex;gap:.6rem;align-items:center}
+#controls button{border:0;border-radius:99px;font-weight:700;box-shadow:0 8px 24px rgba(20,25,50,.2)}
+#prev{width:3.2rem;height:3.2rem;background:var(--card);color:var(--ink);font-size:1.3rem}
+#next{height:3.2rem;padding:0 1.5rem;background:var(--accent);color:var(--accent-ink);font-size:1.05rem}
+#controls button:disabled{opacity:.4;cursor:default}
+
+.blinky{animation:led 1.2s steps(1) infinite}
+.blinky.d2{animation-delay:.4s}.blinky.d3{animation-delay:.8s}
+@keyframes led{50%{opacity:.25}}
+
+@media (max-width:760px){
+  :root{--ch:clamp(130px,22vh,180px);--feet:11vh}
+  #girl{left:6vw}
+  #bubble{left:calc(6vw + var(--ch) * .3);font-size:.95rem}
+  #card{left:.9rem;right:.9rem;width:auto;top:calc(3.6rem + env(safe-area-inset-top,0px));max-height:44vh;padding:1.2rem 1.25rem;border-radius:18px}
+  .landmark{left:38%;width:62vw}
+  #controls{right:.9rem;bottom:calc(2.5vh + env(safe-area-inset-bottom,0px))}
+  #sun{right:8vw;top:auto;bottom:52vh}
+}
+@media (prefers-reduced-motion:reduce){
+  #world,#clouds,#path,#girl,#stage{transition:none!important}
+  .walking *,.waving *,.eye,.blinky{animation:none!important}
+}
+</style>
+</head>
+<body>
+<div id="stage" aria-live="polite">
+  <div id="sun"></div>
+  <div id="clouds" aria-hidden="true"></div>
+  <div id="world" aria-hidden="true"></div>
+  <div id="ground" aria-hidden="true"><div id="path"></div></div>
+
+  <div id="girl" aria-hidden="true">
+    <div class="face">
+      <svg viewBox="0 0 120 212" xmlns="http://www.w3.org/2000/svg">
+        <g class="bob">
+          <path d="M45 30 C 24 42, 22 82, 32 116 C 36 98, 40 70, 52 48 Z" fill="#1B1210"/>
+          <g class="limb armB"><rect x="55" y="72" width="10" height="30" rx="5" fill="#5A39B0"/><rect x="56" y="96" width="8" height="28" rx="4" fill="#8E5734"/><circle cx="60" cy="126" r="5" fill="#8E5734"/></g>
+          <g class="limb legB"><rect x="54" y="132" width="12" height="68" rx="5" fill="#1C2338"/><path d="M53 196 h18 a6 6 0 0 1 0 11 h-18 z" fill="#3A2A22"/></g>
+          <g class="limb legF"><rect x="54" y="132" width="12" height="68" rx="5" fill="#26304A"/><path d="M53 196 h18 a6 6 0 0 1 0 11 h-18 z" fill="#4A372C"/></g>
+          <rect x="55" y="56" width="10" height="14" fill="#A0663F"/>
+          <path d="M46 69 Q60 63 74 69 L81 140 Q60 147 39 140 Z" fill="#7B4FD6"/>
+          <path d="M47 70 L54 68 L60 79 L66 68 L73 70" fill="none" stroke="#F3C969" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M41 130 Q60 136 79 130" stroke="#F3C969" stroke-width="3" fill="none"/>
+          <circle cx="60" cy="36" r="21" fill="#A0663F"/>
+          <path d="M38 40 C 35 17, 52 11, 62 13 C 77 13, 85 25, 81 37 C 74 27, 64 23, 52 27 C 46 30, 42 35, 38 40 Z" fill="#1B1210"/>
+          <path d="M39 36 C 37 48, 41 55, 47 58 L 50 34 Z" fill="#1B1210"/>
+          <circle cx="45" cy="31" r="3" fill="#F3C969"/>
+          <circle cx="51" cy="40" r="3.4" fill="#8E5734"/>
+          <circle cx="51" cy="45" r="1.6" fill="#F3C969"/>
+          <path d="M66 29 q4 -2 8 0" stroke="#1B1210" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+          <ellipse class="eye" cx="70" cy="35" rx="2.2" ry="2.8" fill="#1B1210"/>
+          <circle cx="74" cy="42" r="3" fill="#E58A7A" opacity=".45"/>
+          <path d="M67 45 q5 4 10 -1" stroke="#5A2E1C" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <g class="limb armF"><rect x="55" y="72" width="10" height="30" rx="5" fill="#8B61E3"/><rect x="56" y="96" width="8" height="28" rx="4" fill="#A0663F"/><circle cx="60" cy="126" r="5" fill="#A0663F"/></g>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div id="bubble"></div>
+
+  <article id="card" tabindex="-1"></article>
+
+  <ol id="progress" aria-label="Journey stops"></ol>
+  <div id="controls">
+    <button id="prev" aria-label="Previous stop">‹</button>
+    <button id="next">Walk with me</button>
+  </div>
+</div>
+
+<script>
+/* ---------- Scenery pieces ---------- */
+const palm = (x, s = 1, f = 1) => `<g transform="translate(${x} 260) scale(${s * f} ${s})">
+  <path d="M0 0 C 4 -40, -6 -90, 10 -140" stroke="#7A5230" stroke-width="9" fill="none" stroke-linecap="round"/>
+  <g transform="translate(10 -140)" fill="#2E8B57">
+    <path d="M0 0 C 20 -20, 50 -15, 72 6 C 45 -5, 20 -5, 0 0Z"/><path d="M0 0 C -20 -20, -50 -15, -72 6 C -45 -5, -20 -5, 0 0Z"/>
+    <path d="M0 0 C 10 -25, 35 -40, 62 -34 C 35 -30, 15 -15, 0 0Z" fill="#3BA16A"/><path d="M0 0 C -10 -25, -35 -40, -62 -34 C -35 -30, -15 -15, 0 0Z" fill="#3BA16A"/>
+    <path d="M0 0 C 6 -20, 5 -42, 0 -56 C -5 -42, -6 -20, 0 0Z"/>
+    <circle cx="-4" cy="6" r="5" fill="#5B3A1E"/><circle cx="5" cy="7" r="5" fill="#5B3A1E"/></g></g>`;
+const svg = inner => `<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">${inner}</svg>`;
+
+const LAND = {
+  kerala: svg(`<rect x="-140" y="228" width="680" height="32" rx="16" fill="#3E8EB5" opacity=".85"/>
+    <path d="M-120 236 h640" stroke="#BFE3F2" stroke-width="2" stroke-dasharray="18 26"/>
+    <g transform="translate(150 196)"><path d="M0 30 Q 70 46 150 30 L 140 40 Q 70 52 10 40 Z" fill="#6B3F20"/>
+    <path d="M14 30 Q 18 4 40 2 L 110 2 Q 134 4 138 30 Z" fill="#D9B25F"/><path d="M30 30 V 12 M60 30 V 8 M90 30 V 8 M120 30 V 12" stroke="#8C6A2C" stroke-width="3"/></g>
+    ${palm(60, 1.05)}${palm(110, .8, -1)}${palm(340, 1.15, -1)}`),
+  college: svg(`<rect x="70" y="120" width="260" height="140" fill="#F3E8D2"/>
+    <path d="M55 124 L200 62 L345 124 Z" fill="#B24A33"/><rect x="55" y="122" width="290" height="8" fill="#8F3A27"/>
+    <circle cx="200" cy="100" r="13" fill="#FFF8E8" stroke="#8F3A27" stroke-width="3"/><path d="M200 100 V92 M200 100 h6" stroke="#8F3A27" stroke-width="2.5" stroke-linecap="round"/>
+    ${[95,140,245,290].map(x => `<path d="M${x} 230 V160 a14 14 0 0 1 28 0 V230 Z" fill="#6E8FB5"/>`).join("")}
+    <path d="M180 260 V190 a20 20 0 0 1 40 0 V260 Z" fill="#7A4A2A"/>
+    <rect x="60" y="250" width="280" height="10" fill="#D8CBB0"/>${palm(30, .8)}${palm(372, .85, -1)}`),
+  firsts: svg(`<rect x="40" y="110" width="110" height="150" fill="#E7ECF5"/><rect x="160" y="70" width="90" height="190" fill="#CFD8EA"/>
+    ${[0,1,2,3].map(r => [0,1,2].map(c => `<rect x="${55 + c * 32}" y="${125 + r * 32}" width="18" height="20" fill="#7AA5D8"/>`).join("")).join("")}
+    ${[0,1,2,3,4].map(r => [0,1].map(c => `<rect x="${175 + c * 36}" y="${85 + r * 34}" width="22" height="22" fill="#7AA5D8"/>`).join("")).join("")}
+    <rect x="270" y="90" width="110" height="78" rx="6" fill="#FFFFFF" stroke="#3B4A6B" stroke-width="4"/>
+    <polyline points="282,152 305,138 325,144 345,118 366,104" fill="none" stroke="#6A45D1" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="320" y="168" width="8" height="92" fill="#3B4A6B"/>${palm(20, .7)}`),
+  dataeng: svg(`<rect x="60" y="100" width="90" height="160" rx="6" fill="#2D3550"/>
+    ${[0,1,2,3,4,5].map(i => `<rect x="70" y="${112 + i * 24}" width="70" height="16" rx="3" fill="#3E4868"/><circle class="blinky ${i % 3 === 1 ? 'd2' : i % 3 === 2 ? 'd3' : ''}" cx="130" cy="${120 + i * 24}" r="3" fill="#5BE3A1"/>`).join("")}
+    <g fill="#6A45D1">${[0,1,2].map(i => `<ellipse cx="240" cy="${236 - i * 38}" rx="50" ry="14" fill="#8B6CF0"/><rect x="190" y="${200 - i * 38}" width="100" height="36" fill="#6A45D1"/>`).join("")}
+    <ellipse cx="240" cy="124" rx="50" ry="14" fill="#A994FF"/></g>
+    <path d="M150 150 C 170 150, 170 180, 190 180" stroke="#F3C969" stroke-width="4" fill="none" stroke-dasharray="8 6"/>
+    <rect x="310" y="150" width="70" height="110" rx="6" fill="#2D3550"/>${[0,1,2,3].map(i => `<rect x="318" y="${160 + i * 24}" width="54" height="14" rx="3" fill="#3E4868"/>`).join("")}`),
+  qatar: svg(`<path d="M-200 260 C -100 230, 40 210, 110 225 C 140 232, 160 240, 170 245 C 230 220, 320 205, 440 236 C 500 248, 560 252, 620 260 Z" fill="#E9C48C"/>
+    <rect x="140" y="80" width="30" height="170" fill="#5D7FA8"/><path d="M190 250 V60 Q 215 30 240 60 V250 Z" fill="#3E6290"/>
+    <rect x="255" y="120" width="34" height="130" fill="#6D8FB8"/><path d="M300 250 V100 L 320 70 L 340 100 V250 Z" fill="#4C6E9C"/>
+    <rect x="100" y="150" width="30" height="100" fill="#7D9DC4"/><rect x="350" y="160" width="26" height="90" fill="#7D9DC4"/>
+    ${[0,1,2,3,4,5,6].map(i => `<rect x="${198 + (i % 2) * 18}" y="${80 + Math.floor(i / 2) * 36}" width="10" height="18" fill="#BFD7F2"/>`).join("")}
+    <path d="M-200 260 C 60 238, 140 250, 210 258 L 620 258 V 260 Z" fill="#D9AF72"/>${palm(40, .75)}`),
+  stirling: svg(`<path d="M-220 260 C -100 220, 40 170, 100 165 C 160 165, 200 200, 220 230 C 280 180, 360 170, 440 210 C 520 240, 580 250, 640 260 Z" fill="#3F7D48"/>
+    <path d="M-220 260 C 60 220, 160 225, 260 255 C 320 235, 380 230, 440 240 C 520 250, 580 255, 640 260 Z" fill="#4E9258"/>
+    <g transform="translate(85 90)"><rect x="0" y="20" width="26" height="100" fill="#7B7E87"/><path d="M-4 22 L13 -12 L30 22 Z" fill="#646770"/>
+    <path d="M13 -12 V-30" stroke="#646770" stroke-width="3"/><rect x="9" y="40" width="8" height="14" rx="4" fill="#4A4D55"/><rect x="9" y="70" width="8" height="14" rx="4" fill="#4A4D55"/></g>
+    <g transform="translate(270 150)"><rect x="0" y="20" width="90" height="50" fill="#9A9DA6"/>
+    ${[0,1,2,3,4,5].map(i => `<rect x="${i * 16}" y="10" width="10" height="12" fill="#9A9DA6"/>`).join("")}
+    <rect x="-10" y="0" width="24" height="70" fill="#8A8D96"/><rect x="78" y="0" width="24" height="70" fill="#8A8D96"/>
+    <path d="M36 70 V50 a9 9 0 0 1 18 0 V70 Z" fill="#4A4D55"/></g>`),
+  falkirk: svg(`<rect x="-140" y="232" width="680" height="28" rx="14" fill="#4F86B8"/>
+    <g transform="translate(205 140)" fill="none" stroke="#C6CDD8" stroke-width="12" stroke-linecap="round">
+    <path d="M-70 -20 A 75 75 0 0 1 70 -20"/><path d="M-70 20 A 75 75 0 0 0 70 20"/><circle r="16" fill="#C6CDD8"/></g>
+    <rect x="125" y="110" width="40" height="14" rx="3" fill="#7D93AE"/><rect x="245" y="156" width="40" height="14" rx="3" fill="#7D93AE"/>
+    ${[[20,180],[70,195],[330,185]].map(([x, y]) => `<rect x="${x}" y="${y}" width="44" height="${232 - y}" fill="#E3D9CC"/><path d="M${x - 4} ${y} L${x + 22} ${y - 26} L${x + 48} ${y} Z" fill="#5B4A44"/><rect x="${x + 16}" y="${y + 18}" width="12" height="14" fill="#F3C969"/>`).join("")}`),
+  today: svg(`<rect x="130" y="40" width="130" height="220" fill="#BFD7EE"/><rect x="130" y="40" width="130" height="220" fill="url(#g1)"/>
+    <defs><linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".35"/><stop offset="1" stop-color="#6A8FC0" stop-opacity=".25"/></linearGradient></defs>
+    ${[0,1,2,3,4,5,6].map(r => `<path d="M130 ${70 + r * 28} H260" stroke="#E9F2FB" stroke-width="2"/>`).join("")}
+    <path d="M195 40 V260" stroke="#E9F2FB" stroke-width="2"/>
+    <rect x="270" y="120" width="110" height="80" rx="8" fill="#23293D"/><rect x="278" y="128" width="94" height="58" rx="3" fill="#2F3753"/>
+    <text x="325" y="164" text-anchor="middle" font-family="monospace" font-size="22" fill="#9EF0C2">&lt;/&gt;</text>
+    <rect x="318" y="200" width="14" height="60" fill="#23293D"/>${palm(60, 1)}${palm(100, .7, -1)}`),
+  toolkit: svg(`<rect x="196" y="70" width="10" height="190" fill="#7A5230"/>
+    ${[["Python",-1,80],["SQL",1,112],["Machine learning",-1,144],["Power BI",1,176],["AWS Redshift",-1,208]].map(([t, d, y]) =>
+      `<g transform="translate(${d > 0 ? 206 : 196} ${y})"><path d="${d > 0 ? 'M0 0 H120 L138 12 L120 24 H0 Z' : 'M0 0 H-120 L-138 12 L-120 24 H0 Z'}" fill="#F3E3C3" stroke="#7A5230" stroke-width="2"/>
+      <text x="${d > 0 ? 62 : -62}" y="17" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="13" fill="#3B2A1A">${t}</text></g>`).join("")}
+    <circle cx="201" cy="66" r="9" fill="#F3C969"/>`),
+  projects: svg(`${[[40,"#FFFFFF","bars"],[155,"#FFFFFF","line"],[270,"#FFFFFF","pie"]].map(([x, c, k]) => `
+    <path d="M${x + 15} 260 L${x + 45} 110 M${x + 75} 260 L${x + 45} 110" stroke="#7A5230" stroke-width="6"/>
+    <rect x="${x}" y="110" width="90" height="80" rx="4" fill="${c}" stroke="#3B4A6B" stroke-width="3"/>
+    ${k === "bars" ? `<rect x="${x + 14}" y="160" width="12" height="20" fill="#6A45D1"/><rect x="${x + 34}" y="145" width="12" height="35" fill="#8B6CF0"/><rect x="${x + 54}" y="128" width="12" height="52" fill="#F3A65A"/>` :
+      k === "line" ? `<polyline points="${x + 10},170 ${x + 30},150 ${x + 50},160 ${x + 78},124" fill="none" stroke="#2E8B57" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>` :
+      `<circle cx="${x + 45}" cy="150" r="26" fill="#8B6CF0"/><path d="M${x + 45} 150 L${x + 45} 124 A26 26 0 0 1 ${x + 70} 156 Z" fill="#F3A65A"/>`}`).join("")}`),
+  contact: svg(`<path d="M300 260 C 296 210, 304 170, 300 130" stroke="#6B4423" stroke-width="16" fill="none"/>
+    <circle cx="300" cy="100" r="62" fill="#3F8F4E"/><circle cx="255" cy="125" r="40" fill="#4FA05C"/><circle cx="345" cy="125" r="40" fill="#4FA05C"/>
+    <circle cx="282" cy="92" r="5" fill="#F27E7E"/><circle cx="320" cy="78" r="5" fill="#F27E7E"/><circle cx="335" cy="118" r="5" fill="#F27E7E"/>
+    <rect x="120" y="212" width="120" height="10" rx="3" fill="#8A5A34"/><rect x="120" y="192" width="120" height="8" rx="3" fill="#8A5A34"/>
+    <path d="M130 222 V260 M230 222 V260" stroke="#5E3C22" stroke-width="7"/>
+    <rect x="45" y="170" width="44" height="34" rx="16" fill="#6A45D1"/><rect x="63" y="204" width="8" height="56" fill="#4A3398"/>
+    <rect x="52" y="180" width="26" height="16" fill="#FFFFFF"/><path d="M52 180 L65 190 L78 180" fill="none" stroke="#6A45D1" stroke-width="2"/>`)
+};
+
+/* ---------- The journey (edit text here) ---------- */
+const LINKS = {
+  email: "dittydenny2002@gmail.com",
+  linkedin: "https://linkedin.com/in/ditty-denny123",
+  github: "https://github.com/Ditty1",
+  repo: "https://github.com/Ditty1/Data-Science-Portfolio"
+};
+const tags = arr => `<ul class="tags">${arr.map(t => `<li>${t}</li>`).join("")}</ul>`;
+
+const SCENES = [
+  { land: "kerala", sky: ["#6FC0EE", "#FFE3B8"], ground: "#5FA35A", wave: true,
+    say: "Hi, I’m Ditty Denny! 👋 Come, walk with me.",
+    html: `<h2 class="big-name">Hi, I’m Ditty Denny</h2>
+      <p class="where">Software & Data Engineer from Thrissur, Kerala</p>
+      <p>I build software, work with data, and love turning messy problems into simple answers.</p>
+      <p>This is the road that got me here, from Kerala to Qatar to Scotland and back. Walk it with me.</p>
+      <p class="hint">Press “Walk with me”, scroll, swipe, or use the arrow keys.</p>` },
+  { land: "college", sky: ["#86C9EE", "#EAF6FF"], ground: "#62A85C",
+    say: "This is where it all started.",
+    html: `<p class="when">2020 to 2023</p><h2>BVoc Data Science</h2><p class="where">St. Thomas College, Thrissur</p>
+      <p>This is where I discovered that data tells stories, if you ask it the right questions.</p>
+      <div class="badges"><div class="badge">Graduated with a 97% GPA</div></div>` },
+  { land: "firsts", sky: ["#94CDF4", "#FFF1D6"], ground: "#6BAA5E",
+    say: "My first taste of real-world data!",
+    html: `<p class="when">Dec 2022 to Jun 2023</p><h2>First steps in industry</h2>
+      <p>Real projects, real deadlines, and a lot of learning fast.</p>
+      <ul class="items"><li><b>Data Science Intern</b><span>Elamigo, Dec 2022 to Feb 2023</span></li>
+      <li><b>Quantitative Analyst Intern</b><span>XTG Technologies, Dec 2022 to Jun 2023</span></li></ul>` },
+  { land: "dataeng", sky: ["#6E8FD8", "#D2DEFF"], ground: "#5E9B63",
+    say: "Then I started building the pipes that data flows through.",
+    html: `<p class="when">Jul 2023 to Dec 2024</p><h2>Data Engineer</h2><p class="where">The Maya Solutions</p>
+      <p>I built data pipelines and worked with databases and warehouses, making sure data arrived clean, organised, and ready to use.</p>
+      ${tags(["SQL", "PostgreSQL", "AWS Redshift", "ETL", "Data warehousing"])}` },
+  { land: "qatar", sky: ["#F2A85E", "#FFE9C2"], ground: "#E3C08A",
+    say: "Next stop, Qatar! ☀️",
+    html: `<p class="when">Jan 2024 to Jul 2024</p><h2>Video Analyst</h2><p class="where">Hamad Medical Corporation, Qatar</p>
+      <p>Working abroad inside a large healthcare organisation taught me how much careful, accurate analysis matters when real people depend on it.</p>` },
+  { land: "stirling", sky: ["#97B1C9", "#E5EDF3"], ground: "#4F8F52",
+    say: "Then I crossed continents, all the way to Scotland.",
+    html: `<p class="when">2024 to 2025</p><h2>MSc Data Science for Business</h2><p class="where">University of Stirling, Scotland</p>
+      <p>Here I learned the question that comes before any code: what decision is this data supposed to help someone make?</p>
+      <div class="badges"><div class="badge">Commonwealth Shared Scholar</div><div class="badge">Dean’s Award winner</div></div>` },
+  { land: "falkirk", sky: ["#8DB0D3", "#EDF3F8"], ground: "#4C8A50",
+    say: "And then I put it all into practice.",
+    html: `<p class="when">Jul 2025 to Sep 2025</p><h2>Data Science Intern</h2><p class="where">AiM (Action Insight Management) Ltd, Falkirk, UK</p>
+      <p>Applying data science to real business problems alongside a UK team.</p>` },
+  { land: "today", sky: ["#5FB6E8", "#FFE0B5"], ground: "#5FA35A",
+    say: "Now I’m back home, building. 💻",
+    html: `<p class="when">Today</p><h2>Software & Data Engineer</h2>
+      <p>I develop applications and handle the data side too: writing SQL, automating work with Python, and creating reports that help people make decisions.</p>
+      <p>Code and data, together. That’s where I do my best work.</p>` },
+  { land: "toolkit", sky: ["#7DC4EB", "#F1FAFF"], ground: "#62A85C",
+    say: "Here’s what I carry in my toolkit.",
+    html: `<h2>My toolkit</h2>
+      <p class="where">Languages</p>${tags(["Python", "R", "Java", "C", "SAS"])}
+      <p class="where">Data and machine learning</p>${tags(["Machine learning", "AI", "Statistical analysis", "Data mining"])}
+      <p class="where">Databases and pipelines</p>${tags(["SQL", "PostgreSQL", "AWS Redshift", "Data warehousing"])}
+      <p class="where">Reporting</p>${tags(["Power BI", "Apache Superset", "Excel", "SPSS"])}
+      <p class="where">Certifications</p><p>Mastering Data Analysis in Excel, and Data Analysis with Python</p>` },
+  { land: "projects", sky: ["#A99BEA", "#FFE1EC"], ground: "#66A564",
+    say: "A few things I’ve built along the way.",
+    html: `<h2>Things I’ve built</h2>
+      <ul class="items">
+        <li><b>Financial market predictive tool</b><span>Forecasting market movement with Python</span></li>
+        <li><b>Disease prediction from cancer diagnostic data</b><span>Machine learning for early diagnosis</span></li>
+        <li><b>Credit card fraud detection</b><span>Spotting rare fraud among normal transactions</span></li>
+        <li><b>Online banking system</b><span>A secure application in Java</span></li>
+        <li><b>Online shopping system</b><span>A purchase interface in C</span></li>
+        <li><b>Population data analysis</b><span>Statistics and visualisation in Excel</span></li>
+      </ul>
+      <div class="btnrow"><a class="primary" href="${LINKS.repo}" target="_blank" rel="noopener">See the code on GitHub</a></div>` },
+  { land: "contact", sky: ["#F08F6C", "#FFD6A0"], ground: "#5C9A57", wave: true,
+    say: "Thanks for walking with me! Shall we talk? 😊",
+    html: `<h2>Let’s work together</h2>
+      <p>Whether it’s a role, a project, or just a good conversation about data, I’d love to hear from you.</p>
+      <div class="btnrow">
+        <a class="primary" href="mailto:${LINKS.email}">Email me</a>
+        <a href="${LINKS.linkedin}" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="${LINKS.github}" target="_blank" rel="noopener">GitHub</a>
+      </div>
+      <p class="hint">${LINKS.email}<br>Thrissur, Kerala, India</p>` }
+];
+const LABELS = ["Hello", "College", "First steps", "Data Engineer", "Qatar", "Scotland", "Falkirk", "Today", "Toolkit", "Projects", "Contact"];
+
+/* ---------- Build the world ---------- */
+const N = SCENES.length;
+const $ = id => document.getElementById(id);
+const stage = $("stage"), world = $("world"), clouds = $("clouds"), path = $("path");
+const girl = $("girl"), bubble = $("bubble"), card = $("card"), next = $("next"), prev = $("prev"), progress = $("progress");
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+world.style.width = `${N * 100}vw`;
+world.innerHTML = SCENES.map(s => `<div class="panel" style="width:100vw"><div class="landmark">${LAND[s.land]}</div></div>`).join("");
+clouds.style.width = `${N * 40 + 120}vw`;
+let cl = "";
+for (let i = 0; i < N * 2 + 3; i++) {
+  const w = 8 + ((i * 37) % 9);
+  cl += `<div class="cloud" style="left:${i * 22 + ((i * 13) % 9)}vw;top:${6 + ((i * 29) % 26)}vh;width:${w}vmin;opacity:${0.6 + ((i * 7) % 4) / 10}"></div>`;
+}
+clouds.innerHTML = cl;
+progress.innerHTML = LABELS.map((l, i) => `<li><button aria-label="Go to ${l}" title="${l}" data-i="${i}"></button></li>`).join("");
+
+function setSky(i) {
+  stage.style.setProperty("--sky1", SCENES[i].sky[0]);
+  stage.style.setProperty("--sky2", SCENES[i].sky[1]);
+  stage.style.setProperty("--ground", SCENES[i].ground);
+  document.body.style.background = SCENES[i].sky[0];
+}
+
+let typer;
+function say(text) {
+  clearInterval(typer);
+  bubble.textContent = "";
+  bubble.classList.add("show");
+  if (reduce) { bubble.textContent = text; return; }
+  const chars = Array.from(text);
+  let k = 0;
+  typer = setInterval(() => {
+    bubble.textContent += chars[k++];
+    if (k >= chars.length) clearInterval(typer);
+  }, 32);
+}
+
+function arrive(i) {
+  const s = SCENES[i];
+  card.innerHTML = s.html;
+  card.scrollTop = 0;
+  card.classList.add("show");
+  say(s.say);
+  girl.classList.remove("back");
+  if (s.wave && !reduce) {
+    girl.classList.add("waving");
+    setTimeout(() => girl.classList.remove("waving"), 2200);
+  }
+  [...progress.querySelectorAll("button")].forEach((b, j) => {
+    b.classList.toggle("on", j === i);
+    b.classList.toggle("done", j < i);
+    b.setAttribute("aria-current", j === i ? "step" : "false");
+  });
+  prev.disabled = i === 0;
+  next.textContent = i === 0 ? "Walk with me" : i === N - 1 ? "Walk again" : "Next stop";
+}
+
+let cur = 0, busy = false;
+function go(target) {
+  if (busy) return;
+  if (target >= N) target = 0;
+  if (target < 0 || target === cur) return;
+  busy = true;
+  const steps = Math.abs(target - cur);
+  const d = reduce ? 0 : Math.min(1500 + (steps - 1) * 450, 3600);
+  card.classList.remove("show");
+  bubble.classList.remove("show");
+  girl.classList.toggle("back", target < cur);
+  girl.classList.remove("waving");
+  if (d) girl.classList.add("walking");
+  const t = `${d}ms cubic-bezier(.45,.05,.4,1)`;
+  world.style.transition = `transform ${t}`;
+  clouds.style.transition = `transform ${t}`;
+  path.style.transition = `background-position ${t}`;
+  stage.style.transition = `--sky1 ${d}ms ease, --sky2 ${d}ms ease, --ground ${d}ms ease`;
+  world.style.transform = `translateX(${-target * 100}vw)`;
+  clouds.style.transform = `translateX(${-target * 22}vw)`;
+  path.style.backgroundPosition = `${-target * 100}vw 50%`;
+  setSky(target);
+  setTimeout(() => {
+    girl.classList.remove("walking");
+    cur = target;
+    arrive(cur);
+    busy = false;
+  }, d + 60);
+}
+
+next.addEventListener("click", () => go(cur + 1));
+prev.addEventListener("click", () => go(cur - 1));
+progress.addEventListener("click", e => { const b = e.target.closest("button"); if (b) go(+b.dataset.i); });
+addEventListener("keydown", e => {
+  if (e.target.closest && e.target.closest("a")) return;
+  if (["ArrowRight", "ArrowDown", "PageDown"].includes(e.key)) { e.preventDefault(); go(cur + 1); }
+  if (["ArrowLeft", "ArrowUp", "PageUp"].includes(e.key)) { e.preventDefault(); go(cur - 1); }
+});
+let acc = 0, wheelTimer;
+addEventListener("wheel", e => {
+  const inCard = e.target.closest && e.target.closest("#card");
+  if (inCard) {
+    const atTop = card.scrollTop <= 0, atBottom = card.scrollTop + card.clientHeight >= card.scrollHeight - 2;
+    if ((e.deltaY > 0 && !atBottom) || (e.deltaY < 0 && !atTop)) return;
+  }
+  acc += e.deltaY + e.deltaX;
+  clearTimeout(wheelTimer);
+  wheelTimer = setTimeout(() => acc = 0, 220);
+  if (acc > 70) { acc = 0; if (cur < N - 1) go(cur + 1); }
+  if (acc < -70) { acc = 0; go(cur - 1); }
+}, { passive: true });
+let tx = 0, ty = 0;
+addEventListener("touchstart", e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+addEventListener("touchend", e => {
+  if (e.target.closest && e.target.closest("#card, a, button")) return;
+  const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+  if (Math.max(Math.abs(dx), Math.abs(dy)) < 45) return;
+  const forward = Math.abs(dx) > Math.abs(dy) ? dx < 0 : dy < 0;
+  forward ? (cur < N - 1 && go(cur + 1)) : go(cur - 1);
+}, { passive: true });
+
+/* ---------- Opening: she walks in and says hi ---------- */
+setSky(0);
+prev.disabled = true;
+[...progress.querySelectorAll("button")][0].classList.add("on");
+if (reduce) {
+  arrive(0);
+} else {
+  busy = true;
+  girl.style.transition = "none";
+  girl.style.transform = "translateX(-40vw)";
+  girl.classList.add("walking");
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    girl.style.transition = "";
+    girl.style.transform = "translateX(0)";
+  }));
+  setTimeout(() => { girl.classList.remove("walking"); arrive(0); busy = false; }, 1900);
+}
+</script>
+</body>
+</html>

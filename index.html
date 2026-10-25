@@ -3,1091 +3,762 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Ditty Denny | Welcome to my Journey</title>
-<meta name="description" content="Walk into Ditty Denny’s journey: through the streets of Thrissur, Doha, Stirling and Dubai, in code, data and FinTech.">
+<title>Ditty Denny | My Journey</title>
+<meta name="description" content="Ditty Denny, Software Engineer in FinTech. A cinematic journey through Thrissur, Doha, Stirling and Dubai.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Cinzel:wght@500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --card:#FFFFFFEB; --ink:#1D2333; --muted:#596179; --line:#E2E5EE; --accent:#6A45D1; --accent-ink:#FFFFFF; --gold:#B7791F;
-  --cine:"Cinzel",Georgia,"Times New Roman",serif;
-  color-scheme:light;
+  --glass:rgba(14,16,22,.52); --glass-line:rgba(255,255,255,.14); --ink:#F5F1EA; --muted:rgba(245,241,234,.72); --gold:#D9B26F; --chip:rgba(255,255,255,.1);
+  --serif:"Cormorant Garamond","Iowan Old Style",Georgia,serif; --sans:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  color-scheme:dark;
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px);
   padding-bottom:env(safe-area-inset-bottom,0px);
 }
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){--card:#161B28EB;--ink:#EEF1F8;--muted:#A7B0C6;--line:#30384C;--accent:#A68CFF;--accent-ink:#17121F;--gold:#E7B460;color-scheme:dark}
+@media (prefers-color-scheme:light){
+  :root:not([data-theme="dark"]){ --glass:rgba(250,248,244,.74); --glass-line:rgba(0,0,0,.08); --ink:#1B1A18; --muted:rgba(27,26,24,.7); --gold:#9A7330; --chip:rgba(0,0,0,.06); color-scheme:light }
 }
-:root[data-theme="dark"]{--card:#161B28EB;--ink:#EEF1F8;--muted:#A7B0C6;--line:#30384C;--accent:#A68CFF;--accent-ink:#17121F;--gold:#E7B460;color-scheme:dark}
+:root[data-theme="light"]{ --glass:rgba(250,248,244,.74); --glass-line:rgba(0,0,0,.08); --ink:#1B1A18; --muted:rgba(27,26,24,.7); --gold:#9A7330; --chip:rgba(0,0,0,.06); color-scheme:light }
 *,*::before,*::after{box-sizing:inherit}
 html,body{height:100%;margin:0}
-body{overflow:hidden;background:#0B0E17;color:var(--ink);font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
-button{font:inherit;cursor:pointer}
-a{color:var(--accent);font-weight:600}
-:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
-#view{position:fixed;inset:0;display:block;width:100%;height:100%}
-#vignette{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.35) 100%);z-index:1}
+body{overflow:hidden;background:#0A0B0F;color:#F5F1EA;font-family:var(--sans);-webkit-font-smoothing:antialiased}
+button{font:inherit;cursor:pointer;color:inherit}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
 
-/* Card */
-#card{position:fixed;z-index:7;right:4vw;top:calc(12vh + env(safe-area-inset-top,0px));width:min(29rem,35vw);max-height:62vh;overflow:auto;
-  background:var(--card);color:var(--ink);border-radius:22px;padding:1.6rem 1.7rem;box-shadow:0 24px 70px rgba(5,8,20,.4);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  opacity:0;transform:translateX(24px);transition:opacity .6s,transform .6s;pointer-events:none}
-#card.show{opacity:1;transform:none;pointer-events:auto}
-.chap{font-family:var(--cine);font-weight:700;letter-spacing:.2em;font-size:.78rem;color:var(--gold);margin:0 0 .5rem}
-#card .when{color:var(--muted);font-weight:600;margin:0 0 .2rem;font-size:.95rem}
-#card h2{font-size:clamp(1.5rem,2.4vw,2.05rem);line-height:1.08;letter-spacing:-.02em;margin:0 0 .3rem;font-weight:800}
-#card .where{color:var(--muted);margin:0 0 1rem;font-weight:600}
-#card p{margin:0 0 .8rem;line-height:1.55}
-#card h3{font-size:1rem;margin:1rem 0 .3rem}
-ul.points{margin:0 0 .8rem;padding:0;list-style:none}
-ul.points li{position:relative;padding:0 0 .55rem 1.2rem;line-height:1.5}
-ul.points li::before{content:"";position:absolute;left:0;top:.6em;width:7px;height:7px;border-radius:50%;background:var(--accent)}
-ul.items{list-style:none;padding:0;margin:.2rem 0 .6rem}
-ul.items li{padding:.55rem 0;border-top:1px solid var(--line)}
-ul.items li:first-child{border-top:0}
-ul.items b{display:block}
-ul.items span{color:var(--muted);font-size:.95rem}
-.tags{display:flex;flex-wrap:wrap;gap:.4rem;list-style:none;padding:0;margin:.3rem 0 .8rem}
-.tags li{font-size:.85rem;padding:.2rem .65rem;border-radius:99px;background:color-mix(in srgb,var(--accent) 14%,transparent)}
-.badges{display:grid;gap:.5rem;margin:.6rem 0 .9rem}
-.badge{border-left:4px solid var(--gold);padding:.15rem 0 .15rem .8rem;font-weight:600}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(6.5rem,1fr));gap:.8rem;margin:.4rem 0 1rem}
-.stats div{background:color-mix(in srgb,var(--accent) 9%,transparent);border-radius:14px;padding:.7rem .8rem}
-.stats b{display:block;font-size:1.9rem;line-height:1;font-weight:800;color:var(--accent)}
-.stats span{font-size:.85rem;color:var(--muted)}
-.photo{margin:0 0 1.1rem;background:#fff;padding:.5rem .5rem .4rem;border-radius:4px;box-shadow:0 8px 22px rgba(0,0,0,.18);transform:rotate(-1.2deg)}
-.photo img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:2px}
-.photo figcaption{color:#3A3F4E;font-size:.85rem;padding:.4rem .2rem 0;text-align:center}
-.big-name{font-family:var(--cine);font-weight:900;letter-spacing:.04em;font-size:clamp(2rem,3.6vw,2.9rem)!important}
-.hint{color:var(--muted);font-size:.92rem;margin-top:.4rem}
-.btnrow{display:flex;flex-wrap:wrap;gap:.6rem;margin:.6rem 0}
-.btnrow a{display:inline-block;text-decoration:none;padding:.6rem 1rem;border-radius:99px;border:2px solid var(--accent)}
-.btnrow a.primary{background:var(--accent);color:var(--accent-ink)}
+/* ---------- Cinematic plates ---------- */
+#stage{position:fixed;inset:0;overflow:hidden;background:#0A0B0F}
+.plate{position:absolute;inset:0;opacity:0;will-change:transform,opacity,filter}
+.plate .move{position:absolute;inset:-4%;will-change:transform}
+.plate .soft,.plate .sharp{position:absolute;inset:0;background-size:cover;background-position:center}
+.plate .soft{filter:blur(14px) saturate(1.05) brightness(.9);transform:scale(1.05)}
+.plate .sharp{-webkit-mask-image:radial-gradient(ellipse 62% 58% at 50% 42%,#000 42%,transparent 88%);mask-image:radial-gradient(ellipse 62% 58% at 50% 42%,#000 42%,transparent 88%);
+  filter:saturate(1.06) contrast(1.04)}
+.plate.fallback .soft,.plate.fallback .sharp{background:radial-gradient(ellipse at 60% 30%,#3A3550,#12131A 70%)}
+#light{position:fixed;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 70% 60% at 18% 8%,rgba(255,214,160,.22),transparent 60%),
+             linear-gradient(to top,rgba(5,6,10,.86) 0%,rgba(5,6,10,.35) 34%,rgba(5,6,10,0) 55%),
+             linear-gradient(to bottom,rgba(5,6,10,.45),rgba(5,6,10,0) 22%),
+             radial-gradient(ellipse at center,transparent 58%,rgba(0,0,0,.45) 100%)}
+#grain{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;opacity:.045;mix-blend-mode:overlay;image-rendering:pixelated}
+#sweep{position:fixed;inset:0;pointer-events:none;opacity:0;background:linear-gradient(105deg,transparent 30%,rgba(255,236,200,.18) 48%,transparent 66%)}
 
-/* Subtitles (your voice) */
-#sub{position:fixed;z-index:6;left:32%;bottom:calc(13vh + env(safe-area-inset-bottom,0px));transform:translateX(-50%);
-  max-width:min(46rem,90vw);text-align:center;color:#fff;font-size:clamp(1rem,1.8vw,1.35rem);font-weight:600;line-height:1.4;
-  background:rgba(0,0,0,.55);padding:.5rem 1rem;border-radius:8px;opacity:0;transition:opacity .4s}
-#sub.show{opacity:1}
+/* ---------- Top bar ---------- */
+#top{position:fixed;z-index:20;top:calc(1.4rem + env(safe-area-inset-top,0px));left:clamp(1.2rem,4vw,3.5rem);right:clamp(1.2rem,4vw,3.5rem);
+  display:flex;justify-content:space-between;align-items:center;opacity:0;transition:opacity 1s}
+body.on #top{opacity:1}
+#brand{font-family:var(--serif);font-size:1.35rem;letter-spacing:.02em}
+#voice{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:99px;padding:.45rem .95rem;font-size:.85rem;font-weight:600;color:#F5F1EA;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 
-/* Chapter title */
-#ctitle{position:fixed;z-index:8;inset:0;display:grid;place-items:center;pointer-events:none;text-align:center;color:#fff;
-  text-shadow:0 2px 30px rgba(0,0,0,.6);opacity:0;transition:opacity .8s}
-#ctitle.show{opacity:1}
-#ctitle p{font-family:var(--cine);letter-spacing:.35em;font-weight:700;color:#F3D08A;margin:0 0 .6rem;font-size:clamp(.8rem,1.4vw,1.05rem)}
-#ctitle h2{font-family:var(--cine);font-weight:900;font-size:clamp(2.2rem,7vw,5.5rem);letter-spacing:.06em;margin:0;line-height:1}
+/* ---------- Splash ---------- */
+#splash{position:fixed;inset:0;z-index:50;display:grid;place-items:center;text-align:center;background:rgba(6,7,10,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:opacity 1s var(--ease)}
+#splash.gone{opacity:0;pointer-events:none}
+#splash h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.6rem,7vw,5.2rem);margin:0;letter-spacing:.01em;line-height:1}
+#splash p{color:rgba(245,241,234,.75);margin:.9rem 0 2rem;font-size:1.05rem}
+#enter{background:#F5F1EA;color:#121317;border:0;border-radius:99px;padding:.95rem 2rem;font-weight:700;font-size:1rem}
+#quiet{display:block;margin:1rem auto 0;background:none;border:0;color:rgba(245,241,234,.65);text-decoration:underline;text-underline-offset:3px;font-size:.92rem}
 
-/* HUD */
-#progress{position:fixed;z-index:8;top:calc(1.2rem + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);
-  display:flex;gap:.35rem;list-style:none;margin:0;padding:.45rem .6rem;border-radius:99px;background:var(--card);box-shadow:0 6px 20px rgba(0,0,0,.25)}
-#progress button{width:12px;height:12px;border-radius:50%;border:0;padding:0;background:var(--line);transition:background .3s,width .3s}
-#progress button.on{background:var(--accent);width:28px;border-radius:99px}
-#progress button.done{background:color-mix(in srgb,var(--accent) 45%,var(--line))}
-#controls{position:fixed;z-index:8;right:4vw;bottom:calc(3.5vh + env(safe-area-inset-bottom,0px));display:flex;gap:.6rem}
-#controls button{border:0;border-radius:99px;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,.3)}
-#prev{width:3.2rem;height:3.2rem;background:var(--card);color:var(--ink);font-size:1.3rem}
-#next{height:3.2rem;padding:0 1.5rem;background:var(--accent);color:var(--accent-ink);font-size:1.05rem}
-#controls button:disabled{opacity:.4;cursor:default}
-body.intro #progress,body.intro #controls,body.intro #card,body.intro #sub{visibility:hidden}
+/* ---------- Ditty ---------- */
+#ditty{position:fixed;z-index:6;right:clamp(0rem,6vw,7rem);bottom:0;height:min(86vh,900px);aspect-ratio:3/4;pointer-events:none;
+  opacity:0;transform:translateX(9vw) scale(.98);filter:blur(10px);transition:opacity 1.5s var(--ease),transform 1.8s var(--ease),filter 1.5s var(--ease)}
+#ditty.in{opacity:1;transform:none;filter:none}
+#ditty.out{opacity:0;transform:translateX(-4vw) scale(.97);filter:blur(8px);transition-duration:.7s}
+#ditty img,#ditty video,#ditty svg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:bottom center;
+  filter:drop-shadow(0 30px 60px rgba(0,0,0,.55))}
+#ditty .rim{position:absolute;inset:10% 5% 0;background:radial-gradient(ellipse at 50% 40%,rgba(255,220,170,.22),transparent 65%);filter:blur(30px)}
 
-.bar{position:fixed;left:0;right:0;height:0;background:#000;z-index:40;transition:height .8s cubic-bezier(.6,0,.3,1)}
-.bar.t{top:0}.bar.b{bottom:0}
-body.cinema .bar{height:9vh}
+#ditty svg{animation:dfloat 6s ease-in-out infinite alternate}
+@keyframes dfloat{from{transform:translateY(0)}to{transform:translateY(-6px)}}
+.dopen{transform-box:fill-box;transform-origin:center;transform:scaleY(.05)}
+body.speaking .dopen{animation:dtalk .2s ease-in-out infinite alternate}
+body.speaking .dlow{animation:dlow .2s ease-in-out infinite alternate}
+@keyframes dtalk{from{transform:scaleY(.15)}to{transform:scaleY(1)}}
+@keyframes dlow{from{transform:translateY(0)}to{transform:translateY(2.2px)}}
+.deyes{transform-box:fill-box;transform-origin:center;animation:dblink 5s infinite}
+@keyframes dblink{0%,95%,100%{transform:scaleY(1)}97%{transform:scaleY(.08)}}
+#face svg{width:100%;height:100%;background:#2A2733}
+@media (prefers-reduced-motion:reduce){#ditty svg,.deyes,body.speaking .dopen,body.speaking .dlow{animation:none}}
 
-/* Intro */
-#intro{position:fixed;inset:0;z-index:30;background:radial-gradient(ellipse at center,#1A1F33 0%,#07090F 70%);color:#F4EFE4;display:grid;place-items:center;text-align:center;transition:opacity 1.2s}
-#intro.gone{opacity:0;pointer-events:none}
-#intro .tl{position:absolute;left:8vw;right:8vw;top:50%;transform:translateY(-50%) scale(.98);margin:0;font-family:var(--cine);font-weight:500;
-  font-size:clamp(1.25rem,3.2vw,2.4rem);letter-spacing:.06em;line-height:1.35;opacity:0;filter:blur(6px);transition:opacity .9s,filter .9s,transform 2.6s ease-out}
-#intro .tl.show{opacity:1;filter:blur(0);transform:translateY(-50%) scale(1.03)}
-#title{opacity:0;transition:opacity 1.4s}
-#title.show{opacity:1}
-#title .pre{font-family:var(--cine);letter-spacing:.35em;font-size:clamp(.75rem,1.4vw,1rem);color:#E7B460;margin:0 0 1rem}
-#title h1{font-family:var(--cine);font-weight:900;font-size:clamp(2.8rem,10vw,7.5rem);letter-spacing:.08em;margin:0;line-height:1;
-  background:linear-gradient(180deg,#FFF6DD 0%,#E7B460 60%,#A8762A 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
-#title .sub{margin:1.1rem 0 2.2rem;font-size:clamp(1rem,1.8vw,1.25rem);color:#C9CBD6}
-#begin{border:2px solid #E7B460;background:transparent;color:#F4EFE4;border-radius:99px;padding:.9rem 1.8rem;font-size:1.05rem;font-weight:700}
-#begin:hover{background:#E7B460;color:#0B0E17}
-#skip{position:absolute;right:1.2rem;bottom:calc(10vh + 1rem + env(safe-area-inset-bottom,0px));background:transparent;border:1px solid #ffffff44;color:#C9CBD6;border-radius:99px;padding:.5rem 1rem}
-#loading{position:absolute;bottom:calc(11vh + 1.6rem);left:0;right:0;color:#8A90A6;font-size:.9rem}
+/* ---------- Intro text ---------- */
+#hello{position:fixed;z-index:11;left:clamp(1.2rem,6vw,6rem);bottom:calc(14vh + env(safe-area-inset-bottom,0px));max-width:min(34rem,48vw)}
+#hello > *{opacity:0;transform:translateY(16px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+#hello.in > *{opacity:1;transform:none}
+#hello.in > :nth-child(2){transition-delay:.15s}#hello.in > :nth-child(3){transition-delay:.3s}#hello.in > :nth-child(4){transition-delay:.45s}#hello.in > :nth-child(5){transition-delay:.6s}
+#hello.out > *{opacity:0;transform:translateY(-10px);transition-duration:.5s;transition-delay:0s}
+.kicker{color:var(--gold);font-weight:600;letter-spacing:.04em;margin:0 0 .6rem}
+#hello h2{font-family:var(--serif);font-weight:500;font-size:clamp(2.8rem,6vw,5rem);line-height:.98;margin:0 0 .9rem;color:#F5F1EA}
+#hello .role{font-size:1.15rem;font-weight:600;margin:0 0 .9rem;color:#F5F1EA}
+#hello .bio{color:rgba(245,241,234,.8);line-height:1.6;margin:0 0 1.6rem;font-size:1.02rem}
+.cta{display:inline-flex;align-items:center;gap:.6rem;background:#F5F1EA;color:#121317;border:0;border-radius:99px;padding:.9rem 1.6rem;font-weight:700}
+.cta span{font-size:1.15rem;line-height:1}
 
-/* Flight */
-#flight{position:fixed;inset:0;z-index:25;opacity:0;pointer-events:none;transition:opacity .6s;
-  background:radial-gradient(1.5px 1.5px at 12% 20%,#fff9,transparent),radial-gradient(1px 1px at 30% 70%,#fff8,transparent),
-  radial-gradient(1.5px 1.5px at 55% 15%,#fffa,transparent),radial-gradient(1px 1px at 78% 40%,#fff8,transparent),
-  radial-gradient(1.5px 1.5px at 90% 80%,#fff9,transparent),radial-gradient(ellipse at 50% 120%,#24305A 0%,#0A0E1C 65%);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;color:#F4EFE4;text-align:center}
-#flight.show{opacity:1}
-#flight .fch{font-family:var(--cine);letter-spacing:.3em;color:#E7B460;font-weight:700;margin:0 0 .6rem;font-size:clamp(.8rem,1.4vw,1rem)}
-#flight h2{font-family:var(--cine);font-weight:900;font-size:clamp(2rem,6vw,4.4rem);letter-spacing:.06em;margin:0}
-#flight .fyear{color:#C9CBD6;margin:.5rem 0 0}
-#flight svg{width:min(92vw,1000px);height:auto;margin-top:2vh}
-#flight text{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:20px;fill:#DDE2F0;font-weight:600}
-.pulse{animation:pulse 1.2s ease-out infinite;transform-box:fill-box;transform-origin:center}
-@keyframes pulse{0%{transform:scale(1);opacity:1}100%{transform:scale(2.4);opacity:0}}
+/* ---------- Journey caption + panel ---------- */
+#caption{position:fixed;z-index:7;left:clamp(1.2rem,5vw,5rem);bottom:calc(17vh + env(safe-area-inset-bottom,0px));max-width:min(40rem,52vw);pointer-events:none}
+#caption .chap{color:var(--gold);font-weight:600;letter-spacing:.04em;margin:0 0 .5rem}
+#caption h2{font-family:var(--serif);font-weight:500;font-size:clamp(2.6rem,6.4vw,5.6rem);line-height:.95;margin:0;color:#F5F1EA;text-shadow:0 4px 40px rgba(0,0,0,.45)}
+#caption .year{color:rgba(245,241,234,.8);margin:.7rem 0 0;font-size:1.05rem}
+#caption > *{opacity:0;transform:translateY(18px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+#caption.in > *{opacity:1;transform:none}
+#caption.in h2{transition-delay:.12s}#caption.in .year{transition-delay:.24s}
 
-#nogl{position:fixed;inset:0;display:none;place-items:center;color:#fff;text-align:center;padding:2rem}
+#panel{position:fixed;z-index:8;right:clamp(1.2rem,4vw,3.5rem);top:50%;transform:translateY(-50%) translateX(20px);width:min(26rem,34vw);max-height:68vh;overflow:auto;
+  background:var(--glass);color:var(--ink);border:1px solid var(--glass-line);border-radius:20px;padding:1.5rem 1.6rem;
+  backdrop-filter:blur(18px) saturate(1.2);-webkit-backdrop-filter:blur(18px) saturate(1.2);box-shadow:0 30px 80px rgba(0,0,0,.35);
+  opacity:0;transition:opacity .7s var(--ease),transform .9s var(--ease);pointer-events:none}
+#panel.in{opacity:1;transform:translateY(-50%);pointer-events:auto}
+#panel .when{color:var(--muted);font-size:.9rem;margin:0 0 .3rem}
+#panel h3{font-size:1.3rem;margin:0 0 .15rem;line-height:1.25}
+#panel .org{color:var(--muted);margin:0 0 1rem;font-weight:500}
+#panel ul.pts{list-style:none;padding:0;margin:0 0 1rem}
+#panel ul.pts li{position:relative;padding:0 0 .6rem 1.1rem;line-height:1.5;font-size:.95rem}
+#panel ul.pts li::before{content:"";position:absolute;left:0;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--gold)}
+.chips{display:flex;flex-wrap:wrap;gap:.4rem;list-style:none;padding:0;margin:.2rem 0 .4rem}
+.chips li{font-size:.8rem;padding:.25rem .65rem;border-radius:99px;background:var(--chip)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin:0 0 1rem}
+.stats div{border:1px solid var(--glass-line);border-radius:14px;padding:.7rem .8rem}
+.stats b{display:block;font-family:var(--serif);font-size:2rem;line-height:1;font-weight:600;color:var(--gold)}
+.stats span{font-size:.8rem;color:var(--muted)}
+.honor{border-left:2px solid var(--gold);padding:.1rem 0 .1rem .8rem;margin:0 0 .6rem;font-weight:600;font-size:.95rem}
+#panel .links{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.6rem}
+#panel .links a{text-decoration:none;font-weight:600;font-size:.9rem;padding:.55rem .95rem;border-radius:99px;border:1px solid var(--glass-line)}
+#panel .links a.solid{background:var(--gold);color:#16130C;border-color:transparent}
+#panel p{line-height:1.55;font-size:.95rem;margin:0 0 .8rem}
+#panel h4{font-size:.85rem;color:var(--muted);font-weight:600;margin:.8rem 0 .3rem}
 
-@media (max-width:760px){
-  #card{left:.9rem;right:.9rem;width:auto;top:calc(3.8rem + env(safe-area-inset-top,0px));max-height:44vh;padding:1.2rem 1.25rem;border-radius:18px;transform:translateY(-14px)}
-  #sub{left:50%;bottom:calc(11vh + env(safe-area-inset-bottom,0px));font-size:.95rem}
-  #controls{right:.9rem;bottom:calc(2.5vh + env(safe-area-inset-bottom,0px))}
-  body.cinema .bar{height:6vh}
+/* ---------- Narrator ---------- */
+#narrator{position:fixed;z-index:9;left:50%;bottom:calc(5.6rem + env(safe-area-inset-bottom,0px));transform:translateX(-50%);
+  display:flex;align-items:center;gap:.8rem;max-width:min(44rem,92vw);opacity:0;transition:opacity .5s;pointer-events:none}
+#narrator.show{opacity:1}
+#face{flex:none;width:46px;height:46px;border-radius:50%;overflow:hidden;background:#2A2733;border:2px solid rgba(255,255,255,.7);position:relative}
+#face img{width:100%;height:100%;object-fit:cover;object-position:50% 12%}
+#face::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--gold);opacity:0}
+#narrator.talking #face::after{animation:ring 1.4s ease-out infinite}
+@keyframes ring{0%{opacity:.9;transform:scale(.9)}100%{opacity:0;transform:scale(1.25)}}
+#line{color:#fff;font-size:clamp(.95rem,1.5vw,1.12rem);line-height:1.4;font-weight:500;text-shadow:0 2px 14px rgba(0,0,0,.8)}
+
+/* ---------- Timeline ---------- */
+#timeline{position:fixed;z-index:10;left:clamp(1.2rem,4vw,3.5rem);right:clamp(1.2rem,4vw,3.5rem);bottom:calc(1.3rem + env(safe-area-inset-bottom,0px));
+  display:flex;align-items:center;gap:1rem;opacity:0;transform:translateY(10px);transition:opacity .8s,transform .8s;pointer-events:none}
+body.journey #timeline{opacity:1;transform:none;pointer-events:auto}
+#steps{flex:1;display:flex;list-style:none;margin:0;padding:0;gap:.25rem;overflow-x:auto;scrollbar-width:none}
+#steps::-webkit-scrollbar{display:none}
+#steps button{background:none;border:0;padding:.55rem .2rem .3rem;min-width:4.8rem;text-align:left;color:rgba(245,241,234,.5);font-size:.78rem;font-weight:600;border-top:2px solid rgba(255,255,255,.18);transition:color .4s,border-color .4s;white-space:nowrap}
+#steps button.on{color:#F5F1EA;border-color:var(--gold)}
+#steps button.done{border-color:rgba(217,178,111,.5);color:rgba(245,241,234,.7)}
+.arrow{flex:none;width:2.9rem;height:2.9rem;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);font-size:1.2rem;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.arrow.next{background:#F5F1EA;color:#121317;border-color:transparent}
+.arrow:disabled{opacity:.35;cursor:default}
+#credit{position:fixed;z-index:10;right:clamp(1.2rem,4vw,3.5rem);top:calc(4.2rem + env(safe-area-inset-top,0px));font-size:.72rem;color:rgba(245,241,234,.55);text-decoration:none;opacity:0;transition:opacity .6s}
+body.journey #credit.has{opacity:1}
+
+@media (max-width:820px){
+  #ditty{right:auto;left:50%;margin-left:-16.5vh;top:calc(7.2rem + env(safe-area-inset-top,0px));bottom:auto;height:44vh;-webkit-mask-image:linear-gradient(to bottom,#000 72%,transparent);mask-image:linear-gradient(to bottom,#000 72%,transparent)}
+  #hello{left:1.2rem;right:1.2rem;max-width:none;bottom:calc(7rem + env(safe-area-inset-bottom,0px))}
+  #hello h2{font-size:2.6rem}
+  #hello .bio{font-size:.95rem}
+  #hello{bottom:calc(1.6rem + env(safe-area-inset-bottom,0px))}
+  #hello h2{font-size:2.3rem}
+  #caption{left:1.2rem;right:1.2rem;max-width:none;top:calc(4.6rem + env(safe-area-inset-top,0px));bottom:auto}
+  #caption h2{font-size:2.5rem}
+  #panel{left:1rem;right:1rem;width:auto;top:auto;bottom:calc(9.6rem + env(safe-area-inset-bottom,0px));max-height:38vh;transform:translateY(20px);padding:1.1rem 1.2rem}
+  #panel.in{transform:none}
+  #narrator{top:calc(4.6rem + env(safe-area-inset-top,0px));bottom:auto;width:calc(100vw - 2.4rem)}
+  body.journey #narrator{top:calc(12.2rem + env(safe-area-inset-top,0px));bottom:auto}
+  #steps button{min-width:4.2rem}
 }
-@media (prefers-reduced-motion:reduce){ #intro .tl,#card{transition:none!important} .pulse{animation:none} }
+@media (prefers-reduced-motion:reduce){
+  #ditty,#hello > *,#caption > *,#panel{transition-duration:.01s!important}
+  #narrator.talking #face::after{animation:none}
+}
 </style>
 </head>
-<body class="intro cinema">
-<div class="bar t"></div><div class="bar b"></div>
-<canvas id="view" aria-hidden="true"></canvas>
-<div id="vignette"></div>
+<body>
+<div id="stage" aria-hidden="true"></div>
+<div id="light" aria-hidden="true"></div>
+<div id="sweep" aria-hidden="true"></div>
+<canvas id="grain" width="160" height="90" aria-hidden="true"></canvas>
 
-<div id="ctitle" aria-hidden="true"><div><p id="ctp"></p><h2 id="cth"></h2></div></div>
-<div id="sub" aria-live="polite"></div>
-<article id="card" tabindex="-1" aria-live="polite"></article>
-<ol id="progress" aria-label="Chapters"></ol>
-<div id="controls">
-  <button id="prev" aria-label="Previous chapter">‹</button>
-  <button id="next">Walk with me</button>
-</div>
+<div id="top"><div id="brand">Ditty Denny</div><button id="voice" aria-pressed="true">Sound on</button></div>
 
-<div id="flight" aria-hidden="true">
-  <p class="fch" id="fch"></p><h2 id="fplace"></h2><p class="fyear" id="fyear"></p>
-  <svg viewBox="0 0 1000 400" xmlns="http://www.w3.org/2000/svg">
-    <path d="M140 330 Q500 10 860 330" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="3" stroke-dasharray="6 12"/>
-    <path id="arcTrail" d="M140 330 Q500 10 860 330" fill="none" stroke="#E7B460" stroke-width="3.5" stroke-linecap="round"/>
-    <circle cx="140" cy="330" r="8" fill="#E7B460"/><circle cx="860" cy="330" r="8" fill="#E7B460"/>
-    <circle class="pulse" cx="860" cy="330" r="8" fill="none" stroke="#E7B460" stroke-width="2"/>
-    <text id="fromT" x="140" y="375" text-anchor="middle"></text><text id="toT" x="860" y="375" text-anchor="middle"></text>
-    <g id="plane"><g transform="scale(1.5)" fill="#FFFFFF">
-      <path d="M-20 -2.5 L14 -3 Q22 0 14 3 L-20 2.5 Z"/><path d="M2 -2 L-8 -18 L-3 -18 L10 -2 Z"/><path d="M2 2 L-8 18 L-3 18 L10 2 Z"/>
-      <path d="M-16 -2 L-22 -9 L-19 -9 L-12 -2 Z"/><path d="M-16 2 L-22 9 L-19 9 L-12 2 Z"/></g></g>
-  </svg>
-</div>
+<div id="ditty" aria-hidden="true"><div class="rim"></div></div>
 
-<div id="intro">
-  <p class="tl">Every journey begins with a single step.</p>
-  <p class="tl">Through the temple streets of Thrissur…</p>
-  <p class="tl">…the desert city of Doha…</p>
-  <p class="tl">…the old stone streets of Scotland…</p>
-  <p class="tl">…to the skyline of Dubai.</p>
-  <div id="title">
-    <p class="pre">A JOURNEY IN CODE AND DATA</p>
-    <h1>DITTY DENNY</h1>
-    <p class="sub">Software engineer. Data scientist. Problem solver.</p>
-    <button id="begin">▶&nbsp; Walk into my story</button>
+<section id="hello" aria-label="Introduction">
+  <p class="kicker">Hello, welcome</p>
+  <h2>I’m Ditty Denny</h2>
+  <p class="role">Software Engineer in FinTech</p>
+  <p class="bio">I make financial data clean, test ideas with models, and build the reporting that teams actually act on. Let me show you where I’ve been.</p>
+  <button class="cta" id="begin">Begin my journey <span>→</span></button>
+</section>
+
+<div id="caption" aria-live="polite"><p class="chap"></p><h2></h2><p class="year"></p></div>
+<aside id="panel" aria-live="polite"></aside>
+
+<div id="narrator" aria-live="polite"><div id="face"></div><div id="line"></div></div>
+
+<nav id="timeline" aria-label="Journey">
+  <button class="arrow" id="prev" aria-label="Previous place">←</button>
+  <ol id="steps"></ol>
+  <button class="arrow next" id="next" aria-label="Next place">→</button>
+</nav>
+<a id="credit" target="_blank" rel="noopener"></a>
+
+<div id="splash">
+  <div>
+    <h1>Ditty Denny</h1>
+    <p>A journey in code, data and FinTech</p>
+    <button id="enter">Enter with sound</button>
+    <button id="quiet">Enter without sound</button>
   </div>
-  <p id="loading">Building the cities…</p>
-  <button id="skip">Skip intro</button>
 </div>
-<div id="nogl">This journey needs WebGL. Please open it in a recent version of Chrome, Edge, Safari or Firefox.</div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-/* =====================================================================
-   THE STORY — edit the text here
-   ===================================================================== */
+/* =================================================================
+   CONTENT. Edit freely.
+   Photos: put your own in an "images" folder to replace any city photo
+   (images/thrissur.jpg, images/doha.jpg ...). Your portrait goes in
+   images/ditty.png (transparent background works best).
+   ================================================================= */
 const LINKS = {
   email: "dittydenny2002@gmail.com",
   linkedin: "https://linkedin.com/in/ditty-denny123",
   github: "https://github.com/Ditty1",
   repo: "https://github.com/Ditty1/Data-Science-Portfolio"
 };
-/* Optional: your own photos in an "images" folder (missing ones are skipped) */
-const photo = (src, cap) => `<figure class="photo"><img src="${src}" alt="${cap}" onerror="this.closest('figure').remove()"><figcaption>${cap}</figcaption></figure>`;
-const tags = a => `<ul class="tags">${a.map(t => `<li>${t}</li>`).join("")}</ul>`;
-const points = a => `<ul class="points">${a.map(t => `<li>${t}</li>`).join("")}</ul>`;
-const stat = (n, label, dec = 0) => `<div><b data-count="${n}" data-dec="${dec}">0</b><span>${label}</span></div>`;
+const chips = a => `<ul class="chips">${a.map(t => `<li>${t}</li>`).join("")}</ul>`;
+const pts = a => `<ul class="pts">${a.map(t => `<li>${t}</li>`).join("")}</ul>`;
 
-const REGIONS = {
-  kerala:   { name: "Thrissur, India" },
-  qatar:    { name: "Doha, Qatar" },
-  scotland: { name: "Stirling, Scotland" },
-  dubai:    { name: "Dubai, UAE" }
+const INTRO = {
+  key: "home", wiki: ["Kerala_backwaters", "Vembanad_Lake"], drift: [0, -1],
+  talk: "Hi! I’m Ditty Denny. I’m a software engineer in FinTech, and I love turning messy data into clear decisions. Come, let me show you my journey."
 };
 
 const SCENES = [
-  { region: "kerala", land: "backwaters", label: "Hello",
-    sky: ["#3E8FD6", "#FFE2B8"], light: 1, night: 0,
-    say: "Hi, I’m Ditty Denny. Come, walk with me.",
-    html: `${photo("images/me.jpg", "That’s me!")}
-      <p class="chap">PROLOGUE</p><h2 class="big-name">Hi, I’m Ditty</h2>
-      <p class="where">Software Engineer in FinTech, from Thrissur, Kerala</p>
-      <p>I write the SQL and Python that make financial data clean, build the models that test an idea, and create the dashboards that teams actually act on.</p>
-      <p>My road has taken me from Kerala to Qatar to Scotland, and into FinTech. Walk it with me.</p>
-      <p class="hint">Press “Walk with me”, scroll, swipe, or use the arrow keys. Move your mouse to look around.</p>` },
+  { key: "thrissur", wiki: ["Thrissur_Pooram", "Vadakkunnathan_Temple"], step: "Thrissur", drift: [-1, 0],
+    chap: "Where it began", place: "Thrissur", year: "Kerala, 2020 to 2023",
+    talk: "This is Thrissur, my home. The city of temples, elephants and Pooram. Here I studied Data Science, and graduated with ninety six point eight out of a hundred.",
+    html: `<p class="when">2020 to 2023</p><h3>BVoc Data Science</h3><p class="org">St. Thomas College, Calicut University</p>
+      <div class="stats"><div><b>96.8</b><span>out of 100</span></div><div><b>1st</b><span>Class with Distinction</span></div></div>
+      ${chips(["Python", "Statistics", "Databases", "Machine learning", "Operations research"])}` },
 
-  { region: "kerala", land: "temple", label: "Thrissur", chapter: "CHAPTER ONE", place: "Thrissur", year: "2020",
-    sky: ["#4A9BDD", "#FFEACC"], light: 1, night: 0,
-    say: "This is home. Thrissur, the city of temples, elephants and Pooram.",
-    html: `${photo("images/thrissur.jpg", "Thrissur, Kerala")}
-      <p class="chap">CHAPTER ONE: WHERE IT BEGAN</p><p class="when">2020 to 2023</p>
-      <h2>BVoc Data Science</h2><p class="where">St. Thomas College, Thrissur (Calicut University)</p>
-      <p>Right here, in Kerala’s cultural capital, I discovered that data tells stories if you ask it the right questions.</p>
-      <div class="stats">${stat(96.8, "out of 100", 1)}${stat(3, "years of study")}</div>
-      <div class="badges"><div class="badge">First Class with Distinction</div></div>
-      <h3>What I studied</h3>${tags(["Data structures", "Python", "Statistical analysis", "Database systems", "Machine learning", "Operations research"])}` },
+  { key: "kochi", wiki: ["Chinese_fishing_nets", "Fort_Kochi"], step: "First steps", drift: [1, 0],
+    chap: "First steps", place: "Kerala Coast", year: "2022 to 2023",
+    talk: "My first taste of real world data. As a quantitative analyst intern at XTG Technologies, I found trends and built insights for decisions.",
+    html: `<p class="when">Dec 2022 to Jul 2023</p><h3>Quantitative Analyst Intern</h3><p class="org">XTG Technologies, Kerala</p>
+      ${pts(["Data analysis, trend identification and performance evaluation with analytical models.", "Visualisations and insight summaries for data-driven decisions."])}
+      <p>Also Data Science Intern at Elamigo, Dec 2022 to Feb 2023.</p>` },
 
-  { region: "kerala", land: "nets", label: "First steps", chapter: "CHAPTER TWO", place: "The Kerala Coast", year: "2022",
-    sky: ["#5AA7E2", "#FFE3C0"], light: 1, night: 0,
-    say: "My first taste of real-world data.",
-    html: `<p class="chap">CHAPTER TWO: FIRST STEPS</p><p class="when">Dec 2022 to Jul 2023</p>
-      <h2>Quantitative Analyst Intern</h2><p class="where">XTG Technologies, Kerala</p>
-      ${points(["Performed data analysis, trend identification and performance evaluation using analytical models.",
-        "Built visualisations and insight summaries to support data-driven decision-making."])}
-      <p>Alongside this I also interned as a Data Science Intern at Elamigo (Dec 2022 to Feb 2023). Real projects, real deadlines, and a lot of learning fast.</p>` },
+  { key: "infopark", wiki: ["Infopark,_Kochi", "Marine_Drive,_Kochi"], step: "Data Engineer", drift: [0, 1],
+    chap: "Building the pipes", place: "Kochi", year: "2023 to 2024",
+    talk: "Then I learned to build the pipes that data flows through. As a data engineer, I designed ETL pipelines and owned data quality.",
+    html: `<p class="when">Jul 2023 to Jan 2024</p><h3>Data Engineer</h3><p class="org">The Maya Solutions, India</p>
+      ${pts(["Designed and maintained ETL pipelines feeding KPI dashboards and management reporting.", "Owned data quality, completeness and consistency across large real-world datasets."])}
+      ${chips(["ETL", "SQL", "Data quality", "KPI dashboards"])}` },
 
-  { region: "kerala", land: "techpark", label: "Data Engineer", chapter: "CHAPTER THREE", place: "Building the Pipes", year: "2023",
-    sky: ["#3C7FD0", "#F6D9B4"], light: .95, night: .15,
-    say: "Then I learned to build the pipes that data flows through.",
-    html: `<p class="chap">CHAPTER THREE: BUILDING THE PIPES</p><p class="when">Jul 2023 to Jan 2024</p>
-      <h2>Data Engineer</h2><p class="where">The Maya Solutions, India</p>
-      ${points(["Designed and maintained ETL pipelines feeding KPI dashboards and management reporting.",
-        "Owned data quality, completeness and consistency, finding and fixing gaps across large real-world datasets."])}
-      ${tags(["ETL", "SQL", "Data quality", "KPI dashboards", "Reporting"])}` },
+  { key: "doha", wiki: ["West_Bay,_Doha", "Museum_of_Islamic_Art,_Doha", "Doha_Corniche"], step: "Doha", drift: [-1, 0],
+    chap: "Across the sea", place: "Doha", year: "Qatar, 2024",
+    talk: "Welcome to Doha, my first time working abroad. At Hamad Medical Corporation, I analysed operations across one of the region’s largest hospital networks.",
+    html: `<p class="when">Jan 2024 to Jul 2024</p><h3>Video Analytical Operator</h3><p class="org">Hamad Medical Corporation, Qatar</p>
+      ${pts(["Operational and service-impact analysis within one of the Middle East’s largest hospital networks.", "Insight summaries and performance observations used by management for decisions."])}` },
 
-  { region: "qatar", land: "doha", label: "Qatar", chapter: "CHAPTER FOUR", place: "Doha, Qatar", year: "2024",
-    sky: ["#3D8FD8", "#F8DEB0"], light: 1.1, night: 0,
-    say: "Next stop, Doha. My first time working abroad.",
-    html: `${photo("images/doha.jpg", "Doha, Qatar")}
-      <p class="chap">CHAPTER FOUR: ACROSS THE SEA</p><p class="when">Jan 2024 to Jul 2024</p>
-      <h2>Video Analytical Operator</h2><p class="where">Hamad Medical Corporation, Qatar</p>
-      ${points(["Conducted operational and service-impact analysis within one of the Middle East’s largest hospital networks.",
-        "Prepared insight summaries and performance observations used by management for decision-making."])}
-      <p>Working where real people depend on the results taught me that accurate analysis isn’t optional.</p>` },
+  { key: "stirling", wiki: ["National_Wallace_Monument", "Stirling_Castle"], step: "Stirling", drift: [1, -1],
+    chap: "The highlands", place: "Stirling", year: "Scotland, 2024 to 2025",
+    talk: "Then I crossed continents to Scotland, as a Commonwealth Shared Scholar, and finished my master’s in Data Science for Business with a Distinction.",
+    html: `<p class="when">2024 to 2025</p><h3>MSc Data Science for Business</h3><p class="org">University of Stirling</p>
+      <p class="honor">Distinction, the highest classification</p>
+      <p class="honor">Commonwealth Shared Scholar</p>
+      ${chips(["Machine learning", "Statistical modelling", "Database management", "Business analytics", "Data visualisation"])}` },
 
-  { region: "scotland", land: "stirling", label: "Scotland", chapter: "CHAPTER FIVE", place: "Stirling, Scotland", year: "2024",
-    sky: ["#7D90A6", "#D4DCE3"], light: .8, night: 0, rain: 1,
-    say: "Then I crossed continents, all the way to Scotland.",
-    html: `${photo("images/stirling.jpg", "Stirling, Scotland")}
-      <p class="chap">CHAPTER FIVE: THE HIGHLANDS</p><p class="when">2024 to 2025</p>
-      <h2>MSc Data Science for Business</h2><p class="where">University of Stirling, Scotland</p>
-      <div class="badges"><div class="badge">Distinction, the highest classification</div>
-        <div class="badge">Commonwealth Shared Scholar, one of the UK’s most competitive international scholarships</div></div>
-      <p>Here I learned the question that comes before any code: what decision is this data supposed to help someone make?</p>
-      ${tags(["Machine learning", "Statistical modelling", "Database management", "Business analytics", "Data visualisation"])}` },
+  { key: "falkirk", wiki: ["Falkirk_Wheel"], step: "Falkirk", drift: [-1, 0],
+    chap: "Into the markets", place: "Falkirk", year: "Scotland, 2025",
+    talk: "In Falkirk, at AiM, I designed and backtested trading strategies in Python. That work grew into my dissertation.",
+    html: `<p class="when">Jul 2025 to Sep 2025</p><h3>Data Science Intern</h3><p class="org">AiM (Action Insight Management) Ltd</p>
+      ${pts(["Designed and backtested moving-average trading strategies on daily equity data, benchmarked against buy-and-hold.", "Optimised parameters and ranked variants by cumulative return."])}` },
 
-  { region: "scotland", land: "falkirk", label: "Falkirk", chapter: "CHAPTER SIX", place: "Falkirk, Scotland", year: "2025",
-    sky: ["#8199B2", "#DCE3EA"], light: .85, night: 0, rain: .6,
-    say: "In Falkirk, I started building trading strategies.",
-    html: `${photo("images/falkirk.jpg", "Falkirk, Scotland")}
-      <p class="chap">CHAPTER SIX: INTO THE MARKETS</p><p class="when">Jul 2025 to Sep 2025</p>
-      <h2>Data Science Intern</h2><p class="where">AiM (Action Insight Management) Ltd, Falkirk, UK</p>
-      ${points(["Designed and backtested rule-based moving-average trading strategies in Python on daily equity data, benchmarking every variant against buy-and-hold.",
-        "Combined and compared strategy variants to find the strongest performers, then optimised their parameters and ranked results by cumulative return.",
-        "This work grew into my MSc dissertation."])}` },
+  { key: "award", wiki: ["Stirling_Castle", "Stirling"], step: "Dean’s Award", drift: [0, -1],
+    chap: "The proudest moment", place: "The Dean’s Award", year: "University of Stirling, 2025",
+    talk: "And this is the moment I’m most proud of. My dissertation, a financial market predictive tool, won the Dean’s Award for Excellence.",
+    html: `<h3>Financial Market Predictive Tool</h3><p class="org">MSc dissertation, Dean’s Award for Excellence</p>
+      <div class="stats"><div><b>20</b><span>strategies backtested</span></div><div><b>48</b><span>parameter combinations</span></div>
+      <div><b>15</b><span>FTSE 100 stocks</span></div><div><b>51</b><span>day live-signal window</span></div></div>
+      <p>Automated ranking, live-signal simulation and email alerts, built to CRISP-DM with overfitting risk handled explicitly.</p>
+      <div class="links"><a href="${LINKS.repo}" target="_blank" rel="noopener">View on GitHub</a></div>` },
 
-  { region: "scotland", land: "award", label: "Award", chapter: "CHAPTER SEVEN", place: "The Dean’s Award", year: "2025",
-    sky: ["#2E3A66", "#E8A27C"], light: .7, night: .6, rain: 0,
-    say: "And then… my dissertation won the Dean’s Award.",
-    html: `${photo("images/graduation.jpg", "Graduation day")}
-      <p class="chap">CHAPTER SEVEN: THE BIG ONE</p><p class="when">2025</p>
-      <h2>Financial Market Predictive Tool</h2><p class="where">MSc dissertation, Dean’s Award for Excellence</p>
-      <div class="stats">${stat(20, "trading strategies")}${stat(48, "parameter combinations")}${stat(15, "FTSE 100 stocks")}${stat(51, "day live-signal window")}</div>
-      <p>A modular Python framework that backtests every strategy, ranks the results automatically, simulates live signals and sends email alerts. Built to CRISP-DM, with overfitting and data-snooping risks handled explicitly.</p>
-      <div class="btnrow"><a href="${LINKS.repo}" target="_blank" rel="noopener">See my projects on GitHub</a></div>` },
+  { key: "dubai", wiki: ["Burj_Khalifa", "Downtown_Dubai"], step: "Dubai", drift: [0, 1],
+    chap: "Today", place: "Dubai", year: "FinTech, 2026 to present",
+    talk: "And today, I’m in FinTech, as a software engineer for Orion Funded in Dubai. I validate transactions, support compliance, and test payment systems.",
+    html: `<p class="when">Jan 2026 to present</p><h3>Software Engineer, FinTech</h3><p class="org">Orion Funded, Dubai (remote)</p>
+      ${pts(["Validate transaction and account data end-to-end across trading and payments apps, with SQL integrity testing and reconciliation.", "Support compliance workflows against internal control and regulatory requirements.", "API validation in Postman, functional and regression testing, Git and Docker."])}
+      ${chips(["SQL", "Postman", "Git", "Docker", "Compliance"])}` },
 
-  { region: "dubai", land: "burj", label: "Today", chapter: "CHAPTER EIGHT", place: "Dubai", year: "2026, remote",
-    sky: ["#1D2B5C", "#F19A6A"], light: .65, night: .9, look: .26,
-    say: "And today, I work in FinTech for a company in Dubai.",
-    html: `${photo("images/dubai.jpg", "Dubai, UAE")}
-      <p class="chap">CHAPTER EIGHT: TODAY</p><p class="when">Jan 2026 to present</p>
-      <h2>Software Engineer, FinTech</h2><p class="where">Orion Funded, Dubai, UAE (remote)</p>
-      ${points(["Validate transaction and account data end-to-end across trading and payments applications, including SQL database-integrity testing and reconciliation.",
-        "Support compliance workflows, checking that platform logic and stored data meet internal control and regulatory requirements.",
-        "Run API validation in Postman plus functional and regression testing across releases, managing versions and environments with Git and Docker."])}
-      ${tags(["SQL", "Postman", "Git", "Docker", "Compliance", "Payments"])}` },
+  { key: "toolkit", wiki: ["Dubai_Marina"], step: "Toolkit", drift: [1, 0],
+    chap: "What I bring", place: "My Toolkit", year: "Skills and tools",
+    talk: "This is my toolkit. Python, SQL, machine learning, Power BI, Docker and Git. Everything I need to turn data into decisions.",
+    html: `<h4>Analysis and modelling</h4>${chips(["SQL", "Time-series", "Backtesting", "Machine learning", "Anomaly detection"])}
+      <h4>Programming</h4>${chips(["Python", "Pandas", "NumPy", "scikit-learn", "R", "Java", "C"])}
+      <h4>Data and reporting</h4>${chips(["ETL", "Reconciliation", "Power BI", "Superset", "Excel"])}
+      <h4>FinTech</h4>${chips(["Trading strategies", "Fraud detection", "Compliance", "API validation"])}
+      <h4>Tools</h4>${chips(["Git", "Docker", "Jira", "CRISP-DM"])}` },
 
-  { region: "dubai", land: "toolkit", label: "Toolkit",
-    sky: ["#16224D", "#C9786A"], light: .55, night: 1,
-    say: "Here’s everything I carry in my toolkit.",
-    html: `<p class="chap">MY TOOLKIT</p><h2>What I work with</h2>
-      <h3>Analysis and modelling</h3>${tags(["SQL", "Statistical modelling", "Time-series", "Backtesting", "Machine learning", "Anomaly detection"])}
-      <h3>Programming</h3>${tags(["Python", "Pandas", "NumPy", "scikit-learn", "R", "Java", "C"])}
-      <h3>Data and reporting</h3>${tags(["ETL pipelines", "Data reconciliation", "Power BI", "Apache Superset", "Advanced Excel"])}
-      <h3>FinTech</h3>${tags(["Trading strategies", "Equity market data", "Fraud detection", "Compliance", "API validation"])}
-      <h3>Tools and methods</h3>${tags(["Git", "GitHub", "Docker", "Jira", "CRISP-DM"])}
-      <p class="hint">Languages: English (excellent), Malayalam (native)</p>` },
+  { key: "projects", wiki: ["Museum_of_the_Future", "Dubai_Creek"], step: "Projects", drift: [-1, 1],
+    chap: "Selected work", place: "What I’ve Built", year: "Projects",
+    talk: "And these are some of the things I’ve built, from fraud detection to a market prediction tool.",
+    html: `${pts(["<b>Financial Market Predictive Tool</b>: 20 strategies across 15 FTSE 100 stocks, with ranking and alerts.",
+        "<b>Credit Card Fraud Detection</b>: machine learning for rare fraud in highly imbalanced data.",
+        "<b>Disease Prediction</b>: machine learning on cancer diagnostic data.",
+        "<b>Online Banking System</b> in Java, <b>Shopping System</b> in C, <b>Population Analysis</b> in Excel."])}
+      <div class="links"><a class="solid" href="${LINKS.repo}" target="_blank" rel="noopener">See the code</a></div>` },
 
-  { region: "dubai", land: "projects", label: "Projects",
-    sky: ["#121B40", "#9C5E78"], light: .5, night: 1,
-    say: "A few things I’ve built along the way.",
-    html: `<p class="chap">THE WORKSHOP</p><h2>Things I’ve built</h2>
-      <ul class="items">
-        <li><b>Financial Market Predictive Tool</b><span>20 strategies, 48 parameter sets, 15 FTSE 100 stocks, with automated ranking and alerts</span></li>
-        <li><b>Credit Card Fraud Detection</b><span>Machine learning that finds rare fraud in large, highly imbalanced data</span></li>
-        <li><b>Disease Prediction</b><span>Machine learning on cancer diagnostic data</span></li>
-        <li><b>Online Banking System</b><span>A secure application in Java</span></li>
-        <li><b>Online Shopping System</b><span>A purchase interface in C</span></li>
-        <li><b>Population Data Analysis</b><span>Statistics and visualisation in advanced Excel</span></li>
-      </ul>
-      <div class="btnrow"><a class="primary" href="${LINKS.repo}" target="_blank" rel="noopener">See the code on GitHub</a></div>` },
-
-  { region: "dubai", land: "finale", label: "Contact",
-    sky: ["#0E1433", "#6B3F6E"], light: .45, night: 1, look: .12,
-    say: "Thanks for walking with me. The next chapter could be with you.",
-    html: `<p class="chap">TO BE CONTINUED…</p><h2 class="big-name">The next chapter</h2>
-      <p>I’m looking for a role where the analysis itself is the product. If you’re building something in FinTech, data or software, I’d love to be part of it.</p>
-      <div class="btnrow"><a class="primary" href="mailto:${LINKS.email}">Email me</a>
-        <a href="${LINKS.linkedin}" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="${LINKS.github}" target="_blank" rel="noopener">GitHub</a></div>
-      <p class="hint">${LINKS.email}<br>Thrissur, Kerala, India</p>` }
+  { key: "contact", wiki: ["Kerala_backwaters", "Vembanad_Lake"], step: "Contact", drift: [0, -1],
+    chap: "The next chapter", place: "Let’s Talk", year: "Open to analyst and engineering roles",
+    talk: "Thank you for walking with me. My story is still being written, and maybe the next chapter is with your team. Let’s talk!",
+    html: `<p>I’m looking for a role where the analysis itself is the product. If you’re building in FinTech, data or software, I’d love to hear from you.</p>
+      <div class="links"><a class="solid" href="mailto:${LINKS.email}">Email me</a><a href="${LINKS.linkedin}" target="_blank" rel="noopener">LinkedIn</a><a href="${LINKS.github}" target="_blank" rel="noopener">GitHub</a></div>
+      <p style="margin-top:1rem;color:var(--muted)">${LINKS.email}<br>Thrissur, Kerala, India</p>` }
 ];
 
-/* =====================================================================
-   THE CITY ENGINE
-   ===================================================================== */
+/* =================================================================
+   ENGINE
+   ================================================================= */
 const $ = id => document.getElementById(id);
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-const N = SCENES.length, L = 140;
-const stopZ = i => -i * L;
+const wait = ms => new Promise(r => setTimeout(r, ms));
+const stage = $("stage");
 
-if (!window.THREE) { $("nogl").style.display = "grid"; }
-const canvas = $("view");
-let renderer;
-try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true }); } catch (e) { $("nogl").style.display = "grid"; }
-renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.75));
-renderer.setSize(innerWidth, innerHeight);
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(62, innerWidth / innerHeight, 0.1, 1400);
-camera.rotation.order = "YXZ";
-scene.fog = new THREE.Fog(0xffffff, 60, 420);
-
-/* Sky dome with gradient */
-const skyMat = new THREE.ShaderMaterial({
-  side: THREE.BackSide, depthWrite: false,
-  uniforms: { top: { value: new THREE.Color() }, bottom: { value: new THREE.Color() } },
-  vertexShader: "varying vec3 vP; void main(){ vP = normalize(position); gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.0); }",
-  fragmentShader: "uniform vec3 top; uniform vec3 bottom; varying vec3 vP; void main(){ float h = clamp(vP.y*1.6+0.08,0.0,1.0); gl_FragColor = vec4(mix(bottom, top, pow(h,0.7)),1.0); }"
-});
-const sky = new THREE.Mesh(new THREE.SphereGeometry(1000, 32, 16), skyMat);
-scene.add(sky);
-const sunMesh = new THREE.Mesh(new THREE.SphereGeometry(22, 24, 12), new THREE.MeshBasicMaterial({ color: 0xFFE9B0, fog: false }));
-scene.add(sunMesh);
-
-const hemi = new THREE.HemisphereLight(0xffffff, 0x445544, 0.85);
-scene.add(hemi);
-const sun = new THREE.DirectionalLight(0xfff1dd, 0.9);
-sun.position.set(-60, 120, 40);
-scene.add(sun);
-
-/* Helpers */
-let seed = 7;
-const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-const rr = (a, b) => a + rnd() * (b - a);
-const pick = a => a[Math.floor(rnd() * a.length)];
-const mat = (c, o = {}) => new THREE.MeshStandardMaterial(Object.assign({ color: c, roughness: .85, metalness: 0 }, o));
-const box = (w, h, d, m) => new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m);
-const cyl = (rt, rb, h, m, s = 12) => new THREE.Mesh(new THREE.CylinderGeometry(rt, rb, h, s), m);
-const windowMats = [];
-
-function canvasTex(w, h, draw) {
-  const c = document.createElement("canvas"); c.width = w; c.height = h;
-  draw(c.getContext("2d"), w, h);
-  const t = new THREE.CanvasTexture(c);
-  t.wrapS = t.wrapT = THREE.RepeatWrapping;
-  t.anisotropy = 4;
-  return t;
+/* --- photo resolution: your own image first, then Wikipedia's photo of the place --- */
+function loads(src, ms = 9000) {
+  return new Promise(res => { const im = new Image(); const t = setTimeout(() => res(false), ms);
+    im.onload = () => { clearTimeout(t); res(im.naturalWidth > 200); }; im.onerror = () => { clearTimeout(t); res(false); }; im.src = src; });
 }
-/* Facade textures, one per style */
-const FACADE = {};
-function facade(style) {
-  if (FACADE[style]) return FACADE[style];
-  const S = {
-    kerala:   { wall: "#F2E8D5", win: "#5A3B26", frame: "#FFFFFF", cols: 3, rows: 2, lit: 0 },
-    qatar:    { wall: "#E3CFAD", win: "#3E4A5A", frame: "#D2BC96", cols: 3, rows: 3, lit: 0 },
-    scotland: { wall: "#8E8A84", win: "#2C3440", frame: "#EDEAE4", cols: 3, rows: 3, lit: .25 },
-    office:   { wall: "#9FB6CF", win: "#34506E", frame: "#C9D7E6", cols: 6, rows: 6, lit: .35 },
-    glass:    { wall: "#41577A", win: "#27354F", frame: "#6F86A8", cols: 6, rows: 8, lit: .55 }
-  }[style];
-  const draw = (lit) => (g, w, h) => {
-    g.fillStyle = lit ? "#000" : S.wall; g.fillRect(0, 0, w, h);
-    if (!lit) { for (let i = 0; i < 900; i++) { g.fillStyle = `rgba(0,0,0,${Math.random() * .05})`; g.fillRect(Math.random() * w, Math.random() * h, 3, 3); } }
-    const cw = w / S.cols, chh = h / S.rows;
-    for (let r = 0; r < S.rows; r++) for (let c = 0; c < S.cols; c++) {
-      const x = c * cw + cw * .2, y = r * chh + chh * .2, ww = cw * .6, hh = chh * .62;
-      const on = Math.random() < S.lit;
-      if (lit) { if (on) { g.fillStyle = pick(["#FFD98A", "#FFE7B0", "#FFF3D6", "#BFE3FF"]); g.fillRect(x, y, ww, hh); } continue; }
-      g.fillStyle = S.frame; g.fillRect(x - 3, y - 3, ww + 6, hh + 6);
-      const gr = g.createLinearGradient(x, y, x + ww, y + hh);
-      gr.addColorStop(0, S.win); gr.addColorStop(1, "#8FA6BF"); g.fillStyle = gr; g.fillRect(x, y, ww, hh);
-      if (style === "kerala") { g.fillStyle = "#3A2617"; g.fillRect(x + ww / 2 - 1, y, 2, hh); }
-    }
-  };
-  FACADE[style] = { map: canvasTex(256, 256, draw(false)), em: canvasTex(256, 256, draw(true)), S };
-  return FACADE[style];
-}
-function building(style, w, h, d, tint) {
-  const f = facade(style);
-  const map = f.map.clone(); map.needsUpdate = true;
-  map.repeat.set(Math.max(1, Math.round(d / 4)), Math.max(1, Math.round(h / 3.6)));
-  const em = f.em.clone(); em.needsUpdate = true; em.repeat.copy(map.repeat);
-  const m = mat(0xffffff, { map, emissive: 0xffffff, emissiveMap: em, emissiveIntensity: 0, roughness: style === "glass" ? .35 : .9, metalness: style === "glass" ? .3 : 0 });
-  if (tint) m.color.set(tint);
-  windowMats.push(m);
-  const roofM = mat(style === "glass" ? 0x2B3550 : 0xCFC6B5);
-  const b = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), [m, m, roofM, roofM, m, m]);
-  b.position.y = h / 2;
-  return b;
-}
-function hipRoof(w, d, h, color) {
-  const r = new THREE.Mesh(new THREE.ConeGeometry(Math.SQRT1_2, 1, 4, 1), mat(color));
-  r.rotation.y = Math.PI / 4;
-  r.scale.set(w * 1.12, h, d * 1.12);
-  return r;
-}
-function palm(s = 1) {
-  const g = new THREE.Group();
-  const trunkM = mat(0x7A5634);
-  let y = 0, x = 0;
-  for (let i = 0; i < 6; i++) { const seg = cyl(.22 - i * .02, .26 - i * .02, 1.6, trunkM, 7); seg.position.set(x, y + .8, 0); seg.rotation.z = -.06; g.add(seg); y += 1.55; x += .1; }
-  const leafM = mat(0x2F8A4E, { side: THREE.DoubleSide });
-  for (let i = 0; i < 8; i++) {
-    const leaf = new THREE.Mesh(new THREE.PlaneGeometry(.9, 4.2), leafM);
-    leaf.geometry.translate(0, 2.1, 0);
-    const p = new THREE.Group(); p.add(leaf);
-    leaf.rotation.x = 1.15 + rnd() * .3;
-    p.rotation.y = i / 8 * Math.PI * 2;
-    p.position.set(x, y, 0);
-    g.add(p);
+async function resolvePhoto(s) {
+  for (const ext of ["jpg", "jpeg", "png", "webp"]) { const p = `images/${s.key}.${ext}`; if (await loads(p, 3000)) return { src: p }; }
+  for (const t of s.wiki) {
+    try {
+      const r = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${t}`);
+      if (!r.ok) continue;
+      const j = await r.json(), o = j.originalimage;
+      if (!o || /\.svg/i.test(o.source) || o.width < 900) continue;
+      let src = o.source;
+      if (o.width > 2400 && j.thumbnail) src = j.thumbnail.source.replace(/\/\d+px-/, "/2200px-");
+      if (await loads(src)) return { src, credit: `Photo: ${j.title}, Wikipedia`, href: j.content_urls && j.content_urls.desktop.page };
+    } catch (e) {}
   }
-  g.scale.setScalar(s);
-  return g;
+  return null;
 }
-function lamp() {
-  const g = new THREE.Group();
-  const pole = cyl(.08, .1, 6, mat(0x2E3138), 6); pole.position.y = 3; g.add(pole);
-  const arm = box(1.4, .08, .08, mat(0x2E3138)); arm.position.set(.6, 5.95, 0); g.add(arm);
-  const bulbM = mat(0xFFF2CC, { emissive: 0xFFD98A, emissiveIntensity: .2 });
-  windowMats.push(bulbM); bulbM.userData.lamp = true;
-  const bulb = box(.6, .18, .35, bulbM); bulb.position.set(1.2, 5.85, 0); g.add(bulb);
-  return g;
+const photoCache = new Map();
+const getPhoto = s => { if (!photoCache.has(s.key)) photoCache.set(s.key, resolvePhoto(s)); return photoCache.get(s.key); };
+
+/* --- plates: a slow, floating forward glide with depth of field --- */
+let plate = null, glide = null;
+function makePlate(ph) {
+  const el = document.createElement("div");
+  el.className = "plate" + (ph ? "" : " fallback");
+  el.innerHTML = `<div class="move"><div class="soft"></div><div class="sharp"></div></div>`;
+  if (ph) el.querySelectorAll(".soft,.sharp").forEach(d => d.style.backgroundImage = `url("${ph.src}")`);
+  stage.appendChild(el);
+  return el;
 }
-function car() {
-  const g = new THREE.Group();
-  const c = pick([0xB33A3A, 0xEDEDED, 0x2B4C7E, 0x1E1E22, 0x8A8F96, 0xC9A227]);
-  const body = box(1.8, .7, 4.2, mat(c, { roughness: .4, metalness: .3 })); body.position.y = .65; g.add(body);
-  const cab = box(1.6, .6, 2.2, mat(0x24303F, { roughness: .2, metalness: .5 })); cab.position.set(0, 1.25, -.2); g.add(cab);
-  for (const [x, z] of [[-.9, 1.3], [.9, 1.3], [-.9, -1.3], [.9, -1.3]]) { const w = cyl(.35, .35, .3, mat(0x111111), 10); w.rotation.z = Math.PI / 2; w.position.set(x, .35, z); g.add(w); }
-  return g;
+function startGlide(el, drift) {
+  if (reduce) return null;
+  const [dx, dy] = drift || [0, 0];
+  return el.querySelector(".move").animate([
+    { transform: "scale(1.04) translate3d(0,0,0)" },
+    { transform: `scale(1.17) translate3d(${dx * 1.4}%, ${dy * 1.1}%, 0)` }
+  ], { duration: 26000, easing: "cubic-bezier(.25,.1,.25,1)", fill: "forwards" });
 }
-function billboard(lines, opts = {}) {
-  const W = 1024, H = 576;
-  const tex = canvasTex(W, H, (g) => {
-    const gr = g.createLinearGradient(0, 0, W, H);
-    gr.addColorStop(0, opts.c1 || "#2A1F5C"); gr.addColorStop(1, opts.c2 || "#6A45D1");
-    g.fillStyle = gr; g.fillRect(0, 0, W, H);
-    if (opts.chart) {
-      g.strokeStyle = "rgba(255,255,255,.12)"; for (let i = 1; i < 6; i++) { g.beginPath(); g.moveTo(0, i * H / 6); g.lineTo(W, i * H / 6); g.stroke(); }
-      let y = 470; const pts = [];
-      for (let i = 0; i < 26; i++) { const up = Math.random() > .32; const o = y, c = y + (up ? -1 : 1) * (8 + Math.random() * 24);
-        g.strokeStyle = g.fillStyle = up ? "#46D39A" : "#F2716B"; const x = 60 + i * 35;
-        g.beginPath(); g.moveTo(x + 9, Math.min(o, c) - 14); g.lineTo(x + 9, Math.max(o, c) + 14); g.stroke(); g.fillRect(x, Math.min(o, c), 18, Math.abs(c - o) + 2);
-        pts.push([x + 9, (o + c) / 2]); y = c; }
-      g.strokeStyle = "#F3C969"; g.lineWidth = 5; g.beginPath(); pts.forEach(([x, yy], k) => k ? g.lineTo(x, yy + 10) : g.moveTo(x, yy + 10)); g.stroke();
-    }
-    g.fillStyle = "#fff"; g.textAlign = "left";
-    let ty = opts.chart ? 90 : 150;
-    lines.forEach((l, k) => {
-      g.font = k === 0 ? `800 ${opts.big || 74}px Georgia, serif` : "600 40px system-ui, sans-serif";
-      g.fillStyle = k === 0 ? (opts.gold ? "#F3D08A" : "#FFFFFF") : "rgba(255,255,255,.88)";
-      g.fillText(l, 60, ty); ty += k === 0 ? 90 : 58;
-    });
+async function showPlace(s, first) {
+  const ph = await getPhoto(s);
+  const next = makePlate(ph);
+  const old = plate, oldGlide = glide;
+  plate = next; glide = startGlide(next, s.drift);
+  const cr = $("credit");
+  if (ph && ph.credit) { cr.textContent = ph.credit; cr.href = ph.href || "#"; cr.classList.add("has"); } else cr.classList.remove("has");
+  if (reduce) { next.style.opacity = 1; if (old) old.remove(); return; }
+  next.animate([{ opacity: 0, transform: "scale(1.12)", filter: "blur(10px)" }, { opacity: 1, transform: "scale(1)", filter: "blur(0px)" }],
+    { duration: first ? 2200 : 1400, easing: "cubic-bezier(.22,.61,.36,1)", fill: "forwards" });
+  $("sweep").animate([{ opacity: 0, transform: "translateX(-30%)" }, { opacity: 1, offset: .4 }, { opacity: 0, transform: "translateX(30%)" }], { duration: 1400, easing: "ease-out" });
+  if (old) {
+    if (oldGlide) oldGlide.pause();
+    const a = old.animate([{ opacity: 1, transform: "scale(1)", filter: "blur(0px)" }, { opacity: 0, transform: "scale(1.22)", filter: "blur(12px)" }],
+      { duration: 1200, easing: "cubic-bezier(.55,.06,.68,.19)", fill: "forwards" });
+    a.onfinish = () => old.remove();
+  }
+}
+
+/* --- film grain --- */
+(() => {
+  const c = $("grain"), g = c.getContext("2d"), img = g.createImageData(c.width, c.height);
+  const draw = () => { for (let i = 0; i < img.data.length; i += 4) { const v = Math.random() * 255; img.data[i] = img.data[i + 1] = img.data[i + 2] = v; img.data[i + 3] = 255; } g.putImageData(img, 0, 0); };
+  draw(); if (!reduce) setInterval(draw, 90);
+})();
+
+/* --- Ditty: your photo, or a video of you saying hi --- */
+const dittyBox = $("ditty");
+let portraitSrc = null;
+const PORTRAIT = `<svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg" class="dgirl" role="img" aria-label="Illustrated portrait of Ditty Denny">
+<defs>
+  <radialGradient id="dSkin" cx="50%" cy="42%" r="62%"><stop offset="0" stop-color="#FBE6D7"/><stop offset=".65" stop-color="#F3D2BD"/><stop offset="1" stop-color="#E4B79C"/></radialGradient>
+  <linearGradient id="dNeck" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DDAE92"/><stop offset=".45" stop-color="#F0CDB7"/><stop offset="1" stop-color="#F3D4C0"/></linearGradient>
+  <linearGradient id="dHair" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3B2419"/><stop offset=".5" stop-color="#24150F"/><stop offset="1" stop-color="#160C08"/></linearGradient>
+  <linearGradient id="dBlazer" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2A3757"/><stop offset=".6" stop-color="#1C2640"/><stop offset="1" stop-color="#141B2F"/></linearGradient>
+  <linearGradient id="dLapel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#34436A"/><stop offset="1" stop-color="#222D4A"/></linearGradient>
+  <linearGradient id="dBlouse" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#E9E6E2"/></linearGradient>
+  <radialGradient id="dIris" cx="45%" cy="40%" r="60%"><stop offset="0" stop-color="#7A4E30"/><stop offset=".7" stop-color="#3D2416"/><stop offset="1" stop-color="#1E110A"/></radialGradient>
+  <linearGradient id="dLip" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C2626A"/><stop offset="1" stop-color="#D98385"/></linearGradient>
+  <filter id="dSoft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>
+  <filter id="dSoft2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2"/></filter>
+  <clipPath id="dEyeL"><path d="M113 134 C 120 125.5, 136 125.5, 143 133.5 C 136 140, 120 140.5, 113 134 Z"/></clipPath>
+  <clipPath id="dEyeR"><path d="M187 134 C 180 125.5, 164 125.5, 157 133.5 C 164 140, 180 140.5, 187 134 Z"/></clipPath>
+  <clipPath id="dFaceClip"><path d="M150 70 C 191 70, 201 104, 200 135 C 199 166, 186 191, 166 204 C 158 209, 142 209, 134 204 C 114 191, 101 166, 100 135 C 99 104, 109 70, 150 70 Z"/></clipPath>
+</defs>
+
+<!-- ponytail behind, flowing over her right shoulder -->
+<path d="M186 66 C 226 64, 240 112, 228 168 C 220 206, 224 248, 238 284 C 214 270, 200 236, 203 198 C 206 160, 214 120, 196 90 Z" fill="url(#dHair)"/>
+<path d="M214 100 C 224 140, 216 190, 222 240" stroke="#5A3A2A" stroke-width="2" fill="none" opacity=".5"/>
+
+<!-- back of hair -->
+<path d="M95 142 C 89 76, 122 48, 152 48 C 188 48, 213 76, 205 144 C 200 112, 194 98, 188 92 L 112 92 C 106 100, 100 112, 98 132 Z" fill="url(#dHair)"/>
+
+<!-- neck -->
+<path d="M128 180 L 172 180 L 176 240 C 162 248, 138 248, 124 240 Z" fill="url(#dNeck)"/>
+<ellipse cx="150" cy="200" rx="24" ry="10" fill="#C99378" opacity=".45" filter="url(#dSoft)"/>
+<g transform="translate(0 -16)"><!-- blazer and blouse -->
+<path d="M14 420 C 18 332, 46 292, 102 272 L 128 252 L 172 252 L 198 272 C 254 292, 282 332, 286 420 Z" fill="url(#dBlazer)"/>
+<path d="M128 252 L 150 330 L 172 252 Z" fill="url(#dBlouse)"/>
+<path d="M128 252 L 138 286 L 150 276 L 162 286 L 172 252" fill="#F4F2EF" stroke="#D9D5D0" stroke-width="1"/>
+<path d="M128 250 L 104 272 L 118 296 L 108 304 L 150 372 L 140 318 Z" fill="url(#dLapel)"/>
+<path d="M172 250 L 196 272 L 182 296 L 192 304 L 150 372 L 160 318 Z" fill="url(#dLapel)"/>
+<path d="M104 272 L 118 296 L 108 304 L 150 372" stroke="#3E4E78" stroke-width="1.2" fill="none"/>
+<path d="M196 272 L 182 296 L 192 304 L 150 372" stroke="#3E4E78" stroke-width="1.2" fill="none"/>
+<circle cx="150" cy="385" r="3.4" fill="#C9A45C"/>
+<path d="M60 330 C 70 360, 72 380, 70 400" stroke="#0F1525" stroke-width="2" fill="none" opacity=".6"/>
+<path d="M240 330 C 230 360, 228 380, 230 400" stroke="#0F1525" stroke-width="2" fill="none" opacity=".6"/>
+
+<path d="M128 254 C 138 270, 162 270, 172 254" stroke="#C9A45C" stroke-width="1.4" fill="none"/>
+<circle cx="150" cy="268" r="2.6" fill="#E3C27A"/></g>
+<!-- ears with studs -->
+<ellipse cx="101" cy="138" rx="7" ry="13" fill="#EBC2A8"/><ellipse cx="199" cy="138" rx="7" ry="13" fill="#EBC2A8"/>
+<path d="M99 131 C 103 135, 103 143, 100 147" stroke="#CF9E84" stroke-width="1.5" fill="none"/>
+<path d="M201 131 C 197 135, 197 143, 200 147" stroke="#CF9E84" stroke-width="1.5" fill="none"/>
+<circle cx="101" cy="153" r="2.8" fill="#F1E3C2" stroke="#C9A45C" stroke-width="1"/><circle cx="199" cy="153" r="2.8" fill="#F1E3C2" stroke="#C9A45C" stroke-width="1"/>
+
+<!-- face -->
+<g class="dhead">
+<path d="M150 70 C 191 70, 201 104, 200 135 C 199 166, 186 191, 166 204 C 158 209, 142 209, 134 204 C 114 191, 101 166, 100 135 C 99 104, 109 70, 150 70 Z" fill="url(#dSkin)"/>
+<g clip-path="url(#dFaceClip)">
+  <ellipse cx="104" cy="150" rx="12" ry="40" fill="#D9A68A" opacity=".35" filter="url(#dSoft)"/>
+  <ellipse cx="196" cy="150" rx="12" ry="40" fill="#D9A68A" opacity=".35" filter="url(#dSoft)"/>
+  <ellipse cx="150" cy="96" rx="28" ry="12" fill="#FFF2E8" opacity=".55" filter="url(#dSoft)"/>
+  <ellipse cx="119" cy="163" rx="14" ry="8" fill="#F2A39B" opacity=".38" filter="url(#dSoft)"/>
+  <ellipse cx="181" cy="163" rx="14" ry="8" fill="#F2A39B" opacity=".38" filter="url(#dSoft)"/>
+</g>
+
+<!-- brows -->
+<path d="M110 120 C 119 110, 134 109, 145 114 C 134 112.5, 121 114, 112 122 Z" fill="#3A251B"/>
+<path d="M190 120 C 181 110, 166 109, 155 114 C 166 112.5, 179 114, 188 122 Z" fill="#3A251B"/>
+
+<!-- eyes -->
+<g class="deyes">
+  <path d="M113 134 C 120 125.5, 136 125.5, 143 133.5 C 136 140, 120 140.5, 113 134 Z" fill="#FBF7F3"/>
+  <g clip-path="url(#dEyeL)"><circle cx="128.5" cy="133" r="6.4" fill="url(#dIris)"/><circle cx="128.5" cy="133" r="2.8" fill="#0C0705"/><circle cx="130.6" cy="130.8" r="1.6" fill="#fff"/></g>
+  <path d="M187 134 C 180 125.5, 164 125.5, 157 133.5 C 164 140, 180 140.5, 187 134 Z" fill="#FBF7F3"/>
+  <g clip-path="url(#dEyeR)"><circle cx="171.5" cy="133" r="6.4" fill="url(#dIris)"/><circle cx="171.5" cy="133" r="2.8" fill="#0C0705"/><circle cx="173.6" cy="130.8" r="1.6" fill="#fff"/></g>
+  <path d="M111.5 134.5 C 118 124, 137 123.5, 144 133" stroke="#1E120D" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+  <path d="M111.5 134.5 L 106.5 131.5" stroke="#1E120D" stroke-width="2" stroke-linecap="round"/>
+  <path d="M188.5 134.5 C 182 124, 163 123.5, 156 133" stroke="#1E120D" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+  <path d="M188.5 134.5 L 193.5 131.5" stroke="#1E120D" stroke-width="2" stroke-linecap="round"/>
+  <path d="M116 137.5 C 123 141, 134 141, 141 136" stroke="#C99A82" stroke-width="1" fill="none" opacity=".8"/>
+  <path d="M184 137.5 C 177 141, 166 141, 159 136" stroke="#C99A82" stroke-width="1" fill="none" opacity=".8"/>
+  <path d="M114 128 C 122 121, 136 121, 143 127" stroke="#D9AE97" stroke-width="1" fill="none" opacity=".7"/>
+  <path d="M186 128 C 178 121, 164 121, 157 127" stroke="#D9AE97" stroke-width="1" fill="none" opacity=".7"/>
+</g>
+
+<!-- nose -->
+<path d="M146 140 C 144 150, 142 158, 143 163" stroke="#D3A288" stroke-width="1.6" fill="none" opacity=".7" filter="url(#dSoft2)"/>
+<path d="M141.5 165 C 145 169.5, 155 169.5, 158.5 165" stroke="#B9846C" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+<ellipse cx="150" cy="160" rx="3.5" ry="4.5" fill="#FFF0E6" opacity=".7" filter="url(#dSoft2)"/>
+
+<!-- lips -->
+<g class="dmouth">
+  <ellipse class="dopen" cx="150" cy="182.5" rx="11" ry="4" fill="#6B2E30"/>
+  <path d="M133 181 C 139 176.5, 146 175.5, 150 178 C 154 175.5, 161 176.5, 167 181 C 159 182.5, 141 182.5, 133 181 Z" fill="#B85A62"/>
+  <path class="dlow" d="M133 181 C 141 192, 159 192, 167 181 C 159 184, 141 184, 133 181 Z" fill="url(#dLip)"/>
+  <ellipse cx="152" cy="186" rx="5" ry="1.6" fill="#F3B7B4" opacity=".7"/>
+  <path d="M131 178.5 C 132.5 181, 133.5 181.5, 134.5 181" stroke="#A55058" stroke-width="1.2" fill="none"/>
+  <path d="M169 178.5 C 167.5 181, 166.5 181.5, 165.5 181" stroke="#A55058" stroke-width="1.2" fill="none"/>
+</g>
+<path d="M150 194 C 147 197, 153 197, 150 194" stroke="#E2B49C" stroke-width="1" fill="none" opacity=".6"/>
+
+<!-- front hair: sleek, side-parted, pulled back -->
+<path d="M97 140 C 90 82, 118 52, 151 51 C 186 51, 210 82, 203 140 C 199 116, 191 101, 178 95 C 163 90, 148 90, 136 84 C 127 96, 110 108, 101 136 Z" fill="url(#dHair)"/>
+<path d="M101 136 C 110 108, 127 96, 136 84 C 148 90, 163 90, 178 95 C 191 101, 199 116, 203 140" stroke="#B98A70" stroke-width="5" fill="none" opacity=".18" filter="url(#dSoft2)"/>
+<path d="M135 76 C 126 88, 112 100, 101 122" stroke="#5B3A2A" stroke-width="1.6" fill="none" opacity=".7"/>
+<path d="M137 72 C 160 66, 186 74, 198 104" stroke="#6E4A36" stroke-width="2" fill="none" opacity=".55"/>
+<path d="M140 66 C 165 60, 190 70, 200 96" stroke="#7B5440" stroke-width="1.2" fill="none" opacity=".45"/>
+<path d="M130 70 C 116 74, 104 92, 100 114" stroke="#6E4A36" stroke-width="1.2" fill="none" opacity=".45"/>
+</g>
+</svg>`;
+const PORTRAIT_MINI = `<svg viewBox="92 58 116 116" xmlns="http://www.w3.org/2000/svg" class="dgirl" role="img" aria-label="Illustrated portrait of Ditty Denny">
+<defs>
+  <radialGradient id="mSkin" cx="50%" cy="42%" r="62%"><stop offset="0" stop-color="#FBE6D7"/><stop offset=".65" stop-color="#F3D2BD"/><stop offset="1" stop-color="#E4B79C"/></radialGradient>
+  <linearGradient id="mNeck" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DDAE92"/><stop offset=".45" stop-color="#F0CDB7"/><stop offset="1" stop-color="#F3D4C0"/></linearGradient>
+  <linearGradient id="mHair" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3B2419"/><stop offset=".5" stop-color="#24150F"/><stop offset="1" stop-color="#160C08"/></linearGradient>
+  <linearGradient id="mBlazer" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2A3757"/><stop offset=".6" stop-color="#1C2640"/><stop offset="1" stop-color="#141B2F"/></linearGradient>
+  <linearGradient id="mLapel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#34436A"/><stop offset="1" stop-color="#222D4A"/></linearGradient>
+  <linearGradient id="mBlouse" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#E9E6E2"/></linearGradient>
+  <radialGradient id="mIris" cx="45%" cy="40%" r="60%"><stop offset="0" stop-color="#7A4E30"/><stop offset=".7" stop-color="#3D2416"/><stop offset="1" stop-color="#1E110A"/></radialGradient>
+  <linearGradient id="mLip" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C2626A"/><stop offset="1" stop-color="#D98385"/></linearGradient>
+  <filter id="mSoft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>
+  <filter id="mSoft2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2"/></filter>
+  <clipPath id="mEyeL"><path d="M113 134 C 120 125.5, 136 125.5, 143 133.5 C 136 140, 120 140.5, 113 134 Z"/></clipPath>
+  <clipPath id="mEyeR"><path d="M187 134 C 180 125.5, 164 125.5, 157 133.5 C 164 140, 180 140.5, 187 134 Z"/></clipPath>
+  <clipPath id="mFaceClip"><path d="M150 70 C 191 70, 201 104, 200 135 C 199 166, 186 191, 166 204 C 158 209, 142 209, 134 204 C 114 191, 101 166, 100 135 C 99 104, 109 70, 150 70 Z"/></clipPath>
+</defs>
+
+<!-- ponytail behind, flowing over her right shoulder -->
+<path d="M186 66 C 226 64, 240 112, 228 168 C 220 206, 224 248, 238 284 C 214 270, 200 236, 203 198 C 206 160, 214 120, 196 90 Z" fill="url(#mHair)"/>
+<path d="M214 100 C 224 140, 216 190, 222 240" stroke="#5A3A2A" stroke-width="2" fill="none" opacity=".5"/>
+
+<!-- back of hair -->
+<path d="M95 142 C 89 76, 122 48, 152 48 C 188 48, 213 76, 205 144 C 200 112, 194 98, 188 92 L 112 92 C 106 100, 100 112, 98 132 Z" fill="url(#mHair)"/>
+
+<!-- neck -->
+<path d="M128 180 L 172 180 L 176 240 C 162 248, 138 248, 124 240 Z" fill="url(#mNeck)"/>
+<ellipse cx="150" cy="200" rx="24" ry="10" fill="#C99378" opacity=".45" filter="url(#mSoft)"/>
+<g transform="translate(0 -16)"><!-- blazer and blouse -->
+<path d="M14 420 C 18 332, 46 292, 102 272 L 128 252 L 172 252 L 198 272 C 254 292, 282 332, 286 420 Z" fill="url(#mBlazer)"/>
+<path d="M128 252 L 150 330 L 172 252 Z" fill="url(#mBlouse)"/>
+<path d="M128 252 L 138 286 L 150 276 L 162 286 L 172 252" fill="#F4F2EF" stroke="#D9D5D0" stroke-width="1"/>
+<path d="M128 250 L 104 272 L 118 296 L 108 304 L 150 372 L 140 318 Z" fill="url(#mLapel)"/>
+<path d="M172 250 L 196 272 L 182 296 L 192 304 L 150 372 L 160 318 Z" fill="url(#mLapel)"/>
+<path d="M104 272 L 118 296 L 108 304 L 150 372" stroke="#3E4E78" stroke-width="1.2" fill="none"/>
+<path d="M196 272 L 182 296 L 192 304 L 150 372" stroke="#3E4E78" stroke-width="1.2" fill="none"/>
+<circle cx="150" cy="385" r="3.4" fill="#C9A45C"/>
+<path d="M60 330 C 70 360, 72 380, 70 400" stroke="#0F1525" stroke-width="2" fill="none" opacity=".6"/>
+<path d="M240 330 C 230 360, 228 380, 230 400" stroke="#0F1525" stroke-width="2" fill="none" opacity=".6"/>
+
+<path d="M128 254 C 138 270, 162 270, 172 254" stroke="#C9A45C" stroke-width="1.4" fill="none"/>
+<circle cx="150" cy="268" r="2.6" fill="#E3C27A"/></g>
+<!-- ears with studs -->
+<ellipse cx="101" cy="138" rx="7" ry="13" fill="#EBC2A8"/><ellipse cx="199" cy="138" rx="7" ry="13" fill="#EBC2A8"/>
+<path d="M99 131 C 103 135, 103 143, 100 147" stroke="#CF9E84" stroke-width="1.5" fill="none"/>
+<path d="M201 131 C 197 135, 197 143, 200 147" stroke="#CF9E84" stroke-width="1.5" fill="none"/>
+<circle cx="101" cy="153" r="2.8" fill="#F1E3C2" stroke="#C9A45C" stroke-width="1"/><circle cx="199" cy="153" r="2.8" fill="#F1E3C2" stroke="#C9A45C" stroke-width="1"/>
+
+<!-- face -->
+<g class="dhead">
+<path d="M150 70 C 191 70, 201 104, 200 135 C 199 166, 186 191, 166 204 C 158 209, 142 209, 134 204 C 114 191, 101 166, 100 135 C 99 104, 109 70, 150 70 Z" fill="url(#mSkin)"/>
+<g clip-path="url(#mFaceClip)">
+  <ellipse cx="104" cy="150" rx="12" ry="40" fill="#D9A68A" opacity=".35" filter="url(#mSoft)"/>
+  <ellipse cx="196" cy="150" rx="12" ry="40" fill="#D9A68A" opacity=".35" filter="url(#mSoft)"/>
+  <ellipse cx="150" cy="96" rx="28" ry="12" fill="#FFF2E8" opacity=".55" filter="url(#mSoft)"/>
+  <ellipse cx="119" cy="163" rx="14" ry="8" fill="#F2A39B" opacity=".38" filter="url(#mSoft)"/>
+  <ellipse cx="181" cy="163" rx="14" ry="8" fill="#F2A39B" opacity=".38" filter="url(#mSoft)"/>
+</g>
+
+<!-- brows -->
+<path d="M110 120 C 119 110, 134 109, 145 114 C 134 112.5, 121 114, 112 122 Z" fill="#3A251B"/>
+<path d="M190 120 C 181 110, 166 109, 155 114 C 166 112.5, 179 114, 188 122 Z" fill="#3A251B"/>
+
+<!-- eyes -->
+<g class="deyes">
+  <path d="M113 134 C 120 125.5, 136 125.5, 143 133.5 C 136 140, 120 140.5, 113 134 Z" fill="#FBF7F3"/>
+  <g clip-path="url(#mEyeL)"><circle cx="128.5" cy="133" r="6.4" fill="url(#mIris)"/><circle cx="128.5" cy="133" r="2.8" fill="#0C0705"/><circle cx="130.6" cy="130.8" r="1.6" fill="#fff"/></g>
+  <path d="M187 134 C 180 125.5, 164 125.5, 157 133.5 C 164 140, 180 140.5, 187 134 Z" fill="#FBF7F3"/>
+  <g clip-path="url(#mEyeR)"><circle cx="171.5" cy="133" r="6.4" fill="url(#mIris)"/><circle cx="171.5" cy="133" r="2.8" fill="#0C0705"/><circle cx="173.6" cy="130.8" r="1.6" fill="#fff"/></g>
+  <path d="M111.5 134.5 C 118 124, 137 123.5, 144 133" stroke="#1E120D" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+  <path d="M111.5 134.5 L 106.5 131.5" stroke="#1E120D" stroke-width="2" stroke-linecap="round"/>
+  <path d="M188.5 134.5 C 182 124, 163 123.5, 156 133" stroke="#1E120D" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+  <path d="M188.5 134.5 L 193.5 131.5" stroke="#1E120D" stroke-width="2" stroke-linecap="round"/>
+  <path d="M116 137.5 C 123 141, 134 141, 141 136" stroke="#C99A82" stroke-width="1" fill="none" opacity=".8"/>
+  <path d="M184 137.5 C 177 141, 166 141, 159 136" stroke="#C99A82" stroke-width="1" fill="none" opacity=".8"/>
+  <path d="M114 128 C 122 121, 136 121, 143 127" stroke="#D9AE97" stroke-width="1" fill="none" opacity=".7"/>
+  <path d="M186 128 C 178 121, 164 121, 157 127" stroke="#D9AE97" stroke-width="1" fill="none" opacity=".7"/>
+</g>
+
+<!-- nose -->
+<path d="M146 140 C 144 150, 142 158, 143 163" stroke="#D3A288" stroke-width="1.6" fill="none" opacity=".7" filter="url(#mSoft2)"/>
+<path d="M141.5 165 C 145 169.5, 155 169.5, 158.5 165" stroke="#B9846C" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+<ellipse cx="150" cy="160" rx="3.5" ry="4.5" fill="#FFF0E6" opacity=".7" filter="url(#mSoft2)"/>
+
+<!-- lips -->
+<g class="dmouth">
+  <ellipse class="dopen" cx="150" cy="182.5" rx="11" ry="4" fill="#6B2E30"/>
+  <path d="M133 181 C 139 176.5, 146 175.5, 150 178 C 154 175.5, 161 176.5, 167 181 C 159 182.5, 141 182.5, 133 181 Z" fill="#B85A62"/>
+  <path class="dlow" d="M133 181 C 141 192, 159 192, 167 181 C 159 184, 141 184, 133 181 Z" fill="url(#mLip)"/>
+  <ellipse cx="152" cy="186" rx="5" ry="1.6" fill="#F3B7B4" opacity=".7"/>
+  <path d="M131 178.5 C 132.5 181, 133.5 181.5, 134.5 181" stroke="#A55058" stroke-width="1.2" fill="none"/>
+  <path d="M169 178.5 C 167.5 181, 166.5 181.5, 165.5 181" stroke="#A55058" stroke-width="1.2" fill="none"/>
+</g>
+<path d="M150 194 C 147 197, 153 197, 150 194" stroke="#E2B49C" stroke-width="1" fill="none" opacity=".6"/>
+
+<!-- front hair: sleek, side-parted, pulled back -->
+<path d="M97 140 C 90 82, 118 52, 151 51 C 186 51, 210 82, 203 140 C 199 116, 191 101, 178 95 C 163 90, 148 90, 136 84 C 127 96, 110 108, 101 136 Z" fill="url(#mHair)"/>
+<path d="M101 136 C 110 108, 127 96, 136 84 C 148 90, 163 90, 178 95 C 191 101, 199 116, 203 140" stroke="#B98A70" stroke-width="5" fill="none" opacity=".18" filter="url(#mSoft2)"/>
+<path d="M135 76 C 126 88, 112 100, 101 122" stroke="#5B3A2A" stroke-width="1.6" fill="none" opacity=".7"/>
+<path d="M137 72 C 160 66, 186 74, 198 104" stroke="#6E4A36" stroke-width="2" fill="none" opacity=".55"/>
+<path d="M140 66 C 165 60, 190 70, 200 96" stroke="#7B5440" stroke-width="1.2" fill="none" opacity=".45"/>
+<path d="M130 70 C 116 74, 104 92, 100 114" stroke="#6E4A36" stroke-width="1.2" fill="none" opacity=".45"/>
+</g>
+</svg>`;
+async function setupDitty() {
+  for (const ext of ["png", "webp", "jpg", "jpeg"]) {
+    const p = `images/ditty.${ext}`;
+    if (await loads(p, 3000)) { portraitSrc = p; break; }
+  }
+  if (portraitSrc) {
+    dittyBox.insertAdjacentHTML("beforeend", `<img src="${portraitSrc}" alt="">`);
+    $("face").innerHTML = `<img src="${portraitSrc}" alt="">`;
+  } else {
+    dittyBox.insertAdjacentHTML("beforeend", PORTRAIT);
+    $("face").innerHTML = PORTRAIT_MINI;
+  }
+}
+async function introVideo() {
+  return new Promise(res => {
+    const v = document.createElement("video");
+    v.src = "images/ditty-hello.mp4"; v.playsInline = true; v.preload = "auto";
+    v.onloadeddata = () => res(v); v.onerror = () => res(null);
+    setTimeout(() => res(null), 3500);
   });
-  const g = new THREE.Group();
-  const panelM = new THREE.MeshBasicMaterial({ map: tex, fog: true });
-  const panel = new THREE.Mesh(new THREE.PlaneGeometry(16, 9), panelM);
-  panel.position.y = 12; g.add(panel);
-  const frame = box(16.6, 9.6, .4, mat(0x1C1F28)); frame.position.set(0, 12, -.25); g.add(frame);
-  for (const x of [-5, 5]) { const p = cyl(.3, .35, 8, mat(0x2A2D35), 8); p.position.set(x, 4, -.4); g.add(p); }
-  return g;
-}
-function water(w, d, color = 0x2F7FA8, x = 0) {
-  const m = new THREE.Mesh(new THREE.PlaneGeometry(w, d), mat(color, { roughness: .15, metalness: .4 }));
-  m.rotation.x = -Math.PI / 2; m.position.set(x, .05, 0);
-  return m;
 }
 
-/* ---------- Landmarks ---------- */
-function elephant(umbrella) {
-  const g = new THREE.Group();
-  const skin = mat(0x5D5A5F);
-  const body = new THREE.Mesh(new THREE.SphereGeometry(1, 16, 12), skin); body.scale.set(1.5, 1.2, 2.3); body.position.y = 3.2; g.add(body);
-  for (const [x, z] of [[-.9, 1.4], [.9, 1.4], [-.9, -1.3], [.9, -1.3]]) { const l = cyl(.42, .45, 2.4, skin, 10); l.position.set(x, 1.2, z); g.add(l); }
-  const head = new THREE.Mesh(new THREE.SphereGeometry(1.05, 16, 12), skin); head.position.set(0, 3.9, 2.4); g.add(head);
-  for (const x of [-1, 1]) { const ear = new THREE.Mesh(new THREE.CircleGeometry(.95, 14), mat(0x4E4B50, { side: THREE.DoubleSide })); ear.position.set(x * .95, 3.8, 2.1); ear.rotation.y = x * 1.2; g.add(ear); }
-  const curve = new THREE.CatmullRomCurve3([new THREE.Vector3(0, 3.6, 3.2), new THREE.Vector3(0, 2.6, 3.7), new THREE.Vector3(0, 1.4, 3.7), new THREE.Vector3(0, .6, 3.4)]);
-  g.add(new THREE.Mesh(new THREE.TubeGeometry(curve, 12, .26, 8), skin));
-  for (const x of [-.4, .4]) { const t = cyl(.06, .12, 1.1, mat(0xF4EEDC), 6); t.position.set(x, 3.1, 3.3); t.rotation.x = .9; g.add(t); }
-  const nett = new THREE.Mesh(new THREE.PlaneGeometry(1.3, 1.9), mat(0xE4B43A, { metalness: .6, roughness: .3, side: THREE.DoubleSide }));
-  nett.position.set(0, 4.1, 3.42); nett.rotation.x = -.25; g.add(nett);
-  const cloth = box(2.6, 1.6, 2.2, mat(0xB8323A)); cloth.position.set(0, 3.8, -.2); g.add(cloth);
-  const pole = cyl(.06, .06, 2.8, mat(0x6B4423), 6); pole.position.set(0, 5.6, 0); g.add(pole);
-  const kuda = new THREE.Mesh(new THREE.SphereGeometry(1.5, 18, 10, 0, Math.PI * 2, 0, Math.PI / 2), mat(umbrella, { side: THREE.DoubleSide, roughness: .6 }));
-  kuda.position.set(0, 6.9, 0); g.add(kuda);
-  const rim = new THREE.Mesh(new THREE.TorusGeometry(1.5, .07, 6, 24), mat(0xE4B43A, { metalness: .6, roughness: .3 })); rim.rotation.x = Math.PI / 2; rim.position.y = 6.9; g.add(rim);
-  return g;
-}
-function houseboat() {
-  const g = new THREE.Group();
-  const hull = box(3.6, 1.2, 14, mat(0x5E3A1E)); hull.position.y = .6; g.add(hull);
-  const roof = new THREE.Mesh(new THREE.CylinderGeometry(2, 2, 11, 16, 1, true, Math.PI / 2, Math.PI), mat(0xD3AE60, { side: THREE.DoubleSide }));
-  roof.rotation.x = Math.PI / 2; roof.position.y = 1.4; g.add(roof);
-  return g;
-}
-const LAND = {
-  backwaters(g) {
-    g.add(water(70, 90, 0x2F7FA8, 13));
-    const hb = houseboat(); hb.position.set(-6, 0, -10); hb.rotation.y = .4; g.add(hb);
-    const hb2 = houseboat(); hb2.position.set(14, 0, -32); hb2.rotation.y = -.2; g.add(hb2);
-    for (const [x, z, s] of [[-30, 10, 1.1], [-26, -14, .9], [-30, -36, 1.2], [26, 20, 1], [30, -6, 1.15]]) { const p = palm(s); p.position.set(x, 0, z); g.add(p); }
-  },
-  temple(g) {
-    const wallM = mat(0xF1E8D6), roofM = 0x7E3A28;
-    const base = box(22, 4, 16, wallM); base.position.y = 2; g.add(base);
-    const r1 = hipRoof(26, 20, 6, roofM); r1.position.y = 4 + 3; g.add(r1);
-    const up = box(11, 2.6, 8, wallM); up.position.y = 9.2; g.add(up);
-    const r2 = hipRoof(14, 11, 5, 0x8E4430); r2.position.y = 10.5 + 2.5; g.add(r2);
-    const fin = new THREE.Mesh(new THREE.SphereGeometry(.5, 10, 8), mat(0xE4B43A, { metalness: .7, roughness: .3 })); fin.position.y = 15.8; g.add(fin);
-    const stam = cyl(.4, .7, 10, mat(0xB38A4A), 10); stam.position.set(-16, 5, 10); g.add(stam);
-    for (let k = 0; k < 6; k++) { const t = cyl(.9 - k * .1, .9 - k * .1, .15, mat(0xC9A35B), 12); t.position.set(-16, 2 + k * 1.4, 10); g.add(t); }
-    const cols = [0xD23C5A, 0x2E7DD7, 0xE58A2A, 0x2FA36B, 0xC23BD4];
-    for (let k = 0; k < 5; k++) { const e = elephant(cols[k]); e.position.set(-14 + k * 6.5, 0, 22); e.rotation.y = -Math.PI / 2 + .9; g.add(e); }
-  },
-  nets(g) {
-    g.add(water(80, 100, 0x2B7AA3, 17));
-    const wood = mat(0x6B4A2B);
-    for (const [x, z, ry] of [[-12, 4, .3], [6, -14, -.2], [22, -34, .1]]) {
-      const n = new THREE.Group();
-      for (const px of [-1.2, 1.2]) { const p = cyl(.15, .2, 14, wood, 6); p.position.set(px, 6, 0); p.rotation.z = px * .05; p.rotation.x = -.5; n.add(p); }
-      const boom = cyl(.12, .12, 14, wood, 6); boom.position.set(0, 9, -7); boom.rotation.x = 1.2; n.add(boom);
-      const net = new THREE.Mesh(new THREE.ConeGeometry(4.5, 3, 10, 2, true), new THREE.MeshBasicMaterial({ color: 0x4A3A28, wireframe: true }));
-      net.position.set(0, 1.6, -12); net.rotation.x = Math.PI; n.add(net);
-      const deck = box(4, .4, 4, wood); deck.position.y = .3; n.add(deck);
-      n.position.set(x, 0, z); n.rotation.y = ry; g.add(n);
-    }
-    for (const [x, z] of [[-34, 20], [-34, -10], [30, 24]]) { const p = palm(1.1); p.position.set(x, 0, z); g.add(p); }
-  },
-  techpark(g) {
-    const t1 = building("office", 18, 46, 16); t1.position.set(0, 23, 0); g.add(t1);
-    const t2 = building("office", 26, 22, 14); t2.position.set(-14, 11, 16); g.add(t2);
-    const t3 = building("glass", 12, 34, 12); t3.position.set(16, 17, -10); g.add(t3);
-    const bb = billboard(["DATA ENGINEER", "ETL pipelines • KPI dashboards", "Data quality, owned end to end"], { c1: "#0F3B5C", c2: "#2E86C1", big: 70 });
-    bb.position.set(-8, 0, 30); bb.rotation.y = -.7; g.add(bb);
-    for (const [x, z] of [[-26, 34], [22, 30]]) { const p = palm(1); p.position.set(x, 0, z); g.add(p); }
-  },
-  doha(g) {
-    g.add(water(90, 160, 0x2D86B5, 22));
-    const tower = new THREE.Group();
-    const latM = mat(0x5A7DA8, { metalness: .4, roughness: .35 });
-    const body = cyl(5, 5.4, 52, latM, 24); body.position.y = 26; tower.add(body);
-    const cap = new THREE.Mesh(new THREE.SphereGeometry(5, 24, 12, 0, Math.PI * 2, 0, Math.PI / 2), latM); cap.scale.y = 2; cap.position.y = 52; tower.add(cap);
-    const sp = cyl(.15, .3, 10, mat(0xBFCBDA), 6); sp.position.y = 66; tower.add(sp);
-    tower.position.set(26, 0, -40); g.add(tower);
-    const cream = mat(0xEADDC3), shade = mat(0xDACBAE);
-    const m1 = box(30, 7, 22, cream); m1.position.set(-14, 3.5, 2); g.add(m1);
-    const m2 = box(18, 8, 14, shade); m2.position.set(-14, 11, 2); g.add(m2);
-    const m3 = new THREE.Mesh(new THREE.CylinderGeometry(6, 7, 8, 8), cream); m3.position.set(-14, 19, 2); m3.rotation.y = Math.PI / 8; g.add(m3);
-    const m4 = box(3, 3, 3, cream); m4.position.set(-14, 24.5, 2); g.add(m4);
-    for (const [x, h] of [[44, 34], [52, 46], [60, 28], [8, 26]]) { const b = building("glass", 9, h, 9); b.position.set(x, h / 2, -70); g.add(b); }
-    const dhow = new THREE.Group();
-    const dh = box(3, 1.4, 10, mat(0x7A4A26)); dh.position.y = .7; dhow.add(dh);
-    const mast = cyl(.12, .12, 9, mat(0x5A3A1E), 6); mast.position.y = 5.5; dhow.add(mast);
-    const sail = new THREE.Mesh(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 10, -2), new THREE.Vector3(0, 2.5, 4), new THREE.Vector3(0, 2.5, -4)]), mat(0xF4EDE0, { side: THREE.DoubleSide }));
-    sail.geometry.computeVertexNormals(); dhow.add(sail);
-    dhow.position.set(4, 0, 24); dhow.rotation.y = .5; g.add(dhow);
-    for (const [x, z] of [[-34, 26], [-36, -16]]) { const p = palm(1.1); p.position.set(x, 0, z); g.add(p); }
-  },
-  stirling(g) {
-    const hill = new THREE.Mesh(new THREE.SphereGeometry(40, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2), mat(0x3F7A44)); hill.scale.y = .45; hill.position.set(14, 0, -40); g.add(hill);
-    const stone = mat(0x7E7F84);
-    const mon = new THREE.Group();
-    const base = box(7, 4, 7, stone); base.position.y = 2; mon.add(base);
-    const shaft = box(4.4, 28, 4.4, stone); shaft.position.y = 18; mon.add(shaft);
-    for (const [x, z] of [[-2, -2], [2, -2], [-2, 2], [2, 2]]) { const c = new THREE.Mesh(new THREE.ConeGeometry(.6, 4, 6), stone); c.position.set(x, 34, z); mon.add(c); }
-    const crown = new THREE.Mesh(new THREE.ConeGeometry(1.2, 7, 8), stone); crown.position.y = 36; mon.add(crown);
-    mon.position.set(14, 17, -40); g.add(mon);
-    const rock = new THREE.Mesh(new THREE.SphereGeometry(22, 20, 12, 0, Math.PI * 2, 0, Math.PI / 2), mat(0x5C6A58)); rock.scale.y = .55; rock.position.set(-24, 0, 4); g.add(rock);
-    const cast = mat(0x9A9AA0);
-    const keep = box(16, 9, 10, cast); keep.position.set(-24, 15.5, 4); g.add(keep);
-    for (const [x, z] of [[-33, -1], [-15, -1], [-33, 9], [-15, 9]]) { const t = cyl(1.8, 1.8, 13, cast, 12); t.position.set(x, 17, z); g.add(t); const r = new THREE.Mesh(new THREE.ConeGeometry(2.1, 3.4, 12), mat(0x4A4E58)); r.position.set(x, 25, z); g.add(r); }
-  },
-  falkirk(g) {
-    g.add(water(80, 26, 0x40789E, 18));
-    const steel = mat(0xD3D9E2, { metalness: .5, roughness: .35 });
-    const wheel = new THREE.Group();
-    const a1 = new THREE.Mesh(new THREE.TorusGeometry(11, .9, 10, 48, Math.PI), steel); wheel.add(a1);
-    const a2 = new THREE.Mesh(new THREE.TorusGeometry(11, .9, 10, 48, Math.PI), steel); a2.rotation.z = Math.PI; a2.position.x = 0; wheel.add(a2);
-    const bar = box(24, 1, 1.2, steel); wheel.add(bar);
-    const hub = cyl(2.2, 2.2, 3, mat(0x9AA4B3, { metalness: .5 }), 18); hub.rotation.x = Math.PI / 2; wheel.add(hub);
-    for (const x of [-12, 12]) { const gd = box(4, 2.4, 6, mat(0x6F87A6, { metalness: .3 })); gd.position.set(x, 0, 0); wheel.add(gd); }
-    wheel.position.set(0, 13, 0); wheel.rotation.y = -.5; g.add(wheel);
-    const aq = box(44, 1.6, 4, steel); aq.position.set(28, 25, -16); aq.rotation.y = -.5; g.add(aq);
-    for (const k of [0, 1, 2, 3]) { const p = cyl(.7, .9, 25, mat(0xB9C2CF), 10); p.position.set(14 + k * 9.5 * Math.cos(.5), 12.5, -9 - k * 9.5 * Math.sin(.5)); g.add(p); }
-    const sup = box(3, 26, 5, mat(0xB9C2CF)); sup.position.set(-2, 13, 3); sup.rotation.y = -.5; g.add(sup);
-  },
-  award(g) {
-    const bb = billboard(["DEAN’S AWARD FOR EXCELLENCE", "Financial Market Predictive Tool", "20 strategies • 48 parameter sets • 15 FTSE 100 stocks"], { c1: "#121A33", c2: "#2B2056", chart: true, gold: true, big: 54 });
-    bb.scale.setScalar(1.7); bb.rotation.y = -.45; g.add(bb);
-    const gold = mat(0xE7B84A, { metalness: .8, roughness: .25 });
-    const t = new THREE.Group();
-    const st = box(3, 1.5, 3, mat(0x3A2E1A)); st.position.y = .75; t.add(st);
-    const stem = cyl(.4, .6, 3, gold, 12); stem.position.y = 3; t.add(stem);
-    const cup = new THREE.Mesh(new THREE.CylinderGeometry(2.2, .8, 3.4, 20, 1, true), Object.assign(gold.clone(), { side: THREE.DoubleSide })); cup.position.y = 6.2; t.add(cup);
-    for (const x of [-1, 1]) { const h = new THREE.Mesh(new THREE.TorusGeometry(.9, .18, 8, 16, Math.PI), gold); h.position.set(x * 2.2, 6.4, 0); h.rotation.z = x > 0 ? -Math.PI / 2 : Math.PI / 2; t.add(h); }
-    t.position.set(-18, 0, 14); g.add(t);
-  },
-  burj(g) {
-    const B = new THREE.Group();
-    const tiers = [[11, 60], [9, 50], [7.5, 45], [6, 40], [4.5, 35], [3, 30], [1.8, 24]];
-    let y = 0;
-    tiers.forEach(([r, h], k) => {
-      const sm = building("office", 1, 1, 1, 0xE4ECF5).material[0]; sm.metalness = .45; sm.roughness = .3;
-      const c = new THREE.Mesh(new THREE.CylinderGeometry(r * .92, r, h, 6), sm);
-      c.material.map.repeat.set(6, Math.round(h / 3.6)); c.material.emissiveMap.repeat.copy(c.material.map.repeat);
-      c.position.y = y + h / 2; B.add(c); y += h;
-    });
-    const spire = new THREE.Mesh(new THREE.ConeGeometry(1.2, 50, 8), mat(0xBFCBDA, { metalness: .6, roughness: .3 })); spire.position.y = y + 25; B.add(spire);
-    B.position.set(26, 0, -60); g.add(B);
-    for (const [x, z, h] of [[70, -40, 80], [-16, -100, 60], [86, -140, 110], [60, -190, 95], [-30, -30, 45]]) {
-      const b = building("glass", 14, h, 14); b.position.set(x, h / 2, z); g.add(b);
-    }
-  },
-  toolkit(g) {
-    const items = [
-      [["PYTHON & SQL", "Pandas • NumPy • scikit-learn", "Statistical modelling • Time-series"], "#1B2F5E", "#2E86C1"],
-      [["MACHINE LEARNING", "Backtesting • Anomaly detection", "Fraud on imbalanced data"], "#3A1C5E", "#8E44AD"],
-      [["DATA & REPORTING", "ETL • Reconciliation", "Power BI • Superset • Excel"], "#5E2A1C", "#D35400"]
-    ];
-    items.forEach(([l, c1, c2], k) => { const b = billboard(l, { c1, c2, big: 64 }); b.position.set(k * 4, 0, 20 - k * 30); b.rotation.y = -.55; g.add(b); });
-  },
-  projects(g) {
-    const items = [
-      [["MARKET PREDICTIVE TOOL", "20 strategies • 15 FTSE 100 stocks", "Automated ranking & alerts"], "#10302A", "#16A085"],
-      [["FRAUD DETECTION", "Rare fraud in highly imbalanced data", "Python • Machine learning"], "#3B1020", "#C0392B"],
-      [["BANKING • SHOPPING • DATA", "Java banking system • C shopping system", "Population analysis in Excel"], "#1F2240", "#5B5FC7"]
-    ];
-    items.forEach(([l, c1, c2], k) => { const b = billboard(l, { c1, c2, big: 58 }); b.position.set(k * 4, 0, 20 - k * 30); b.rotation.y = -.55; g.add(b); });
-  },
-  finale(g) {
-    const b = billboard(["THE NEXT CHAPTER…", "could be with your team.", "dittydenny2002@gmail.com"], { c1: "#1A0F2E", c2: "#B7791F", gold: true, big: 80 });
-    b.scale.setScalar(2.2); b.position.set(-6, 0, -10); b.rotation.y = -.35; g.add(b);
-  }
-};
-
-/* ---------- Build the streets ---------- */
-const REGION_STYLE = {
-  kerala:   { ground: 0x5C9A50, walk: 0xC9B79A, styles: ["kerala"], h: [5, 9], d: [7, 11], roof: 0x8E3A28, tints: [0xFFFFFF, 0xF3E1C2, 0xE6F0DE, 0xF5D9C8, 0xFFF4E0], palms: .7 },
-  qatar:    { ground: 0xD9BF8E, walk: 0xE6D5B6, styles: ["qatar"], h: [7, 20], d: [9, 13], tints: [0xFFFFFF, 0xF2E6CF, 0xE8D4B0], palms: .45 },
-  scotland: { ground: 0x4F7A4C, walk: 0x9A968E, styles: ["scotland"], h: [10, 15], d: [7, 10], roof: 0x3E434A, tints: [0xFFFFFF, 0xD8D2C8, 0xB9B4AC, 0xCBC2B2], palms: 0, chimney: true },
-  dubai:    { ground: 0x9A8F80, walk: 0xB9B2A6, styles: ["glass", "office"], h: [24, 75], d: [12, 18], tints: [0xFFFFFF, 0xD7E3F2], palms: .5 }
-};
-const roadM = mat(0x34373D, { roughness: .95 });
-const lineM = new THREE.MeshBasicMaterial({ color: 0xF1F1F1 });
-
-SCENES.forEach((s, i) => {
-  const R = REGION_STYLE[s.region];
-  const z0 = stopZ(i) + 30, z1 = stopZ(i) - L + 30, zc = (z0 + z1) / 2;
-  const ground = new THREE.Mesh(new THREE.PlaneGeometry(900, L), mat(R.ground)); ground.rotation.x = -Math.PI / 2; ground.position.set(0, -.02, zc); scene.add(ground);
-  const road = new THREE.Mesh(new THREE.PlaneGeometry(12, L), roadM); road.rotation.x = -Math.PI / 2; road.position.set(0, .01, zc); scene.add(road);
-  for (let z = z0; z > z1; z -= 7) { const d = new THREE.Mesh(new THREE.PlaneGeometry(.25, 3), lineM); d.rotation.x = -Math.PI / 2; d.position.set(0, .02, z); scene.add(d); }
-  for (const side of [-1, 1]) {
-    const walk = box(4, .2, L, mat(R.walk)); walk.position.set(side * 8, .1, zc); scene.add(walk);
-    for (let z = z0 - 6; z > z1; z -= 24) { const l = lamp(); l.position.set(side * 6.6, 0, z); l.rotation.y = side > 0 ? Math.PI : 0; scene.add(l); }
-    for (let z = z0 - 4; z > z1; z -= rr(9, 22)) if (rnd() < .55) { const c = car(); c.position.set(side * 5.1, 0, z); scene.add(c); }
-    let z = z0;
-    while (z > z1) {
-      const w = rr(8, 14), d = rr(R.d[0], R.d[1]), h = rr(R.h[0], R.h[1]);
-      const cz = z - w / 2;
-      const plaza = side === 1 && cz < stopZ(i) - 8 && cz > stopZ(i) - (s.region === "dubai" ? 140 : 115);
-      const nearPlaza = side === -1 && s.region === "dubai" && false;
-      if (!plaza && !nearPlaza) {
-        const b = building(pick(R.styles), d, h, w, pick(R.tints));
-        const x = side * (10.5 + d / 2);
-        b.position.set(x, h / 2, cz); scene.add(b);
-        if (R.roof) { const r = hipRoof(d, w, rr(2.5, 4), R.roof); r.position.set(x, h + 1.5, cz); scene.add(r); }
-        if (R.chimney) { const c = box(.9, 2.4, .9, mat(0x6E6862)); c.position.set(x + rr(-2, 2), h + 2.4, cz + rr(-2, 2)); scene.add(c); }
-      }
-      if (rnd() < R.palms) { const p = palm(rr(.85, 1.15)); p.position.set(side * 9.2, 0, z - w); scene.add(p); }
-      z -= w + rr(.6, 3);
-    }
-  }
-  /* the landmark of this chapter, on the right */
-  const g = new THREE.Group();
-  LAND[s.land](g);
-  g.position.set(36, 0, stopZ(i) - 58);
-  scene.add(g);
-  s.target = new THREE.Vector3(36, s.look ? 40 : 9, stopZ(i) - 58);
-});
-
-/* Rain for Scotland */
-const RAIN = 2200;
-const rainGeo = new THREE.BufferGeometry();
-const rp = new Float32Array(RAIN * 3);
-for (let k = 0; k < RAIN; k++) { rp[k * 3] = rr(-40, 40); rp[k * 3 + 1] = rr(0, 30); rp[k * 3 + 2] = rr(-70, 10); }
-rainGeo.setAttribute("position", new THREE.BufferAttribute(rp, 3));
-const rainMat = new THREE.PointsMaterial({ color: 0xDDE6F0, size: .09, transparent: true, opacity: 0, depthWrite: false });
-const rain = new THREE.Points(rainGeo, rainMat);
-scene.add(rain);
-
-/* =====================================================================
-   DITTY — the girl who walks you through the city, and talks
-   ===================================================================== */
-const TALK = [
-  "Hi! I’m Ditty Denny. Welcome to my journey. Come, walk with me through the cities that made me who I am.",
-  "This is Thrissur, my home. The city of temples, elephants, and the famous Pooram festival. Here I studied Data Science at St. Thomas College, and graduated with ninety six point eight out of a hundred.",
-  "This is where I got my first taste of real world data. As a quantitative analyst intern at XTG Technologies, I analysed trends and built insights for decision making.",
-  "Then I learned to build the pipes that data flows through. As a data engineer at The Maya Solutions, I designed ETL pipelines and made sure the data was clean and reliable.",
-  "Welcome to Doha! My first time working abroad. At Hamad Medical Corporation, I analysed operations in one of the Middle East’s largest hospital networks.",
-  "Then I crossed continents, all the way to Scotland. I came to Stirling as a Commonwealth Shared Scholar, and finished my master’s in Data Science for Business with a Distinction.",
-  "This is the Falkirk Wheel. Here in Falkirk, at AiM, I designed and backtested trading strategies in Python. That work grew into my dissertation.",
-  "And this is the moment I’m most proud of. My dissertation, a financial market predictive tool, won the Dean’s Award for Excellence.",
-  "And here I am today, in FinTech. I’m a software engineer for Orion Funded in Dubai, validating transactions, supporting compliance, and testing payment systems.",
-  "This is my toolkit. Python, SQL, machine learning, Power BI, Docker and Git. Everything I need to turn data into decisions.",
-  "And these are some of the things I’ve built, from fraud detection to a market prediction tool.",
-  "Thank you for walking with me! My story is still being written. Maybe the next chapter is with your team. Let’s talk!"
-];
-const WAVE = new Set([0, 7, 11]);
-SCENES.forEach((s, i) => s.talk = TALK[i]);
-
-function makeGirl() {
-  const skin = mat(0xA0663F, { roughness: .6 }), hairM = mat(0x17100D, { roughness: .5 });
-  const kurtiM = mat(0x7B4FD6, { roughness: .7 }), goldM = mat(0xE4B43A, { metalness: .6, roughness: .3 });
-  const pantM = mat(0x232B44), shoeM = mat(0x3A2A22);
-  const root = new THREE.Group();
-  const P = {};
-  const hip = (x) => { const g = new THREE.Group(); g.position.set(x, .95, 0);
-    const leg = cyl(.065, .055, .9, pantM, 10); leg.position.y = -.45; g.add(leg);
-    const shoe = box(.1, .07, .24, shoeM); shoe.position.set(0, -.915, .05); g.add(shoe); root.add(g); return g; };
-  P.legL = hip(-.09); P.legR = hip(.09);
-  const kurti = new THREE.Mesh(new THREE.LatheGeometry([
-    new THREE.Vector2(0, .55), new THREE.Vector2(.27, .55), new THREE.Vector2(.22, .8), new THREE.Vector2(.155, 1.02),
-    new THREE.Vector2(.165, 1.2), new THREE.Vector2(.19, 1.37), new THREE.Vector2(.11, 1.47), new THREE.Vector2(0, 1.48)], 24), kurtiM);
-  kurti.scale.z = .78; root.add(kurti);
-  const hem = new THREE.Mesh(new THREE.TorusGeometry(.268, .012, 6, 32), goldM); hem.rotation.x = Math.PI / 2; hem.scale.y = .78; hem.position.y = .57; root.add(hem);
-  const shawl = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3([
-    new THREE.Vector3(-.16, 1.42, .04), new THREE.Vector3(-.02, 1.3, .17), new THREE.Vector3(.15, 1.08, .15), new THREE.Vector3(.2, .82, .05)]), 20, .03, 6), mat(0xF0B33C, { roughness: .6 }));
-  root.add(shawl);
-  const bag = box(.07, .26, .32, mat(0x5A3A26)); bag.position.set(.27, 1.0, -.02); root.add(bag);
-  const neck = cyl(.045, .05, .1, skin, 10); neck.position.y = 1.5; root.add(neck);
-  const head = new THREE.Group(); head.position.y = 1.66; root.add(head); P.head = head;
-  const skull = new THREE.Mesh(new THREE.SphereGeometry(.12, 24, 18), skin); skull.scale.set(1, 1.12, 1.02); head.add(skull);
-  const hair = new THREE.Mesh(new THREE.SphereGeometry(.129, 24, 16, 0, Math.PI * 2, 0, 1.95), hairM); hair.rotation.x = -.42; hair.scale.set(1.02, 1.12, 1.04); head.add(hair);
-  const back = new THREE.Mesh(new THREE.SphereGeometry(.125, 16, 12), hairM); back.position.set(0, -.02, -.035); back.scale.set(1.02, 1.05, .9); head.add(back);
-  for (const x of [-.042, .042]) {
-    const eye = new THREE.Mesh(new THREE.SphereGeometry(.016, 10, 8), mat(0x111111, { roughness: .2 })); eye.position.set(x, .02, .108); head.add(eye);
-    (P.eyes = P.eyes || []).push(eye);
-    const brow = box(.035, .006, .01, hairM); brow.position.set(x, .05, .112); brow.rotation.z = x > 0 ? -.15 : .15; head.add(brow);
-    const ear = new THREE.Mesh(new THREE.SphereGeometry(.007, 8, 6), goldM); ear.position.set(x * 2.9, -.04, .0); head.add(ear);
-  }
-  const nose = new THREE.Mesh(new THREE.SphereGeometry(.014, 8, 6), mat(0x8E5734)); nose.position.set(0, -.015, .125); head.add(nose);
-  const bindi = new THREE.Mesh(new THREE.SphereGeometry(.007, 8, 6), mat(0xB0202A)); bindi.position.set(0, .06, .118); head.add(bindi);
-  const mouth = new THREE.Mesh(new THREE.SphereGeometry(.022, 12, 8), mat(0x6E2A2A, { roughness: .4 })); mouth.position.set(0, -.058, .106); mouth.scale.set(1.4, .3, .5); head.add(mouth); P.mouth = mouth;
-  const pony = new THREE.Group(); pony.position.set(0, .07, -.1); head.add(pony); P.pony = pony;
-  pony.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3([
-    new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, -.12, -.07), new THREE.Vector3(0, -.36, -.07), new THREE.Vector3(0, -.58, -.03)]), 16, .042, 8), hairM));
-  const band = new THREE.Mesh(new THREE.TorusGeometry(.04, .012, 6, 12), goldM); band.position.set(0, -.05, -.04); band.rotation.x = 1; pony.add(band);
-  const arm = (x) => { const s = new THREE.Group(); s.position.set(x, 1.4, 0); root.add(s);
-    const up = cyl(.05, .046, .3, kurtiM, 10); up.position.y = -.15; s.add(up);
-    const el = new THREE.Group(); el.position.y = -.3; s.add(el);
-    const fo = cyl(.04, .036, .26, skin, 10); fo.position.y = -.13; el.add(fo);
-    const hand = new THREE.Mesh(new THREE.SphereGeometry(.045, 10, 8), skin); hand.position.y = -.29; hand.scale.set(.8, 1.1, .6); el.add(hand);
-    const bangle = new THREE.Mesh(new THREE.TorusGeometry(.043, .008, 6, 14), goldM); bangle.rotation.x = Math.PI / 2; bangle.position.y = -.22; el.add(bangle);
-    return { s, el }; };
-  P.armL = arm(-.205); P.armR = arm(.205);
-  const shadow = new THREE.Mesh(new THREE.CircleGeometry(.35, 20), new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: .28, depthWrite: false }));
-  shadow.rotation.x = -Math.PI / 2; shadow.position.y = .02; shadow.scale.set(1, 1.3, 1); root.add(shadow);
-  return { root, P };
-}
-const girl = makeGirl();
-scene.add(girl.root);
-const G = { x: 2.6, z: stopZ(0) + 12, rot: Math.PI, trot: Math.PI, phase: 0, walking: false, talking: 0, waving: false, waveT: 0 };
-girl.root.position.set(G.x, 0, G.z);
-
-/* ---------- Voice ---------- */
-let voiceOn = "speechSynthesis" in window, voice = null;
+/* --- her voice --- */
+let soundOn = true, voice = null, talkToken = 0;
+const hasTTS = "speechSynthesis" in window;
 function pickVoice() {
-  if (!("speechSynthesis" in window)) return;
-  const vs = speechSynthesis.getVoices(); if (!vs.length) return;
-  const prefs = [/Neerja/i, /Veena/i, /Heera/i, /Swara/i, /Google UK English Female/i, /Sonia/i, /Libby/i, /Aria/i, /Jenny/i, /Samantha/i, /Karen/i, /Moira/i, /Tessa/i, /Zira/i, /female/i];
+  if (!hasTTS) return; const vs = speechSynthesis.getVoices(); if (!vs.length) return;
+  const prefs = [/Neerja/i, /Veena/i, /Heera/i, /Swara/i, /Sonia/i, /Libby/i, /Google UK English Female/i, /Aria/i, /Jenny/i, /Samantha/i, /Moira/i, /Karen/i, /Zira/i, /female/i];
   for (const p of prefs) { const v = vs.find(v => p.test(v.name) && /^en/i.test(v.lang)); if (v) { voice = v; return; } }
   voice = vs.find(v => /en-IN/i.test(v.lang)) || vs.find(v => /^en/i.test(v.lang)) || null;
 }
-if ("speechSynthesis" in window) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
-const sub = $("sub");
-let speakToken = 0;
-function stopTalking() { speakToken++; if ("speechSynthesis" in window) speechSynthesis.cancel(); G.talking = 0; sub.classList.remove("show"); }
+if (hasTTS) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+const narrator = $("narrator"), lineEl = $("line");
+function hush() { talkToken++; if (hasTTS) speechSynthesis.cancel(); narrator.classList.remove("talking"); document.body.classList.remove("speaking"); }
 function talk(text) {
-  stopTalking();
-  const token = speakToken;
-  const parts = text.match(/[^.!?]+[.!?]+/g) || [text];
-  let k = 0;
-  const nextPart = () => {
-    if (token !== speakToken) return;
-    if (k >= parts.length) { G.talking = 0; setTimeout(() => token === speakToken && sub.classList.remove("show"), 1600); return; }
-    const line = parts[k++].trim();
-    sub.textContent = line; sub.classList.add("show");
-    G.talking = 1;
-    if (voiceOn && voice !== undefined && "speechSynthesis" in window) {
-      const u = new SpeechSynthesisUtterance(line);
+  hush(); const tok = talkToken;
+  const parts = text.match(/[^.!?]+[.!?]+/g) || [text]; let k = 0;
+  narrator.classList.add("show");
+  const nxt = () => {
+    if (tok !== talkToken) return;
+    if (k >= parts.length) { narrator.classList.remove("talking"); document.body.classList.remove("speaking"); return; }
+    const s = parts[k++].trim(); lineEl.textContent = s;
+    narrator.classList.add("talking"); document.body.classList.add("speaking");
+    if (soundOn && hasTTS) {
+      const u = new SpeechSynthesisUtterance(s);
       if (voice) { u.voice = voice; u.lang = voice.lang; } else u.lang = "en-GB";
-      u.rate = .97; u.pitch = 1.12;
-      let done = false; const fin = () => { if (done) return; done = true; G.talking = 0; setTimeout(nextPart, 260); };
-      u.onend = fin; u.onerror = fin;
-      speechSynthesis.speak(u);
-      setTimeout(() => { if (!speechSynthesis.speaking && !done) fin(); }, 2500 + line.length * 120);
-    } else {
-      setTimeout(() => { G.talking = 0; setTimeout(nextPart, 250); }, 600 + line.length * 55);
-    }
+      u.rate = 1.0; u.pitch = 1.08;
+      let done = false; const fin = () => { if (done) return; done = true; document.body.classList.remove("speaking"); setTimeout(nxt, 180); };
+      u.onend = fin; u.onerror = fin; speechSynthesis.speak(u);
+      setTimeout(() => { if (!done && !speechSynthesis.speaking) fin(); }, 2200 + s.length * 110);
+    } else setTimeout(() => { document.body.classList.remove("speaking"); setTimeout(nxt, 150); }, 600 + s.length * 48);
   };
-  nextPart();
+  nxt();
 }
+const vbtn = $("voice");
+const setV = () => { vbtn.textContent = soundOn ? "Sound on" : "Sound off"; vbtn.setAttribute("aria-pressed", soundOn); };
+vbtn.addEventListener("click", () => { soundOn = !soundOn; setV(); if (!soundOn && hasTTS) speechSynthesis.cancel(); });
+if (!hasTTS) { soundOn = false; vbtn.hidden = true; }
 
-/* ---------- Camera that follows her ---------- */
-let mouseX = 0, mouseY = 0;
-addEventListener("pointermove", e => { mouseX = e.clientX / innerWidth - .5; mouseY = e.clientY / innerHeight - .5; });
-const camPos = new THREE.Vector3(G.x - .9, 2.05, G.z + 4.6), look = new THREE.Vector3(G.x, 1.4, G.z - 10);
-const wantPos = new THREE.Vector3(), wantLook = new THREE.Vector3(), headV = new THREE.Vector3();
-const tmpA = new THREE.Color(), tmpB = new THREE.Color();
-function envAt(z) {
-  const f = Math.max(0, Math.min(N - 1, -z / L));
-  const i = Math.floor(f), j = Math.min(N - 1, i + 1), t = f - i;
-  const A = SCENES[i], B = SCENES[j], lerp = (a, b) => a + (b - a) * t;
-  return { top: tmpA.set(A.sky[0]).clone().lerp(tmpB.set(B.sky[0]), t), bot: tmpA.set(A.sky[1]).clone().lerp(tmpB.set(B.sky[1]), t),
-    light: lerp(A.light, B.light), night: lerp(A.night || 0, B.night || 0), rain: lerp(A.rain || 0, B.rain || 0) };
-}
-let cur = 0, stopped = false;
-function desired() {
-  const mobile = innerWidth < 760;
-  if (!stopped) {
-    wantPos.set(G.x - .9, 2.05, G.z + 4.6);
-    wantLook.set(G.x - .3, 1.35, G.z - 10);
-  } else {
-    wantPos.set(G.x - (mobile ? 1.1 : 1.6), 1.5, G.z + (mobile ? 3.6 : 4.4));
-    headV.set(G.x, 1.4, G.z);
-    const T = SCENES[cur].target;
-    if (mobile) { wantLook.copy(headV).lerp(T, .1); if (SCENES[cur].look) wantLook.y += 1; }
-    else { wantLook.set(T.x, 1 + T.y * .4, T.z); if (SCENES[cur].look) wantLook.y += 10; }
-  }
-  if (!reduce) { wantLook.x += mouseX * 1.6; wantLook.y -= mouseY * 1.0; }
-}
-function snapCamera() { desired(); camPos.copy(wantPos); look.copy(wantLook); }
-
-let last = performance.now();
-function frame(now) {
-  const dt = Math.min(.05, (now - last) / 1000); last = now; const t = now / 1000;
-  const e = envAt(G.z);
-  skyMat.uniforms.top.value.copy(e.top); skyMat.uniforms.bottom.value.copy(e.bot);
-  scene.fog.color.copy(e.bot).lerp(e.top, .25);
-  hemi.intensity = .55 + e.light * .45; sun.intensity = e.light * .85;
-  sunMesh.position.set(camera.position.x - 220, 160 - e.night * 140, camera.position.z - 600);
-  sunMesh.material.color.set(e.night > .5 ? 0xFFB37A : 0xFFE9B0);
-  for (const m of windowMats) m.emissiveIntensity = m.userData.lamp ? .2 + e.night * 2 : e.night * 1.2;
-  rainMat.opacity = e.rain * .7;
-  if (e.rain > .01) { const p = rainGeo.attributes.position.array;
-    for (let k = 0; k < RAIN; k++) { p[k * 3 + 1] -= 28 * dt; if (p[k * 3 + 1] < 0) p[k * 3 + 1] = 30; }
-    rainGeo.attributes.position.needsUpdate = true; }
-  rain.position.set(0, 0, G.z);
-
-  /* her body */
-  const P = girl.P;
-  const sw = G.walking ? Math.sin(G.phase) : 0;
-  P.legL.rotation.x = sw * .55; P.legR.rotation.x = -sw * .55;
-  P.armL.s.rotation.set(-sw * .45, 0, -.1); P.armR.s.rotation.set(sw * .45, 0, .1);
-  P.armL.el.rotation.x = -.25; P.armR.el.rotation.x = -.25;
-  if (G.waving) {
-    G.waveT += dt;
-    P.armR.s.rotation.set(0, 0, 2.7); P.armR.el.rotation.set(0, 0, .35 + Math.sin(G.waveT * 9) * .45);
-    if (G.waveT > 2.6) { G.waving = false; P.armR.el.rotation.set(-.25, 0, 0); }
-  } else if (G.talking) {
-    P.armR.s.rotation.set(-.35 + Math.sin(t * 2.2) * .12, 0, .18); P.armR.el.rotation.set(-.9 + Math.sin(t * 3.1) * .25, 0, 0);
-  }
-  P.mouth.scale.y = G.talking ? .3 + Math.abs(Math.sin(t * 17) * Math.sin(t * 5.3)) * 1.3 : .3;
-  P.head.rotation.x = G.talking ? Math.sin(t * 3.3) * .05 : 0;
-  P.head.rotation.y = G.talking ? Math.sin(t * 1.7) * .08 : 0;
-  const blink = (t % 4.2) < .12 ? .15 : 1; P.eyes.forEach(ey => ey.scale.y = blink);
-  P.pony.rotation.x = G.walking ? Math.sin(G.phase * 2) * .12 : Math.sin(t * 1.5) * .02;
-  const bob = G.walking ? Math.abs(Math.sin(G.phase)) * .035 : Math.sin(t * 1.6) * .004;
-  G.rot += Math.atan2(Math.sin(G.trot - G.rot), Math.cos(G.trot - G.rot)) * Math.min(1, dt * 4);
-  girl.root.position.set(G.x, bob, G.z); girl.root.rotation.y = G.rot;
-
-  /* camera follows */
-  desired();
-  if (stopped) { const dx = camPos.x - G.x, dz = camPos.z - G.z; G.trot = Math.atan2(dx, dz); }
-  const k = reduce ? 1 : 1 - Math.exp(-dt * 2.6);
-  camPos.lerp(wantPos, k); look.lerp(wantLook, k);
-  camera.position.copy(camPos); camera.lookAt(look);
-  renderer.render(scene, camera);
-  requestAnimationFrame(frame);
-}
-addEventListener("resize", () => { renderer.setSize(innerWidth, innerHeight); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); });
-
-function walkTo(z, speed = 2.6) {
-  return new Promise(res => {
-    if (reduce) { G.z = z; return res(); }
-    stopped = false; G.walking = true; G.trot = z < G.z ? Math.PI : 0;
-    const z0 = G.z, dist = Math.abs(z - z0), ms = dist / speed * 1000, t0 = performance.now();
-    let prev = z0;
-    const step = now => {
-      const p = Math.min(1, (now - t0) / ms);
-      const e = p < .15 ? (p / .15) * (p / .15) * .075 : p > .85 ? 1 - Math.pow((1 - p) / .15, 2) * .075 : .075 + (p - .15) / .7 * .85;
-      G.z = z0 + (z - z0) * e;
-      G.phase += Math.abs(G.z - prev) / .72 * Math.PI; prev = G.z;
-      if (p < 1) requestAnimationFrame(step); else { G.walking = false; res(); }
-    };
-    requestAnimationFrame(step);
+/* --- journey --- */
+const caption = $("caption"), panel = $("panel");
+const stepsEl = $("steps");
+stepsEl.innerHTML = SCENES.map((s, i) => `<li><button data-i="${i}">${s.step}</button></li>`).join("");
+let cur = -1, busy = false;
+function markSteps() {
+  [...stepsEl.querySelectorAll("button")].forEach((b, j) => {
+    b.classList.toggle("on", j === cur); b.classList.toggle("done", j < cur);
+    if (j === cur) { b.setAttribute("aria-current", "step"); b.scrollIntoView({ inline: "center", block: "nearest", behavior: reduce ? "auto" : "smooth" }); }
+    else b.removeAttribute("aria-current");
   });
+  $("prev").disabled = cur <= 0;
+  $("next").setAttribute("aria-label", cur === SCENES.length - 1 ? "Back to the start" : "Next place");
 }
-const fadeEl = document.createElement("div");
-fadeEl.style.cssText = "position:fixed;inset:0;background:#000;opacity:0;pointer-events:none;z-index:20;transition:opacity .55s";
-document.body.appendChild(fadeEl);
-const wait = ms => new Promise(r => setTimeout(r, ms));
-async function dip(fn) { fadeEl.style.opacity = 1; await wait(reduce ? 0 : 600); fn(); snapCamera(); fadeEl.style.opacity = 0; await wait(reduce ? 0 : 450); }
-
-/* ---------- Story navigation ---------- */
-const card = $("card"), next = $("next"), prev = $("prev"), progress = $("progress");
-progress.innerHTML = SCENES.map((s, i) => `<li><button aria-label="Go to ${s.label}" title="${s.label}" data-i="${i}"></button></li>`).join("");
-function countUp() {
-  card.querySelectorAll("[data-count]").forEach(el => {
-    const end = +el.dataset.count, dec = +el.dataset.dec;
-    if (reduce) { el.textContent = end.toFixed(dec); return; }
-    const t0 = performance.now();
-    const tick = now => { const p = Math.min(1, (now - t0) / 1300); el.textContent = (end * (1 - Math.pow(1 - p, 3))).toFixed(dec); if (p < 1) requestAnimationFrame(tick); };
-    requestAnimationFrame(tick);
-  });
-}
-function chapterTitle(s) {
-  if (!s.chapter) return;
-  $("ctp").textContent = s.chapter; $("cth").textContent = s.place;
-  const c = $("ctitle"); c.classList.add("show"); setTimeout(() => c.classList.remove("show"), 2200);
-}
-let busy = false;
-function arrive(i) {
+async function go(i) {
+  if (busy) return;
+  if (i >= SCENES.length) i = 0;
+  if (i < 0 || i === cur) return;
+  busy = true; hush(); narrator.classList.remove("show");
   const s = SCENES[i];
-  stopped = true;
-  document.body.classList.remove("cinema");
-  setTimeout(() => {
-    if (WAVE.has(i) && !reduce) { G.waving = true; G.waveT = 0; }
-    talk(s.talk);
-    card.innerHTML = s.html; card.scrollTop = 0; card.classList.add("show"); countUp();
-  }, reduce ? 0 : 900);
-  [...progress.querySelectorAll("button")].forEach((b, j) => {
-    b.classList.toggle("on", j === i); b.classList.toggle("done", j < i);
-    b.setAttribute("aria-current", j === i ? "step" : "false");
-  });
-  prev.disabled = i === 0;
-  next.textContent = i === 0 ? "Walk with me" : i === N - 1 ? "Walk again" : "Next chapter";
+  caption.classList.remove("in"); panel.classList.remove("in");
+  getPhoto(s);
+  await wait(reduce ? 0 : 350);
+  await showPlace(s);
+  cur = i; markSteps();
+  caption.querySelector(".chap").textContent = s.chap;
+  caption.querySelector("h2").textContent = s.place;
+  caption.querySelector(".year").textContent = s.year;
+  panel.innerHTML = s.html; panel.scrollTop = 0;
+  await wait(reduce ? 0 : 450);
+  caption.classList.add("in");
+  await wait(reduce ? 0 : 250);
+  panel.classList.add("in");
+  talk(s.talk);
+  if (SCENES[i + 1]) getPhoto(SCENES[i + 1]);
+  busy = false;
 }
-function leave() {
-  busy = true; stopTalking(); G.waving = false;
-  card.classList.remove("show");
-  document.body.classList.add("cinema");
-}
-async function walk(target) {
-  leave();
-  if (target > cur) await walkTo(G.z - 9);
-  await dip(() => { G.z = stopZ(target) + 12; stopped = false; G.rot = G.trot = Math.PI; });
-  chapterTitle(SCENES[target]);
-  await walkTo(stopZ(target));
-  cur = target; arrive(cur); busy = false;
-}
-async function fly(target) {
-  leave();
-  if (target > cur) await walkTo(G.z - 7);
-  const s = SCENES[target];
-  $("fch").textContent = s.chapter || ""; $("fplace").textContent = s.place || REGIONS[s.region].name; $("fyear").textContent = s.year || "";
-  $("fromT").textContent = REGIONS[SCENES[cur].region].name; $("toT").textContent = REGIONS[s.region].name;
-  const fl = $("flight"), arc = $("arcTrail"), plane = $("plane"), len = arc.getTotalLength();
-  arc.style.strokeDasharray = len; arc.style.strokeDashoffset = len;
-  fl.classList.add("show");
-  const T = reduce ? 1 : 2600, t0 = performance.now() + 500;
-  const step = now => {
-    const p = Math.max(0, Math.min(1, (now - t0) / T)), e = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
-    const a = arc.getPointAtLength(e * len), b = arc.getPointAtLength(Math.min(len, e * len + 1));
-    plane.setAttribute("transform", `translate(${a.x} ${a.y}) rotate(${Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI})`);
-    arc.style.strokeDashoffset = len * (1 - e);
-    if (p < 1) requestAnimationFrame(step);
-  };
-  requestAnimationFrame(step);
-  await wait(800);
-  G.z = stopZ(target) + 12; stopped = false; G.rot = G.trot = Math.PI; snapCamera();
-  await wait(reduce ? 400 : T + 300);
-  fl.classList.remove("show");
-  await walkTo(stopZ(target));
-  cur = target; arrive(cur); busy = false;
-}
-function go(target) {
-  if (busy || document.body.classList.contains("intro")) return;
-  if (target >= N) target = 0;
-  if (target < 0 || target === cur) return;
-  SCENES[target].region !== SCENES[cur].region ? fly(target) : walk(target);
-}
-next.addEventListener("click", () => go(cur + 1));
-prev.addEventListener("click", () => go(cur - 1));
-progress.addEventListener("click", e => { const b = e.target.closest("button"); if (b) go(+b.dataset.i); });
+$("next").addEventListener("click", () => go(cur + 1));
+$("prev").addEventListener("click", () => go(cur - 1));
+stepsEl.addEventListener("click", e => { const b = e.target.closest("button"); if (b) go(+b.dataset.i); });
 addEventListener("keydown", e => {
-  if (document.body.classList.contains("intro")) { if (e.key === "Enter") { e.preventDefault(); startJourney(); } return; }
+  if (!document.body.classList.contains("journey")) return;
   if (["ArrowRight", "ArrowDown", "PageDown"].includes(e.key)) { e.preventDefault(); go(cur + 1); }
   if (["ArrowLeft", "ArrowUp", "PageUp"].includes(e.key)) { e.preventDefault(); go(cur - 1); }
 });
 let acc = 0, wt;
 addEventListener("wheel", e => {
-  if (e.target.closest && e.target.closest("#card")) {
-    const top = card.scrollTop <= 0, bottom = card.scrollTop + card.clientHeight >= card.scrollHeight - 2;
+  if (!document.body.classList.contains("journey")) return;
+  if (e.target.closest && e.target.closest("#panel")) {
+    const top = panel.scrollTop <= 0, bottom = panel.scrollTop + panel.clientHeight >= panel.scrollHeight - 2;
     if ((e.deltaY > 0 && !bottom) || (e.deltaY < 0 && !top)) return;
   }
-  acc += e.deltaY + e.deltaX; clearTimeout(wt); wt = setTimeout(() => acc = 0, 220);
-  if (acc > 70) { acc = 0; if (cur < N - 1) go(cur + 1); }
-  if (acc < -70) { acc = 0; go(cur - 1); }
+  acc += e.deltaY; clearTimeout(wt); wt = setTimeout(() => acc = 0, 200);
+  if (acc > 60) { acc = 0; if (cur < SCENES.length - 1) go(cur + 1); }
+  if (acc < -60) { acc = 0; go(cur - 1); }
 }, { passive: true });
 let tx = 0, ty = 0;
 addEventListener("touchstart", e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
 addEventListener("touchend", e => {
-  if (e.target.closest && e.target.closest("#card, a, button")) return;
+  if (!document.body.classList.contains("journey")) return;
+  if (e.target.closest && e.target.closest("#panel, a, button")) return;
   const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
   if (Math.max(Math.abs(dx), Math.abs(dy)) < 45) return;
-  (Math.abs(dx) > Math.abs(dy) ? dx < 0 : dy < 0) ? (cur < N - 1 && go(cur + 1)) : go(cur - 1);
+  (Math.abs(dx) > Math.abs(dy) ? dx < 0 : dy < 0) ? (cur < SCENES.length - 1 && go(cur + 1)) : go(cur - 1);
 }, { passive: true });
 
-/* Voice toggle */
-const vbtn = document.createElement("button");
-vbtn.id = "voice";
-vbtn.style.cssText = "position:fixed;z-index:9;top:calc(1.2rem + env(safe-area-inset-top,0px));right:1.2rem;border:0;border-radius:99px;padding:.55rem .9rem;font-weight:700;background:var(--card);color:var(--ink);box-shadow:0 6px 20px rgba(0,0,0,.25)";
-const setV = () => { vbtn.textContent = voiceOn ? "🔊 Voice on" : "🔇 Voice off"; vbtn.setAttribute("aria-pressed", voiceOn); };
-vbtn.addEventListener("click", () => { voiceOn = !voiceOn; setV(); if (!voiceOn && "speechSynthesis" in window) speechSynthesis.cancel(); else if (stopped) talk(SCENES[cur].talk); });
-if (!("speechSynthesis" in window)) vbtn.hidden = true;
-setV(); document.body.appendChild(vbtn);
+/* --- the opening: she comes in and says hi --- */
+SCENES.forEach(getPhoto); getPhoto(INTRO);
+const dittyReady = setupDitty();
+const videoReady = introVideo();
+showPlace(INTRO, true);
 
-/* ---------- Trailer intro ---------- */
-snapCamera();
-requestAnimationFrame(frame);
-$("loading").textContent = "";
-const lines = [...document.querySelectorAll("#intro .tl")], timers = [];
-let started = false;
-if (reduce) $("title").classList.add("show");
-else {
-  lines.forEach((l, i) => {
-    timers.push(setTimeout(() => l.classList.add("show"), 600 + i * 2300));
-    timers.push(setTimeout(() => l.classList.remove("show"), 600 + i * 2300 + 1800));
-  });
-  timers.push(setTimeout(() => $("title").classList.add("show"), 600 + lines.length * 2300 + 200));
-}
-async function startJourney() {
-  if (started) return; started = true;
-  timers.forEach(clearTimeout);
-  if ("speechSynthesis" in window) { pickVoice(); const u = new SpeechSynthesisUtterance(" "); u.volume = 0; speechSynthesis.speak(u); }
-  $("intro").classList.add("gone");
-  document.body.classList.remove("intro");
-  busy = true;
+async function enter(withSound) {
+  soundOn = withSound && hasTTS; setV();
+  if (soundOn) { pickVoice(); const u = new SpeechSynthesisUtterance(" "); u.volume = 0; speechSynthesis.speak(u); }
+  $("splash").classList.add("gone");
+  document.body.classList.add("on");
+  await dittyReady;
+  const v = await videoReady;
+  if (v) { dittyBox.querySelectorAll("img,svg").forEach(n => n.remove()); dittyBox.appendChild(v); }
+  await wait(reduce ? 0 : 500);
+  dittyBox.classList.add("in");
   await wait(reduce ? 0 : 900);
-  await walkTo(stopZ(0));
-  arrive(0); busy = false;
+  $("hello").classList.add("in");
+  if (v) { v.muted = !soundOn; v.play().catch(() => {}); narrator.classList.add("show"); lineEl.textContent = INTRO.talk; }
+  else talk(INTRO.talk);
 }
-$("begin").addEventListener("click", startJourney);
-$("skip").addEventListener("click", startJourney);
+$("enter").addEventListener("click", () => enter(true));
+$("quiet").addEventListener("click", () => enter(false));
+$("begin").addEventListener("click", async () => {
+  hush();
+  const v = dittyBox.querySelector("video"); if (v) v.pause();
+  $("hello").classList.add("out"); dittyBox.classList.add("out");
+  await wait(reduce ? 0 : 500);
+  document.body.classList.add("journey");
+  go(0);
+});
 </script>
 </body>
 </html>

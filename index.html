@@ -31,10 +31,10 @@ a{color:var(--accent);font-weight:600}
 #vignette{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.35) 100%);z-index:1}
 
 /* Card */
-#card{position:fixed;z-index:7;left:4vw;top:calc(12vh + env(safe-area-inset-top,0px));width:min(30rem,38vw);max-height:64vh;overflow:auto;
+#card{position:fixed;z-index:7;right:4vw;top:calc(12vh + env(safe-area-inset-top,0px));width:min(29rem,35vw);max-height:62vh;overflow:auto;
   background:var(--card);color:var(--ink);border-radius:22px;padding:1.6rem 1.7rem;box-shadow:0 24px 70px rgba(5,8,20,.4);
   backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  opacity:0;transform:translateX(-24px);transition:opacity .6s,transform .6s;pointer-events:none}
+  opacity:0;transform:translateX(24px);transition:opacity .6s,transform .6s;pointer-events:none}
 #card.show{opacity:1;transform:none;pointer-events:auto}
 .chap{font-family:var(--cine);font-weight:700;letter-spacing:.2em;font-size:.78rem;color:var(--gold);margin:0 0 .5rem}
 #card .when{color:var(--muted);font-weight:600;margin:0 0 .2rem;font-size:.95rem}
@@ -68,7 +68,7 @@ ul.items span{color:var(--muted);font-size:.95rem}
 .btnrow a.primary{background:var(--accent);color:var(--accent-ink)}
 
 /* Subtitles (your voice) */
-#sub{position:fixed;z-index:6;left:50%;bottom:calc(13vh + env(safe-area-inset-bottom,0px));transform:translateX(-50%);
+#sub{position:fixed;z-index:6;left:32%;bottom:calc(13vh + env(safe-area-inset-bottom,0px));transform:translateX(-50%);
   max-width:min(46rem,90vw);text-align:center;color:#fff;font-size:clamp(1rem,1.8vw,1.35rem);font-weight:600;line-height:1.4;
   background:rgba(0,0,0,.55);padding:.5rem 1rem;border-radius:8px;opacity:0;transition:opacity .4s}
 #sub.show{opacity:1}
@@ -132,8 +132,8 @@ body.cinema .bar{height:9vh}
 #nogl{position:fixed;inset:0;display:none;place-items:center;color:#fff;text-align:center;padding:2rem}
 
 @media (max-width:760px){
-  #card{left:.9rem;right:.9rem;width:auto;top:calc(3.6rem + env(safe-area-inset-top,0px));max-height:44vh;padding:1.2rem 1.25rem;border-radius:18px;transform:translateY(-14px)}
-  #sub{bottom:calc(11vh + env(safe-area-inset-bottom,0px));font-size:.95rem}
+  #card{left:.9rem;right:.9rem;width:auto;top:calc(3.8rem + env(safe-area-inset-top,0px));max-height:44vh;padding:1.2rem 1.25rem;border-radius:18px;transform:translateY(-14px)}
+  #sub{left:50%;bottom:calc(11vh + env(safe-area-inset-bottom,0px));font-size:.95rem}
   #controls{right:.9rem;bottom:calc(2.5vh + env(safe-area-inset-bottom,0px))}
   body.cinema .bar{height:6vh}
 }
@@ -505,9 +505,9 @@ function billboard(lines, opts = {}) {
   for (const x of [-5, 5]) { const p = cyl(.3, .35, 8, mat(0x2A2D35), 8); p.position.set(x, 4, -.4); g.add(p); }
   return g;
 }
-function water(w, d, color = 0x2F7FA8) {
+function water(w, d, color = 0x2F7FA8, x = 0) {
   const m = new THREE.Mesh(new THREE.PlaneGeometry(w, d), mat(color, { roughness: .15, metalness: .4 }));
-  m.rotation.x = -Math.PI / 2; m.position.y = .05;
+  m.rotation.x = -Math.PI / 2; m.position.set(x, .05, 0);
   return m;
 }
 
@@ -540,7 +540,7 @@ function houseboat() {
 }
 const LAND = {
   backwaters(g) {
-    g.add(Object.assign(water(70, 90), {}));
+    g.add(water(70, 90, 0x2F7FA8, 13));
     const hb = houseboat(); hb.position.set(-6, 0, -10); hb.rotation.y = .4; g.add(hb);
     const hb2 = houseboat(); hb2.position.set(14, 0, -32); hb2.rotation.y = -.2; g.add(hb2);
     for (const [x, z, s] of [[-30, 10, 1.1], [-26, -14, .9], [-30, -36, 1.2], [26, 20, 1], [30, -6, 1.15]]) { const p = palm(s); p.position.set(x, 0, z); g.add(p); }
@@ -558,7 +558,7 @@ const LAND = {
     for (let k = 0; k < 5; k++) { const e = elephant(cols[k]); e.position.set(-14 + k * 6.5, 0, 22); e.rotation.y = -Math.PI / 2 + .9; g.add(e); }
   },
   nets(g) {
-    g.add(water(80, 100, 0x2B7AA3));
+    g.add(water(80, 100, 0x2B7AA3, 17));
     const wood = mat(0x6B4A2B);
     for (const [x, z, ry] of [[-12, 4, .3], [6, -14, -.2], [22, -34, .1]]) {
       const n = new THREE.Group();
@@ -580,7 +580,7 @@ const LAND = {
     for (const [x, z] of [[-26, 34], [22, 30]]) { const p = palm(1); p.position.set(x, 0, z); g.add(p); }
   },
   doha(g) {
-    g.add(Object.assign(water(120, 160, 0x2D86B5), {}));
+    g.add(water(90, 160, 0x2D86B5, 22));
     const tower = new THREE.Group();
     const latM = mat(0x5A7DA8, { metalness: .4, roughness: .35 });
     const body = cyl(5, 5.4, 52, latM, 24); body.position.y = 26; tower.add(body);
@@ -616,7 +616,7 @@ const LAND = {
     for (const [x, z] of [[-33, -1], [-15, -1], [-33, 9], [-15, 9]]) { const t = cyl(1.8, 1.8, 13, cast, 12); t.position.set(x, 17, z); g.add(t); const r = new THREE.Mesh(new THREE.ConeGeometry(2.1, 3.4, 12), mat(0x4A4E58)); r.position.set(x, 25, z); g.add(r); }
   },
   falkirk(g) {
-    g.add(water(120, 26, 0x40789E));
+    g.add(water(80, 26, 0x40789E, 18));
     const steel = mat(0xD3D9E2, { metalness: .5, roughness: .35 });
     const wheel = new THREE.Group();
     const a1 = new THREE.Mesh(new THREE.TorusGeometry(11, .9, 10, 48, Math.PI), steel); wheel.add(a1);
@@ -733,29 +733,153 @@ const rainMat = new THREE.PointsMaterial({ color: 0xDDE6F0, size: .09, transpare
 const rain = new THREE.Points(rainGeo, rainMat);
 scene.add(rain);
 
-/* ---------- Camera, walking and looking ---------- */
-const cam = { z: stopZ(0) + 40, yaw: 0, pitch: 0, tyaw: 0, tpitch: 0, phase: 0, speed: 0 };
+/* =====================================================================
+   DITTY — the girl who walks you through the city, and talks
+   ===================================================================== */
+const TALK = [
+  "Hi! I’m Ditty Denny. Welcome to my journey. Come, walk with me through the cities that made me who I am.",
+  "This is Thrissur, my home. The city of temples, elephants, and the famous Pooram festival. Here I studied Data Science at St. Thomas College, and graduated with ninety six point eight out of a hundred.",
+  "This is where I got my first taste of real world data. As a quantitative analyst intern at XTG Technologies, I analysed trends and built insights for decision making.",
+  "Then I learned to build the pipes that data flows through. As a data engineer at The Maya Solutions, I designed ETL pipelines and made sure the data was clean and reliable.",
+  "Welcome to Doha! My first time working abroad. At Hamad Medical Corporation, I analysed operations in one of the Middle East’s largest hospital networks.",
+  "Then I crossed continents, all the way to Scotland. I came to Stirling as a Commonwealth Shared Scholar, and finished my master’s in Data Science for Business with a Distinction.",
+  "This is the Falkirk Wheel. Here in Falkirk, at AiM, I designed and backtested trading strategies in Python. That work grew into my dissertation.",
+  "And this is the moment I’m most proud of. My dissertation, a financial market predictive tool, won the Dean’s Award for Excellence.",
+  "And here I am today, in FinTech. I’m a software engineer for Orion Funded in Dubai, validating transactions, supporting compliance, and testing payment systems.",
+  "This is my toolkit. Python, SQL, machine learning, Power BI, Docker and Git. Everything I need to turn data into decisions.",
+  "And these are some of the things I’ve built, from fraud detection to a market prediction tool.",
+  "Thank you for walking with me! My story is still being written. Maybe the next chapter is with your team. Let’s talk!"
+];
+const WAVE = new Set([0, 7, 11]);
+SCENES.forEach((s, i) => s.talk = TALK[i]);
+
+function makeGirl() {
+  const skin = mat(0xA0663F, { roughness: .6 }), hairM = mat(0x17100D, { roughness: .5 });
+  const kurtiM = mat(0x7B4FD6, { roughness: .7 }), goldM = mat(0xE4B43A, { metalness: .6, roughness: .3 });
+  const pantM = mat(0x232B44), shoeM = mat(0x3A2A22);
+  const root = new THREE.Group();
+  const P = {};
+  const hip = (x) => { const g = new THREE.Group(); g.position.set(x, .95, 0);
+    const leg = cyl(.065, .055, .9, pantM, 10); leg.position.y = -.45; g.add(leg);
+    const shoe = box(.1, .07, .24, shoeM); shoe.position.set(0, -.915, .05); g.add(shoe); root.add(g); return g; };
+  P.legL = hip(-.09); P.legR = hip(.09);
+  const kurti = new THREE.Mesh(new THREE.LatheGeometry([
+    new THREE.Vector2(0, .55), new THREE.Vector2(.27, .55), new THREE.Vector2(.22, .8), new THREE.Vector2(.155, 1.02),
+    new THREE.Vector2(.165, 1.2), new THREE.Vector2(.19, 1.37), new THREE.Vector2(.11, 1.47), new THREE.Vector2(0, 1.48)], 24), kurtiM);
+  kurti.scale.z = .78; root.add(kurti);
+  const hem = new THREE.Mesh(new THREE.TorusGeometry(.268, .012, 6, 32), goldM); hem.rotation.x = Math.PI / 2; hem.scale.y = .78; hem.position.y = .57; root.add(hem);
+  const shawl = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3([
+    new THREE.Vector3(-.16, 1.42, .04), new THREE.Vector3(-.02, 1.3, .17), new THREE.Vector3(.15, 1.08, .15), new THREE.Vector3(.2, .82, .05)]), 20, .03, 6), mat(0xF0B33C, { roughness: .6 }));
+  root.add(shawl);
+  const bag = box(.07, .26, .32, mat(0x5A3A26)); bag.position.set(.27, 1.0, -.02); root.add(bag);
+  const neck = cyl(.045, .05, .1, skin, 10); neck.position.y = 1.5; root.add(neck);
+  const head = new THREE.Group(); head.position.y = 1.66; root.add(head); P.head = head;
+  const skull = new THREE.Mesh(new THREE.SphereGeometry(.12, 24, 18), skin); skull.scale.set(1, 1.12, 1.02); head.add(skull);
+  const hair = new THREE.Mesh(new THREE.SphereGeometry(.129, 24, 16, 0, Math.PI * 2, 0, 1.95), hairM); hair.rotation.x = -.42; hair.scale.set(1.02, 1.12, 1.04); head.add(hair);
+  const back = new THREE.Mesh(new THREE.SphereGeometry(.125, 16, 12), hairM); back.position.set(0, -.02, -.035); back.scale.set(1.02, 1.05, .9); head.add(back);
+  for (const x of [-.042, .042]) {
+    const eye = new THREE.Mesh(new THREE.SphereGeometry(.016, 10, 8), mat(0x111111, { roughness: .2 })); eye.position.set(x, .02, .108); head.add(eye);
+    (P.eyes = P.eyes || []).push(eye);
+    const brow = box(.035, .006, .01, hairM); brow.position.set(x, .05, .112); brow.rotation.z = x > 0 ? -.15 : .15; head.add(brow);
+    const ear = new THREE.Mesh(new THREE.SphereGeometry(.007, 8, 6), goldM); ear.position.set(x * 2.9, -.04, .0); head.add(ear);
+  }
+  const nose = new THREE.Mesh(new THREE.SphereGeometry(.014, 8, 6), mat(0x8E5734)); nose.position.set(0, -.015, .125); head.add(nose);
+  const bindi = new THREE.Mesh(new THREE.SphereGeometry(.007, 8, 6), mat(0xB0202A)); bindi.position.set(0, .06, .118); head.add(bindi);
+  const mouth = new THREE.Mesh(new THREE.SphereGeometry(.022, 12, 8), mat(0x6E2A2A, { roughness: .4 })); mouth.position.set(0, -.058, .106); mouth.scale.set(1.4, .3, .5); head.add(mouth); P.mouth = mouth;
+  const pony = new THREE.Group(); pony.position.set(0, .07, -.1); head.add(pony); P.pony = pony;
+  pony.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3([
+    new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, -.12, -.07), new THREE.Vector3(0, -.36, -.07), new THREE.Vector3(0, -.58, -.03)]), 16, .042, 8), hairM));
+  const band = new THREE.Mesh(new THREE.TorusGeometry(.04, .012, 6, 12), goldM); band.position.set(0, -.05, -.04); band.rotation.x = 1; pony.add(band);
+  const arm = (x) => { const s = new THREE.Group(); s.position.set(x, 1.4, 0); root.add(s);
+    const up = cyl(.05, .046, .3, kurtiM, 10); up.position.y = -.15; s.add(up);
+    const el = new THREE.Group(); el.position.y = -.3; s.add(el);
+    const fo = cyl(.04, .036, .26, skin, 10); fo.position.y = -.13; el.add(fo);
+    const hand = new THREE.Mesh(new THREE.SphereGeometry(.045, 10, 8), skin); hand.position.y = -.29; hand.scale.set(.8, 1.1, .6); el.add(hand);
+    const bangle = new THREE.Mesh(new THREE.TorusGeometry(.043, .008, 6, 14), goldM); bangle.rotation.x = Math.PI / 2; bangle.position.y = -.22; el.add(bangle);
+    return { s, el }; };
+  P.armL = arm(-.205); P.armR = arm(.205);
+  const shadow = new THREE.Mesh(new THREE.CircleGeometry(.35, 20), new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: .28, depthWrite: false }));
+  shadow.rotation.x = -Math.PI / 2; shadow.position.y = .02; shadow.scale.set(1, 1.3, 1); root.add(shadow);
+  return { root, P };
+}
+const girl = makeGirl();
+scene.add(girl.root);
+const G = { x: 2.6, z: stopZ(0) + 12, rot: Math.PI, trot: Math.PI, phase: 0, walking: false, talking: 0, waving: false, waveT: 0 };
+girl.root.position.set(G.x, 0, G.z);
+
+/* ---------- Voice ---------- */
+let voiceOn = "speechSynthesis" in window, voice = null;
+function pickVoice() {
+  if (!("speechSynthesis" in window)) return;
+  const vs = speechSynthesis.getVoices(); if (!vs.length) return;
+  const prefs = [/Neerja/i, /Veena/i, /Heera/i, /Swara/i, /Google UK English Female/i, /Sonia/i, /Libby/i, /Aria/i, /Jenny/i, /Samantha/i, /Karen/i, /Moira/i, /Tessa/i, /Zira/i, /female/i];
+  for (const p of prefs) { const v = vs.find(v => p.test(v.name) && /^en/i.test(v.lang)); if (v) { voice = v; return; } }
+  voice = vs.find(v => /en-IN/i.test(v.lang)) || vs.find(v => /^en/i.test(v.lang)) || null;
+}
+if ("speechSynthesis" in window) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+const sub = $("sub");
+let speakToken = 0;
+function stopTalking() { speakToken++; if ("speechSynthesis" in window) speechSynthesis.cancel(); G.talking = 0; sub.classList.remove("show"); }
+function talk(text) {
+  stopTalking();
+  const token = speakToken;
+  const parts = text.match(/[^.!?]+[.!?]+/g) || [text];
+  let k = 0;
+  const nextPart = () => {
+    if (token !== speakToken) return;
+    if (k >= parts.length) { G.talking = 0; setTimeout(() => token === speakToken && sub.classList.remove("show"), 1600); return; }
+    const line = parts[k++].trim();
+    sub.textContent = line; sub.classList.add("show");
+    G.talking = 1;
+    if (voiceOn && voice !== undefined && "speechSynthesis" in window) {
+      const u = new SpeechSynthesisUtterance(line);
+      if (voice) { u.voice = voice; u.lang = voice.lang; } else u.lang = "en-GB";
+      u.rate = .97; u.pitch = 1.12;
+      let done = false; const fin = () => { if (done) return; done = true; G.talking = 0; setTimeout(nextPart, 260); };
+      u.onend = fin; u.onerror = fin;
+      speechSynthesis.speak(u);
+      setTimeout(() => { if (!speechSynthesis.speaking && !done) fin(); }, 2500 + line.length * 120);
+    } else {
+      setTimeout(() => { G.talking = 0; setTimeout(nextPart, 250); }, 600 + line.length * 55);
+    }
+  };
+  nextPart();
+}
+
+/* ---------- Camera that follows her ---------- */
 let mouseX = 0, mouseY = 0;
 addEventListener("pointermove", e => { mouseX = e.clientX / innerWidth - .5; mouseY = e.clientY / innerHeight - .5; });
+const camPos = new THREE.Vector3(G.x - .9, 2.05, G.z + 4.6), look = new THREE.Vector3(G.x, 1.4, G.z - 10);
+const wantPos = new THREE.Vector3(), wantLook = new THREE.Vector3(), headV = new THREE.Vector3();
 const tmpA = new THREE.Color(), tmpB = new THREE.Color();
 function envAt(z) {
   const f = Math.max(0, Math.min(N - 1, -z / L));
   const i = Math.floor(f), j = Math.min(N - 1, i + 1), t = f - i;
-  const A = SCENES[i], B = SCENES[j];
-  const lerp = (a, b) => a + (b - a) * t;
-  return { i, t, top: tmpA.set(A.sky[0]).clone().lerp(tmpB.set(B.sky[0]), t), bot: tmpA.set(A.sky[1]).clone().lerp(tmpB.set(B.sky[1]), t),
+  const A = SCENES[i], B = SCENES[j], lerp = (a, b) => a + (b - a) * t;
+  return { top: tmpA.set(A.sky[0]).clone().lerp(tmpB.set(B.sky[0]), t), bot: tmpA.set(A.sky[1]).clone().lerp(tmpB.set(B.sky[1]), t),
     light: lerp(A.light, B.light), night: lerp(A.night || 0, B.night || 0), rain: lerp(A.rain || 0, B.rain || 0) };
 }
-function aimAt(i) {
-  const t = SCENES[i].target, dx = t.x, dz = t.z - stopZ(i);
-  cam.tyaw = Math.atan2(-dx, -dz) * (innerWidth < 760 ? .9 : .55);
-  cam.tpitch = SCENES[i].look || .04;
+let cur = 0, stopped = false;
+function desired() {
+  const mobile = innerWidth < 760;
+  if (!stopped) {
+    wantPos.set(G.x - .9, 2.05, G.z + 4.6);
+    wantLook.set(G.x - .3, 1.35, G.z - 10);
+  } else {
+    wantPos.set(G.x - (mobile ? 1.1 : 1.6), 1.5, G.z + (mobile ? 3.6 : 4.4));
+    headV.set(G.x, 1.4, G.z);
+    const T = SCENES[cur].target;
+    if (mobile) { wantLook.copy(headV).lerp(T, .1); if (SCENES[cur].look) wantLook.y += 1; }
+    else { wantLook.set(T.x, 1 + T.y * .4, T.z); if (SCENES[cur].look) wantLook.y += 10; }
+  }
+  if (!reduce) { wantLook.x += mouseX * 1.6; wantLook.y -= mouseY * 1.0; }
 }
+function snapCamera() { desired(); camPos.copy(wantPos); look.copy(wantLook); }
 
 let last = performance.now();
 function frame(now) {
-  const dt = Math.min(.05, (now - last) / 1000); last = now;
-  const e = envAt(cam.z);
+  const dt = Math.min(.05, (now - last) / 1000); last = now; const t = now / 1000;
+  const e = envAt(G.z);
   skyMat.uniforms.top.value.copy(e.top); skyMat.uniforms.bottom.value.copy(e.bot);
   scene.fog.color.copy(e.bot).lerp(e.top, .25);
   hemi.intensity = .55 + e.light * .45; sun.intensity = e.light * .85;
@@ -763,54 +887,69 @@ function frame(now) {
   sunMesh.material.color.set(e.night > .5 ? 0xFFB37A : 0xFFE9B0);
   for (const m of windowMats) m.emissiveIntensity = m.userData.lamp ? .2 + e.night * 2 : e.night * 1.2;
   rainMat.opacity = e.rain * .7;
-  if (e.rain > .01) {
-    const p = rainGeo.attributes.position.array;
+  if (e.rain > .01) { const p = rainGeo.attributes.position.array;
     for (let k = 0; k < RAIN; k++) { p[k * 3 + 1] -= 28 * dt; if (p[k * 3 + 1] < 0) p[k * 3 + 1] = 30; }
-    rainGeo.attributes.position.needsUpdate = true;
-  }
-  rain.position.set(0, 0, cam.z);
+    rainGeo.attributes.position.needsUpdate = true; }
+  rain.position.set(0, 0, G.z);
 
-  /* walking head-bob: real steps, scaled by speed */
-  cam.phase += cam.speed * dt * 1.25;
-  const bob = reduce ? 0 : Math.abs(Math.sin(cam.phase * Math.PI)) * .07 * Math.min(1, cam.speed / 3);
-  const sway = reduce ? 0 : Math.sin(cam.phase * Math.PI) * .035 * Math.min(1, cam.speed / 3);
-  const breathe = reduce ? 0 : Math.sin(now / 1400) * .012;
-  cam.yaw += (cam.tyaw - cam.yaw) * Math.min(1, dt * 1.6);
-  cam.pitch += (cam.tpitch - cam.pitch) * Math.min(1, dt * 1.6);
-  camera.position.set(-2.6 + sway * 2, 1.68 + bob + breathe, cam.z);
-  camera.rotation.set(cam.pitch - (reduce ? 0 : mouseY * .12), cam.yaw - (reduce ? 0 : mouseX * .25), sway * .06);
+  /* her body */
+  const P = girl.P;
+  const sw = G.walking ? Math.sin(G.phase) : 0;
+  P.legL.rotation.x = sw * .55; P.legR.rotation.x = -sw * .55;
+  P.armL.s.rotation.set(-sw * .45, 0, -.1); P.armR.s.rotation.set(sw * .45, 0, .1);
+  P.armL.el.rotation.x = -.25; P.armR.el.rotation.x = -.25;
+  if (G.waving) {
+    G.waveT += dt;
+    P.armR.s.rotation.set(0, 0, 2.7); P.armR.el.rotation.set(0, 0, .35 + Math.sin(G.waveT * 9) * .45);
+    if (G.waveT > 2.6) { G.waving = false; P.armR.el.rotation.set(-.25, 0, 0); }
+  } else if (G.talking) {
+    P.armR.s.rotation.set(-.35 + Math.sin(t * 2.2) * .12, 0, .18); P.armR.el.rotation.set(-.9 + Math.sin(t * 3.1) * .25, 0, 0);
+  }
+  P.mouth.scale.y = G.talking ? .3 + Math.abs(Math.sin(t * 17) * Math.sin(t * 5.3)) * 1.3 : .3;
+  P.head.rotation.x = G.talking ? Math.sin(t * 3.3) * .05 : 0;
+  P.head.rotation.y = G.talking ? Math.sin(t * 1.7) * .08 : 0;
+  const blink = (t % 4.2) < .12 ? .15 : 1; P.eyes.forEach(ey => ey.scale.y = blink);
+  P.pony.rotation.x = G.walking ? Math.sin(G.phase * 2) * .12 : Math.sin(t * 1.5) * .02;
+  const bob = G.walking ? Math.abs(Math.sin(G.phase)) * .035 : Math.sin(t * 1.6) * .004;
+  G.rot += Math.atan2(Math.sin(G.trot - G.rot), Math.cos(G.trot - G.rot)) * Math.min(1, dt * 4);
+  girl.root.position.set(G.x, bob, G.z); girl.root.rotation.y = G.rot;
+
+  /* camera follows */
+  desired();
+  if (stopped) { const dx = camPos.x - G.x, dz = camPos.z - G.z; G.trot = Math.atan2(dx, dz); }
+  const k = reduce ? 1 : 1 - Math.exp(-dt * 2.6);
+  camPos.lerp(wantPos, k); look.lerp(wantLook, k);
+  camera.position.copy(camPos); camera.lookAt(look);
   renderer.render(scene, camera);
   requestAnimationFrame(frame);
 }
 addEventListener("resize", () => { renderer.setSize(innerWidth, innerHeight); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); });
 
-function walkTo(z, ms) {
+function walkTo(z, speed = 2.6) {
   return new Promise(res => {
-    if (reduce || ms === 0) { cam.z = z; cam.speed = 0; return res(); }
-    const z0 = cam.z, t0 = performance.now();
-    let prevZ = z0, prevT = t0;
+    if (reduce) { G.z = z; return res(); }
+    stopped = false; G.walking = true; G.trot = z < G.z ? Math.PI : 0;
+    const z0 = G.z, dist = Math.abs(z - z0), ms = dist / speed * 1000, t0 = performance.now();
+    let prev = z0;
     const step = now => {
       const p = Math.min(1, (now - t0) / ms);
-      const e = p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
-      cam.z = z0 + (z - z0) * e;
-      const dtt = Math.max(1, now - prevT) / 1000;
-      cam.speed = Math.abs(cam.z - prevZ) / dtt; prevZ = cam.z; prevT = now;
-      if (p < 1) requestAnimationFrame(step); else { cam.speed = 0; res(); }
+      const e = p < .15 ? (p / .15) * (p / .15) * .075 : p > .85 ? 1 - Math.pow((1 - p) / .15, 2) * .075 : .075 + (p - .15) / .7 * .85;
+      G.z = z0 + (z - z0) * e;
+      G.phase += Math.abs(G.z - prev) / .72 * Math.PI; prev = G.z;
+      if (p < 1) requestAnimationFrame(step); else { G.walking = false; res(); }
     };
     requestAnimationFrame(step);
   });
 }
+const fadeEl = document.createElement("div");
+fadeEl.style.cssText = "position:fixed;inset:0;background:#000;opacity:0;pointer-events:none;z-index:20;transition:opacity .55s";
+document.body.appendChild(fadeEl);
+const wait = ms => new Promise(r => setTimeout(r, ms));
+async function dip(fn) { fadeEl.style.opacity = 1; await wait(reduce ? 0 : 600); fn(); snapCamera(); fadeEl.style.opacity = 0; await wait(reduce ? 0 : 450); }
 
 /* ---------- Story navigation ---------- */
-const card = $("card"), sub = $("sub"), next = $("next"), prev = $("prev"), progress = $("progress");
+const card = $("card"), next = $("next"), prev = $("prev"), progress = $("progress");
 progress.innerHTML = SCENES.map((s, i) => `<li><button aria-label="Go to ${s.label}" title="${s.label}" data-i="${i}"></button></li>`).join("");
-let typer;
-function say(text) {
-  clearInterval(typer); sub.textContent = ""; sub.classList.add("show");
-  if (reduce) { sub.textContent = text; return; }
-  const ch = Array.from(text); let k = 0;
-  typer = setInterval(() => { sub.textContent += ch[k++]; if (k >= ch.length) clearInterval(typer); }, 32);
-}
 function countUp() {
   card.querySelectorAll("[data-count]").forEach(el => {
     const end = +el.dataset.count, dec = +el.dataset.dec;
@@ -823,15 +962,18 @@ function countUp() {
 function chapterTitle(s) {
   if (!s.chapter) return;
   $("ctp").textContent = s.chapter; $("cth").textContent = s.place;
-  const c = $("ctitle"); c.classList.add("show");
-  setTimeout(() => c.classList.remove("show"), 2100);
+  const c = $("ctitle"); c.classList.add("show"); setTimeout(() => c.classList.remove("show"), 2200);
 }
-let cur = 0, busy = false;
+let busy = false;
 function arrive(i) {
   const s = SCENES[i];
+  stopped = true;
   document.body.classList.remove("cinema");
-  card.innerHTML = s.html; card.scrollTop = 0; card.classList.add("show");
-  countUp(); say(s.say);
+  setTimeout(() => {
+    if (WAVE.has(i) && !reduce) { G.waving = true; G.waveT = 0; }
+    talk(s.talk);
+    card.innerHTML = s.html; card.scrollTop = 0; card.classList.add("show"); countUp();
+  }, reduce ? 0 : 900);
   [...progress.querySelectorAll("button")].forEach((b, j) => {
     b.classList.toggle("on", j === i); b.classList.toggle("done", j < i);
     b.setAttribute("aria-current", j === i ? "step" : "false");
@@ -840,44 +982,42 @@ function arrive(i) {
   next.textContent = i === 0 ? "Walk with me" : i === N - 1 ? "Walk again" : "Next chapter";
 }
 function leave() {
-  busy = true;
-  card.classList.remove("show"); sub.classList.remove("show");
+  busy = true; stopTalking(); G.waving = false;
+  card.classList.remove("show");
   document.body.classList.add("cinema");
-  cam.tyaw = 0; cam.tpitch = 0;
 }
 async function walk(target) {
   leave();
-  const steps = Math.abs(target - cur);
-  const ms = Math.min(4200 + (steps - 1) * 1500, 9000);
-  if (SCENES[target].chapter) setTimeout(() => chapterTitle(SCENES[target]), Math.max(0, ms - 2300));
-  await walkTo(stopZ(target), reduce ? 0 : ms);
-  cur = target; aimAt(cur);
-  setTimeout(() => { arrive(cur); busy = false; }, reduce ? 0 : 700);
+  if (target > cur) await walkTo(G.z - 9);
+  await dip(() => { G.z = stopZ(target) + 12; stopped = false; G.rot = G.trot = Math.PI; });
+  chapterTitle(SCENES[target]);
+  await walkTo(stopZ(target));
+  cur = target; arrive(cur); busy = false;
 }
-function fly(target) {
+async function fly(target) {
   leave();
+  if (target > cur) await walkTo(G.z - 7);
   const s = SCENES[target];
   $("fch").textContent = s.chapter || ""; $("fplace").textContent = s.place || REGIONS[s.region].name; $("fyear").textContent = s.year || "";
   $("fromT").textContent = REGIONS[SCENES[cur].region].name; $("toT").textContent = REGIONS[s.region].name;
   const fl = $("flight"), arc = $("arcTrail"), plane = $("plane"), len = arc.getTotalLength();
   arc.style.strokeDasharray = len; arc.style.strokeDashoffset = len;
   fl.classList.add("show");
-  const T = reduce ? 0 : 2600, t0 = performance.now() + 500;
+  const T = reduce ? 1 : 2600, t0 = performance.now() + 500;
   const step = now => {
-    const p = Math.max(0, Math.min(1, (now - t0) / T || 1)), e = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+    const p = Math.max(0, Math.min(1, (now - t0) / T)), e = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
     const a = arc.getPointAtLength(e * len), b = arc.getPointAtLength(Math.min(len, e * len + 1));
     plane.setAttribute("transform", `translate(${a.x} ${a.y}) rotate(${Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI})`);
     arc.style.strokeDashoffset = len * (1 - e);
     if (p < 1) requestAnimationFrame(step);
   };
   requestAnimationFrame(step);
-  setTimeout(() => { cam.z = stopZ(target) + 45; cam.yaw = 0; }, 800);
-  setTimeout(async () => {
-    fl.classList.remove("show");
-    await walkTo(stopZ(target), reduce ? 0 : 3600);
-    cur = target; aimAt(cur);
-    setTimeout(() => { arrive(cur); busy = false; }, reduce ? 0 : 700);
-  }, T + 1100);
+  await wait(800);
+  G.z = stopZ(target) + 12; stopped = false; G.rot = G.trot = Math.PI; snapCamera();
+  await wait(reduce ? 400 : T + 300);
+  fl.classList.remove("show");
+  await walkTo(stopZ(target));
+  cur = target; arrive(cur); busy = false;
 }
 function go(target) {
   if (busy || document.body.classList.contains("intro")) return;
@@ -890,7 +1030,7 @@ prev.addEventListener("click", () => go(cur - 1));
 progress.addEventListener("click", e => { const b = e.target.closest("button"); if (b) go(+b.dataset.i); });
 addEventListener("keydown", e => {
   if (document.body.classList.contains("intro")) { if (e.key === "Enter") { e.preventDefault(); startJourney(); } return; }
-  if (["ArrowRight", "ArrowDown", "PageDown", "ArrowUp"].includes(e.key) && e.key !== "ArrowUp") { e.preventDefault(); go(cur + 1); }
+  if (["ArrowRight", "ArrowDown", "PageDown"].includes(e.key)) { e.preventDefault(); go(cur + 1); }
   if (["ArrowLeft", "ArrowUp", "PageUp"].includes(e.key)) { e.preventDefault(); go(cur - 1); }
 });
 let acc = 0, wt;
@@ -912,7 +1052,17 @@ addEventListener("touchend", e => {
   (Math.abs(dx) > Math.abs(dy) ? dx < 0 : dy < 0) ? (cur < N - 1 && go(cur + 1)) : go(cur - 1);
 }, { passive: true });
 
+/* Voice toggle */
+const vbtn = document.createElement("button");
+vbtn.id = "voice";
+vbtn.style.cssText = "position:fixed;z-index:9;top:calc(1.2rem + env(safe-area-inset-top,0px));right:1.2rem;border:0;border-radius:99px;padding:.55rem .9rem;font-weight:700;background:var(--card);color:var(--ink);box-shadow:0 6px 20px rgba(0,0,0,.25)";
+const setV = () => { vbtn.textContent = voiceOn ? "🔊 Voice on" : "🔇 Voice off"; vbtn.setAttribute("aria-pressed", voiceOn); };
+vbtn.addEventListener("click", () => { voiceOn = !voiceOn; setV(); if (!voiceOn && "speechSynthesis" in window) speechSynthesis.cancel(); else if (stopped) talk(SCENES[cur].talk); });
+if (!("speechSynthesis" in window)) vbtn.hidden = true;
+setV(); document.body.appendChild(vbtn);
+
 /* ---------- Trailer intro ---------- */
+snapCamera();
 requestAnimationFrame(frame);
 $("loading").textContent = "";
 const lines = [...document.querySelectorAll("#intro .tl")], timers = [];
@@ -928,13 +1078,13 @@ else {
 async function startJourney() {
   if (started) return; started = true;
   timers.forEach(clearTimeout);
+  if ("speechSynthesis" in window) { pickVoice(); const u = new SpeechSynthesisUtterance(" "); u.volume = 0; speechSynthesis.speak(u); }
   $("intro").classList.add("gone");
   document.body.classList.remove("intro");
   busy = true;
-  await new Promise(r => setTimeout(r, reduce ? 0 : 900));
-  await walkTo(stopZ(0), reduce ? 0 : 4000);
-  aimAt(0);
-  setTimeout(() => { arrive(0); busy = false; }, reduce ? 0 : 600);
+  await wait(reduce ? 0 : 900);
+  await walkTo(stopZ(0));
+  arrive(0); busy = false;
 }
 $("begin").addEventListener("click", startJourney);
 $("skip").addEventListener("click", startJourney);

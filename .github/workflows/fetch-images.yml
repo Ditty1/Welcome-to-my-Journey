@@ -1,0 +1,81 @@
+# Put this file in your repository at:  .github/workflows/fetch-images.yml
+# Then open the "Actions" tab, choose "Download city photos" and press "Run workflow".
+name: Download city photos
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download one photo per place
+        run: |
+          python3 - <<'PY'
+          import json, os, re, urllib.parse, urllib.request
+
+          UA = {"User-Agent": "DittyDennyPortfolio/1.0 (https://github.com/Ditty1)"}
+          PLACES = {
+              "home":     ["Kerala_backwaters", "Vembanad_Lake"],
+              "thrissur": ["Thrissur_Pooram", "Vadakkunnathan_Temple"],
+              "kochi":    ["Chinese_fishing_nets", "Fort_Kochi"],
+              "infopark": ["Infopark,_Kochi", "Marine_Drive,_Kochi"],
+              "doha":     ["West_Bay,_Doha", "Museum_of_Islamic_Art,_Doha", "Doha_Corniche"],
+              "stirling": ["National_Wallace_Monument", "Stirling_Castle"],
+              "falkirk":  ["Falkirk_Wheel"],
+              "award":    ["Stirling_Castle", "Stirling"],
+              "dubai":    ["Burj_Khalifa", "Downtown_Dubai"],
+              "toolkit":  ["Dubai_Marina"],
+              "projects": ["Museum_of_the_Future", "Dubai_Creek"],
+              "contact":  ["Kerala_backwaters", "Vembanad_Lake"],
+          }
+          os.makedirs("images", exist_ok=True)
+          credits = ["# Photo credits", "",
+                     "City photos are the main images of these Wikipedia articles, hosted on Wikimedia Commons.",
+                     "Click a link, then click the photo to see its author and licence.", ""]
+
+          def get(url):
+              with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=60) as r:
+                  return r.read()
+
+          for key, titles in PLACES.items():
+              if any(os.path.exists(f"images/{key}.{e}") for e in ("jpg", "jpeg", "png", "webp")):
+                  print(f"{key}: already have a photo, keeping it")
+                  continue
+              for t in titles:
+                  try:
+                      j = json.loads(get("https://en.wikipedia.org/api/rest_v1/page/summary/" + urllib.parse.quote(t, safe=",_")))
+                      o = j.get("originalimage")
+                      if not o or o["source"].lower().endswith(".svg") or o.get("width", 0) < 900:
+                          continue
+                      src = o["source"]
+                      if o["width"] > 2400 and j.get("thumbnail"):
+                          src = re.sub(r"/\d+px-", "/2000px-", j["thumbnail"]["source"])
+                      data = get(src)
+                      with open(f"images/{key}.jpg", "wb") as f:
+                          f.write(data)
+                      page = j["content_urls"]["desktop"]["page"]
+                      credits.append(f"- **{key}**: [{j['title']}]({page})")
+                      print(f"{key}: saved from {t} ({len(data)//1024} KB)")
+                      break
+                  except Exception as e:
+                      print(f"{key}: {t} failed ({e})")
+              else:
+                  print(f"{key}: no photo found, the site will show a soft gradient instead")
+
+          with open("images/CREDITS.md", "w") as f:
+              f.write("\n".join(credits) + "\n")
+          PY
+
+      - name: Save the photos to the repository
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add images
+          git commit -m "Add city photos" || echo "Nothing new to save"
+          git push
